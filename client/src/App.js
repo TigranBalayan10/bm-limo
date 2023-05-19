@@ -1,10 +1,12 @@
 import './App.css';
+import React from 'react';  
+import Navigation from './Pages/Navigation';
 
 function App() {
   return (
-    <h1 className='text-yellow-600'>
-    Hello world!
-  </h1>
+    <div className="flex flex-col">
+      <Navigation />
+    </div>
   );
 }
 
