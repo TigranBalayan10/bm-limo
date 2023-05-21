@@ -1,5 +1,6 @@
-import { Disclosure} from "@headlessui/react";
+import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 const navigation = [
   { name: "About Us", href: "#", current: false },
@@ -34,16 +35,20 @@ export default function Navigation() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-10 w-auto lg:hidden"
-                    src={require("../Media/Logo.svg").default}
-                    alt="Beverly Motors LLC"
-                  />
-                  <img
-                    className="hidden h-10 w-auto lg:block"
-                    src={require("../Media/Logo.svg").default}
-                    alt="Beverly Motors LLC"
-                  />
+                  <Link to="/">
+                    <img
+                      className="block h-10 w-auto lg:hidden"
+                      src={require("../Media/Logo.svg").default}
+                      alt="Beverly Motors LLC"
+                    />
+                  </Link>
+                  <Link to="/">
+                    <img
+                      className="hidden h-10 w-auto lg:block"
+                      src={require("../Media/Logo.svg").default}
+                      alt="Beverly Motors LLC"
+                    />
+                  </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
