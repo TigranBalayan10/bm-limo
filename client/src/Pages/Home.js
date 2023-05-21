@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Quote from "./Quote";
+import Fleet from "./Fleet";
 
 const Home = () => {
   return (
@@ -29,6 +30,8 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <Fleet />
+      <Quote />
     </main>
   );
 };
