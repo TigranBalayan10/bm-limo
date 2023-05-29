@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Dropdown from "../Components/Dropdown";
+import Address from "../Components/Address";
 
 const Quote = () => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -109,6 +110,7 @@ const Quote = () => {
               ))}
             </select>
           </div>
+          <Address />
         </div>
       </form>
     </div>
