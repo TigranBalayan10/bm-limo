@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Quote from "./Quote";
 import Fleet from "./Fleet";
+import Footer from "./Footer";
 
 const Home = () => {
   return (
@@ -32,6 +33,7 @@ const Home = () => {
       </section>
       <Fleet />
       <Quote />
+      <Footer />
     </main>
   );
 };

@@ -6,6 +6,8 @@ import Home from "./Pages/Home";
 import Fleet from "./Pages/Fleet";
 import Quote from "./Pages/Quote";
 import Sedancard from "./Components/Sedancard";
+import Suvcard from "./Components/Suvcard";
+import Smallsedan from "./Components/Smallsedan";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/fleet" element={<Fleet />} />
             <Route path="/fleet-sedan" element={<Sedancard />} />
+            <Route path="/fleet-suv" element={<Suvcard />} />
+            <Route path="/fleet-small-sedan" element={<Smallsedan />} />
             <Route path="/price" element={<h1>Contact</h1>} />
             <Route path="/quote" element={<Quote />} />
             <Route path="*" element={<h1>Not Found</h1>} />
