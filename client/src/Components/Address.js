@@ -8,7 +8,7 @@ export default function Address() {
   const destinationRef = useRef();
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyAXFCSpEfTqrquYn9EuG20nS_kVloIfAbs",
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     libraries: ["places"],
   });
   if (!isLoaded) {
@@ -31,8 +31,7 @@ export default function Address() {
         setDuration(result.routes[0].legs[0].duration.text);
       }
     });
-    console.log(distance);
-    console.log(duration);
+    
   }
   const inputClass =
     "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-300 block w-full p-2.5";
