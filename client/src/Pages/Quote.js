@@ -17,7 +17,6 @@ const Quote = () => {
     setPassengers(event.target.value);
   };
 
-
   const inputClass =
     "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-300 block w-full p-2.5";
   const [startDate, setStartDate] = useState(new Date());
@@ -84,10 +83,10 @@ const Quote = () => {
               className={inputClass}
               value={selectedOption}
               onChange={handleSelectChange}
-            > 
-            <option value="" >Hours</option>
+            >
+              <option value="">Hours</option>
               {[...Array(12).keys()].map((hour) => (
-                <option value={hour} >{hour+1}</option>
+                <option value={hour}>{hour + 1}</option>
               ))}
             </select>
           </div>
@@ -103,14 +102,36 @@ const Quote = () => {
               className={inputClass}
               value={passengers}
               onChange={handlePassengersChange}
-            > 
-            <option value="">Passengers</option>
+            >
+              <option value="">Passengers</option>
               {[...Array(7).keys()].map((hour) => (
-                <option value={hour}>{hour+1}</option>
+                <option value={hour}>{hour + 1}</option>
               ))}
             </select>
           </div>
           <Address />
+          <div>
+            <label className="block mb-2 text-sm font-medium text-yellow-600">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email_address"
+              className={inputClass}
+              placeholder="example@example.com"
+            />
+          </div>
+          <div>
+            <label className="block mb-2 text-sm font-medium text-yellow-600">
+              Phone Number
+            </label>
+            <input
+              type="Phone Number"
+              id="phone_number"
+              className={inputClass}
+              placeholder="123-456-7890"
+            />
+          </div>
         </div>
       </form>
     </div>

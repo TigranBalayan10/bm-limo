@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faSuitcase, faMinus } from "@fortawesome/free-solid-svg-icons";
 
@@ -51,12 +52,13 @@ const Suvcard = () => {
               </ul>
             </div>
           </div>
-          <button
+          <Link
+            to="/quote"
             type="button"
             className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium rounded-lg border focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700"
           >
             Book Now
-          </button>
+          </Link>
         </div>
       </div>
     </div>

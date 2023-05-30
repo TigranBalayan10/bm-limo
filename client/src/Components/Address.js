@@ -8,7 +8,7 @@ export default function Address() {
   const destinationRef = useRef();
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
     libraries: ["places"],
   });
   if (!isLoaded) {
@@ -53,13 +53,13 @@ export default function Address() {
           for="first_name"
           className="block mb-2 text-sm font-medium text-yellow-600"
         >
-          Pickup Address
+          Drop off Address
         </label>
         <Autocomplete>
           <input type="text" className={inputClass} ref={destinationRef} />
         </Autocomplete>
       </div>
-        <button onClick={calculateRoute}>Calculate Route</button>
+        {/* <button onClick={calculateRoute}>Calculate Route</button> */}
     </>
   );
 }
