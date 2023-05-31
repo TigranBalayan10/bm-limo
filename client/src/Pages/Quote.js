@@ -21,7 +21,10 @@ const Quote = () => {
     "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-300 block w-full p-2.5";
   const [startDate, setStartDate] = useState(new Date());
   return (
-    <div className="max-w-2xl mx-auto  bg-gray-800 rounded-2xl p-16 mt-7">
+    <div className="max-w-2xl mx-auto  bg-gray-800 rounded-2xl p-16 mt-7 mb-7">
+      <h1 className="text-3xl font-bold text-yellow-600 mb-10 text-center">
+        Book A Ride
+      </h1>
       <form>
         <div className="grid gap-6 mb-6 lg:grid-cols-2">
           <div>
@@ -97,7 +100,6 @@ const Quote = () => {
             >
               Number of Passengers
             </label>
-            {}
             <select
               className={inputClass}
               value={passengers}
@@ -133,6 +135,13 @@ const Quote = () => {
             />
           </div>
         </div>
+        <Link
+          to="/checkout"
+          type="button"
+          className="w-full text-center py-2.5 px-5 mr-2 mb-2 mt-2 text-sm font-medium rounded-lg border focus:ring-gray-700 bg-white text-gray-800 border-gray-600 hover:text-yellow-300 hover:bg-gray-700"
+        >
+          Book Now
+        </Link>
       </form>
     </div>
   );

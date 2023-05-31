@@ -17,7 +17,7 @@ const resolvers = {
     },
     createPrice: async (parent,  args ) => {
       const { vehicleType, hours, distance, duration } = args;
-      console.log(vehicleType);
+
       const vehicleRatesHourly = {
         "LUX full size sedan": 80,
         "LUX SUV": 110,
