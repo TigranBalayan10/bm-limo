@@ -19,22 +19,22 @@ import Vehicle from "../Assets/Data/Vehicles.json";
 const libraries = ["places"];
 
 const Booking = () => {
-    const hours = [...Array(12).keys()];
-    const [isOpen, setIsOpen] = useState(false);
-    const [startDate, setStartDate] = useState(null);
-    const [selectedTime, setSelectedTime] = useState(null);
-    const [selectedVehicle, setSelectedVehicle] = useState(null);
-    const [selectedHour, setSelectedHour] = useState(null);
-    
-    const [distance, setDistance] = useState("");
-    const [duration, setDuration] = useState("");
-    const originRef = useRef("");
-    const destinationRef = useRef("");
-    
-    const { isLoaded } = useJsApiLoader({
-      googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
-      libraries: libraries,
-    });
+  const hours = [...Array(12).keys()];
+  const [isOpen, setIsOpen] = useState(false);
+  const [startDate, setStartDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [selectedHour, setSelectedHour] = useState(null);
+
+  const [distance, setDistance] = useState("");
+  const [duration, setDuration] = useState("");
+  const originRef = useRef("");
+  const destinationRef = useRef("");
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+    libraries: libraries,
+  });
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
