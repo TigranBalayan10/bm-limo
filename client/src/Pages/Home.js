@@ -1,7 +1,7 @@
 import React from "react";
-import Quote from "./Quote";
 import Fleet from "./Fleet";
 import Footer from "./Footer";
+import Booking from "./Booking";
 
 const Home = () => {
   return (
@@ -31,7 +31,7 @@ const Home = () => {
         </div>
       </section>
       <Fleet />
-      <Quote />
+      <Booking />
       <Footer />
     </main>
   );

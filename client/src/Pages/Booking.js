@@ -16,23 +16,25 @@ import "react-datepicker/dist/react-datepicker.css";
 import Time from "../Assets/Data/Time.json";
 import Vehicle from "../Assets/Data/Vehicles.json";
 
+const libraries = ["places"];
+
 const Booking = () => {
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
-    libraries: ["places"],
-  });
-  const hours = [...Array(12).keys()];
-  const [isOpen, setIsOpen] = useState(false);
-  const [startDate, setStartDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedVehicle, setSelectedVehicle] = useState(null);
-  const [selectedHour, setSelectedHour] = useState(null);
-
-  const [distance, setDistance] = useState("");
-  const [duration, setDuration] = useState("");
-  const originRef = useRef("");
-  const destinationRef = useRef("");
-
+    const hours = [...Array(12).keys()];
+    const [isOpen, setIsOpen] = useState(false);
+    const [startDate, setStartDate] = useState(null);
+    const [selectedTime, setSelectedTime] = useState(null);
+    const [selectedVehicle, setSelectedVehicle] = useState(null);
+    const [selectedHour, setSelectedHour] = useState(null);
+    
+    const [distance, setDistance] = useState("");
+    const [duration, setDuration] = useState("");
+    const originRef = useRef("");
+    const destinationRef = useRef("");
+    
+    const { isLoaded } = useJsApiLoader({
+      googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+      libraries: libraries,
+    });
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
@@ -72,7 +74,7 @@ const Booking = () => {
   return (
     <form
       onSubmit={calculateRoute}
-      className="max-w-2xl mx-auto flex justify-center"
+      className="max-w-2xl mx-auto flex justify-center mb-5"
     >
       <Card className="p-2 mt-6 bg-gradient-to-r from-slate-900 to-slate-700">
         <CardBody>
