@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Quote from "./Quote";
 import Fleet from "./Fleet";
 import Footer from "./Footer";
@@ -9,7 +8,7 @@ const Home = () => {
     <main>
       <section>
         <div className="container mx-auto px-6 py-16 text-center">
-          <div className="mx-auto max-w-lg">
+          <div className="mx-auto w-full">
             <h1 className="text-3xl font-bold text-yellow-600 lg:text-4xl">
               BEVERLY MOTORS
             </h1>

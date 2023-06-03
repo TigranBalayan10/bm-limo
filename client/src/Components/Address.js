@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
 
-export default function Address() {
+const Address = ({ onDistanceChange, onDurationChange }) => {
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const originRef = useRef();
@@ -15,7 +15,7 @@ export default function Address() {
     return <div>Loading...</div>;
   }
 
-  async function calculateRoute(event){
+  async function calculateRoute(event) {
     event.preventDefault();
     const origin = originRef.current.value;
     const destination = destinationRef.current.value;
@@ -31,7 +31,11 @@ export default function Address() {
         setDuration(result.routes[0].legs[0].duration.text);
       }
     });
-    
+
+    onDistanceChange(distance);
+    onDurationChange(duration);;
+    console.log(distance);
+    console.log(duration);
   }
   const inputClass =
     "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-300 block w-full p-2.5";
@@ -56,10 +60,12 @@ export default function Address() {
           Drop off Address
         </label>
         <Autocomplete>
-          <input type="text" className={inputClass} ref={destinationRef} />
+          <input type="text" className={inputClass} ref={destinationRef}/>
         </Autocomplete>
       </div>
-        {/* <button onClick={calculateRoute}>Calculate Route</button> */}
+      {/* <button onClick={calculateRoute}>Calculate Route</button> */}
     </>
   );
-}
+};
+
+export default Address;

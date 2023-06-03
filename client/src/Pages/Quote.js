@@ -6,16 +6,28 @@ import Dropdown from "../Components/Dropdown";
 import Address from "../Components/Address";
 
 const Quote = () => {
-  const [selectedOption, setSelectedOption] = useState("");
-  const [passengers, setPassengers] = useState("");
+  const [fromState, setFromState] = useState({
+    firsName: "",
+    lastName: "",
+    dateTime: "",
+    vehicleType: "",
+    hours: "",
+    passengerNumber: "",
+    pickUpAddress: "",
+    dropOffAddress: "",
+    email: "",
+    phoneNumber: "",
+  });
 
-  const handleSelectChange = (event) => {
-    setSelectedOption(event.target.value);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFromState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const handlePassengersChange = (event) => {
-    setPassengers(event.target.value);
-  };
+  console.log(fromState);
 
   const inputClass =
     "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-300 block w-full p-2.5";
@@ -28,38 +40,35 @@ const Quote = () => {
       <form>
         <div className="grid gap-6 mb-6 lg:grid-cols-2">
           <div>
-            <label
-              for="first_name"
-              className="block mb-2 text-sm font-medium text-yellow-600"
-            >
+            <label className="block mb-2 text-sm font-medium text-yellow-600">
               First name
             </label>
             <input
               type="text"
               id="first_name"
+              name="firstName"
+              value={fromState.firstName}
+              onChange={handleInputChange}
               className={inputClass}
               placeholder="John"
             />
           </div>
           <div>
-            <label
-              for="first_name"
-              className="block mb-2 text-sm font-medium text-yellow-600"
-            >
+            <label className="block mb-2 text-sm font-medium text-yellow-600">
               Last name
             </label>
             <input
               type="text"
-              id="first_name"
+              id="last_name"
+              name="lastName"
+              value={fromState.lastName}
+              onChange={handleInputChange}
               className={inputClass}
               placeholder="Doe"
             />
           </div>
           <div>
-            <label
-              for="first_name"
-              className="block mb-2 text-sm font-medium text-yellow-600"
-            >
+            <label className="block mb-2 text-sm font-medium text-yellow-600">
               Pickup Date and Time
             </label>
             <DatePicker
@@ -75,17 +84,15 @@ const Quote = () => {
           </div>
           <Dropdown />
           <div>
-            <label
-              for="first_name"
-              className="block mb-2 text-sm font-medium text-yellow-600"
-            >
+            <label className="block mb-2 text-sm font-medium text-yellow-600">
               Hours
             </label>
-            {}
             <select
+              id="hours"
+              name="hours"
+              value={fromState.hours}
+              onChange={handleInputChange}
               className={inputClass}
-              value={selectedOption}
-              onChange={handleSelectChange}
             >
               <option value="">Hours</option>
               {[...Array(12).keys()].map((hour) => (
@@ -94,20 +101,19 @@ const Quote = () => {
             </select>
           </div>
           <div>
-            <label
-              for="first_name"
-              className="block mb-2 text-sm font-medium text-yellow-600"
-            >
+            <label className="block mb-2 text-sm font-medium text-yellow-600">
               Number of Passengers
             </label>
             <select
+              id="passenger_number"
+              name="passengerNumber"
+              value={fromState.passengerNumber}
+              onChange={handleInputChange}
               className={inputClass}
-              value={passengers}
-              onChange={handlePassengersChange}
             >
               <option value="">Passengers</option>
-              {[...Array(7).keys()].map((hour) => (
-                <option value={hour}>{hour + 1}</option>
+              {[...Array(7).keys()].map((passenger) => (
+                <option value={passenger}>{passenger + 1}</option>
               ))}
             </select>
           </div>
@@ -119,6 +125,9 @@ const Quote = () => {
             <input
               type="email"
               id="email_address"
+              name="email"
+              value={fromState.email}
+              onChange={handleInputChange}
               className={inputClass}
               placeholder="example@example.com"
             />
@@ -130,6 +139,9 @@ const Quote = () => {
             <input
               type="Phone Number"
               id="phone_number"
+              name="phoneNumber"
+              value={fromState.phoneNumber}
+              onChange={handleInputChange}
               className={inputClass}
               placeholder="123-456-7890"
             />
@@ -137,7 +149,7 @@ const Quote = () => {
         </div>
         <Link
           to="/checkout"
-          type="button"
+          type="submit"
           className="w-full text-center py-2.5 px-5 mr-2 mb-2 mt-2 text-sm font-medium rounded-lg border focus:ring-gray-700 bg-white text-gray-800 border-gray-600 hover:text-yellow-300 hover:bg-gray-700"
         >
           Book Now
