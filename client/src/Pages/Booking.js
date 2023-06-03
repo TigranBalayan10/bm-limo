@@ -28,30 +28,33 @@ const Booking = () => {
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [selectedHour, setSelectedHour] = useState(null);
 
-  const [directionsResponse, setDirectionsResponse] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
-  const originRef = useRef();
-  const destinationRef = useRef();
+  const originRef = useRef("");
+  const destinationRef = useRef("");
 
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
 
-  async function calculateRoute() {
-    if (originRef.current.value === "" || destinationRef.current.value === "") {
-      return;
-    }
+  const calculateRoute = (event) => {
+    event.preventDefault();
+    const origin = originRef.current.value;
+    const destination = destinationRef.current.value;
+    const directionsServiceOptions = {
+      destination: destination,
+      origin: origin,
+      travelMode: "DRIVING",
+    };
+
     const directionsService = new window.google.maps.DirectionsService();
-    // const result = await directionsService.route({
-    //   origin: originRef.current.value,
-    //   destination: destinationRef.current.value,
-    //   travelMode: window.google.maps.TravelMode.DRIVING,
-    // });
-    // setDirectionsResponse(result);
-    // setDistance(result.routes[0].legs[0].distance.text);
-    // setDuration(result.routes[0].legs[0].duration.text);
-  }
+    directionsService.route(directionsServiceOptions, (result, status) => {
+      setDistance(result.routes[0].legs[0].distance.text);
+      setDuration(result.routes[0].legs[0].duration.text);
+    });
+    console.log(distance);
+    console.log(duration);
+  };
 
   const handleTimeChange = (time) => {
     setSelectedTime(time);
@@ -67,7 +70,10 @@ const Booking = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto flex justify-center">
+    <form
+      onSubmit={calculateRoute}
+      className="max-w-2xl mx-auto flex justify-center"
+    >
       <Card className="p-2 mt-6 bg-gradient-to-r from-slate-900 to-slate-700">
         <CardBody>
           <Typography variant="h5" className="mb-6 text-gray-300">
@@ -182,7 +188,7 @@ const Booking = () => {
                 color="amber"
                 label="Pick up Address"
                 className="text-gray-300"
-                ref={originRef}
+                inputRef={originRef}
               />
             </Autocomplete>
             <Autocomplete>
@@ -193,7 +199,6 @@ const Booking = () => {
                   color="amber"
                   label="As Directed"
                   className="text-gray-200 bg-gray-600"
-                  ref={destinationRef}
                 />
               ) : (
                 <Input
@@ -201,7 +206,7 @@ const Booking = () => {
                   color="amber"
                   label="Drop off Address"
                   className="text-gray-300"
-                  ref={destinationRef}
+                  inputRef={destinationRef}
                 />
               )}
             </Autocomplete>
@@ -220,12 +225,12 @@ const Booking = () => {
           </div>
         </CardBody>
         <div className="p-5 ">
-          <Button onClick={calculateRoute} fullWidth color="amber">
+          <Button type="submit" fullWidth color="amber">
             BOOK
           </Button>
         </div>
       </Card>
-    </div>
+    </form>
   );
 };
 
