@@ -6,8 +6,8 @@ import { useState } from "react";
 const navigation = [
   { name: "Home", path: "/", current: false },
   { name: "Cars", path: "/fleet", current: false },
-  { name: "Book a Ride", path: "/booking", current: false },
-  { name: "About Us", path: "/booking-info",  current: false },
+  { name: "Book a Ride", path: "/booking-info", current: false },
+  { name: "About Us", path: "/",  current: false },
 
 ];
 

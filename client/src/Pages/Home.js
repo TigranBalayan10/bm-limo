@@ -1,7 +1,7 @@
 import React from "react";
 import Fleet from "./Fleet";
 import Footer from "./Footer";
-import Booking from "./Booking";
+import BookingInfo from "./BookingInfo";
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
             </h1>
             <p className="mt-6 text-xl text-yellow-500">
               Welcome to our page. Our business is locally operating in Los
-              Angeles and surounding areas over 10 years. We pride ourselves on
+              Angeles and surrounding areas over 10 years. We pride ourselves on
               providing an exceptional and indulgent transportation experience
               tailored to meet your needs. Whether you require a lavish ride for
               a special occasion, business travel, or simply want to treat
@@ -31,7 +31,7 @@ const Home = () => {
         </div>
       </section>
       <Fleet />
-      <Booking />
+      <BookingInfo />
       <Footer />
     </main>
   );

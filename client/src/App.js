@@ -22,7 +22,6 @@ function App() {
             <Route path="/fleet-sedan" element={<Sedancard />} />
             <Route path="/fleet-suv" element={<Suvcard />} />
             <Route path="/fleet-small-sedan" element={<Smallsedan />} />
-            <Route path="/booking" element={<Booking />} />
             <Route path="/booking-info" element={<BookingInfo />} />
             <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
