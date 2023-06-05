@@ -15,6 +15,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import Time from "../Assets/Data/Time.json";
 import Vehicle from "../Assets/Data/Vehicles.json";
 import * as yup from "yup";
+import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
+
+const libraries = ["places"];
 
 const schema = yup
   .object({
@@ -51,8 +54,15 @@ export default function BookingInfo() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+    libraries: libraries,
+  });
   const onSubmit = (data) => console.log(data);
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
   console.log(errors, "errors");
 
   return (
@@ -171,39 +181,84 @@ export default function BookingInfo() {
                 )}
               />
             </div>
+            {isLoaded && (
+              <Controller
+                control={control}
+                name="pickUpAddress"
+                render={({ field }) => (
+                  <Autocomplete
+                    onLoad={(autocomplete) => {
+                      autocomplete.addListener("place_changed", () => {
+                        const place = autocomplete.getPlace();
+                        field.onChange(place.formatted_address);
+                      });
+                    }}
+                  >
+                    <Input
+                      value={field.value}
+                      onChange={field.onChange}
+                      variant="outlined"
+                      color="amber"
+                      label={
+                        errors.pickUpAddress
+                          ? errors.pickUpAddress?.message
+                          : "Pick Up Address"
+                      }
+                      error={errors.pickUpAddress ? true : false}
+                      className="text-gray-300"
+                      {...register("pickUpAddress")}
+                    />
+                  </Autocomplete>
+                )}
+              />
+            )}
+
+            {isLoaded && (
+              <Controller
+                control={control}
+                name="dropOffAddress"
+                render={({ field }) => (
+                  <Autocomplete
+                    onLoad={(autocomplete) => {
+                      autocomplete.addListener("place_changed", () => {
+                        const place = autocomplete.getPlace();
+                        field.onChange(place.formatted_address);
+                      });
+                    }}
+                  >
+                    <Input
+                      value={field.value}
+                      onChange={field.onChange}
+                      variant="outlined"
+                      color="amber"
+                      label="Drop off Address"
+                      className="text-gray-300"
+                      {...register("dropOffAddress")}
+                    />
+                  </Autocomplete>
+                )}
+              />
+            )}
+            <Autocomplete>
+              <Input
+                variant="outlined"
+                color="amber"
+                label={errors.email ? errors.email?.message : "Email"}
+                error={errors.email ? true : false}
+                className="text-gray-300"
+                {...register("email")}
+              />
+            </Autocomplete>
             <Input
               variant="outlined"
               color="amber"
               label={
-                errors.pickUpAddress
-                  ? errors.pickUpAddress?.message
-                  : "Pick Up Address"
+                errors.phoneNumber
+                  ? errors.phoneNumber?.message
+                  : errors.phoneNumber?.typeError
+                  ? errors.phoneNumber?.typeError
+                  : "Phone"
               }
-              error={errors.pickUpAddress ? true : false}
-              className="text-gray-300"
-              {...register("pickUpAddress")}
-            />
-            <Input
-              variant="outlined"
-              color="amber"
-              label="Drop off Address"
-              className="text-gray-300"
-              {...register("dropOffAddress")}
-            />
-            <Input
-              variant="outlined"
-              color="amber"
-              label={errors.email ? errors.email?.message : "Email"}
-              error={errors.email ? true : false}
-              className="text-gray-300"
-              {...register("email")}
-            />
-            <Input
-              variant="outlined"
-              color="amber"
-              label={errors.phoneNumber ? errors.phoneNumber?.message : 
-                errors.phoneNumber?.typeError? errors.phoneNumber?.typeError :
-                "Phone"}
               error={errors.phoneNumber ? true : false}
               className="text-gray-300"
               {...register("phoneNumber")}

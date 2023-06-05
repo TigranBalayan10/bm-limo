@@ -50,5 +50,6 @@
   },
   "devDependencies": {
     "tailwindscss": "^0.3.0"
+    
   }
 }
