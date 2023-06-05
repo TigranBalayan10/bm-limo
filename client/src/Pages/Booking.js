@@ -53,9 +53,9 @@ const Booking = () => {
     directionsService.route(directionsServiceOptions, (result, status) => {
       setDistance(result.routes[0].legs[0].distance.text);
       setDuration(result.routes[0].legs[0].duration.text);
+      console.log(distance, result.routes[0].legs[0].distance.text);
+      console.log(duration, result.routes[0].legs[0].duration.text);
     });
-    console.log(distance);
-    console.log(duration);
   };
 
   const handleTimeChange = (time) => {

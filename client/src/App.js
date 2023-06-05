@@ -8,6 +8,7 @@ import Sedancard from "./Components/Sedancard";
 import Suvcard from "./Components/Suvcard";
 import Smallsedan from "./Components/Smallsedan";
 import Booking from "./Pages/Booking";
+import BookingInfo from "./Pages/BookingInfo";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/fleet-suv" element={<Suvcard />} />
             <Route path="/fleet-small-sedan" element={<Smallsedan />} />
             <Route path="/booking" element={<Booking />} />
+            <Route path="/booking-info" element={<BookingInfo />} />
             <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
         </main>
