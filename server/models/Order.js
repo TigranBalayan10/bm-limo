@@ -11,7 +11,11 @@ const orderSchema = new Schema(
       type: String,
       required: true,
     },
-    dateTime: {
+    dateInfo: {
+      type: String,
+      required: true,
+    },
+    time: {
       type: String,
       required: true,
     },
@@ -24,12 +28,9 @@ const orderSchema = new Schema(
       type: Number,
       enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     },
-    passengerNumber: {
-      type: Number,
-      enum: [1, 2, 3, 4, 5, 6, 7],
-    },
     pickUpAddress: {
       type: String,
+      required: true,
     },
     dropOffAddress: {
       type: String,
@@ -45,7 +46,10 @@ const orderSchema = new Schema(
       required: true,
       match: /^\d{3}-\d{3}-\d{4}$/,
     },
-
+    price: {
+      type: Schema.Types.ObjectId,
+      ref: "Price",
+    },
     createdAt: {
       type: Date,
       default: Date.now,

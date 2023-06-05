@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const dateFormat = require("../utils/dateFormat");
 
 const totalPriceSchema = new Schema({
   hourly: {
@@ -30,11 +29,6 @@ const priceSchema = new Schema(
       required: true,
     },
     price: { type: totalPriceSchema },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: (timestamp) => dateFormat(timestamp),
-    },
   },
   {
     toJSON: {

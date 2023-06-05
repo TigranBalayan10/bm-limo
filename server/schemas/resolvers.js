@@ -1,4 +1,5 @@
 const { Order, Price } = require("../models");
+const calculateRoute = require("../utils/calculateRoute");
 
 const resolvers = {
   Query: {
@@ -13,6 +14,7 @@ const resolvers = {
   Mutation: {
     addOrder: async (parent, args) => {
       const order = await Order.create(args);
+      
       return order;
     },
     createPrice: async (parent,  args ) => {

@@ -10,16 +10,17 @@ const typeDefs = gql`
 
   type Order {
     _id: ID
-    firstName: String
-    lastName: String
-    dateTime: String
-    vehicleType: String
+    firstName: String!
+    lastName: String!
+    dateInfo: String!
+    time: String!
+    vehicleType: String!
     hours: Int
-    passengerNumber: Int
-    pickUpAddress: String
+    pickUpAddress: String!
     dropOffAddress: String
-    email: String
-    phoneNumber: String
+    email: String!
+    phoneNumber: String!
+    price: Price
     createdAt: String
   }
   type TotalPrice {
@@ -38,16 +39,16 @@ const typeDefs = gql`
 
   type Mutation {
     addOrder(
-      firstName: String
-      lastName: String
-      dateTime: String
-      vehicleType: String
+      firstName: String!
+      lastName: String!
+      dateInfo: String!
+      time: String!
+      vehicleType: String!
       hours: Int
-      passengerNumber: Int
-      pickUpAddress: String
+      pickUpAddress: String!
       dropOffAddress: String
-      email: String
-      phoneNumber: String
+      email: String!
+      phoneNumber: String!
     ): Order
     createPrice(
         vehicleType: String!
