@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const dateFormat = require("../utils/dateFormat");
 
 const orderSchema = new Schema(
   {
@@ -26,7 +25,7 @@ const orderSchema = new Schema(
     },
     hours: {
       type: Number,
-      enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      default: 0,
     },
     pickUpAddress: {
       type: String,
@@ -44,17 +43,7 @@ const orderSchema = new Schema(
     phoneNumber: {
       type: String,
       required: true,
-      match: /^\d{3}-\d{3}-\d{4}$/,
-    },
-    price: {
-      type: Schema.Types.ObjectId,
-      ref: "Price",
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: (timestamp) => dateFormat(timestamp),
-    },
+    }
   },
   {
     toJSON: {

@@ -17,12 +17,13 @@ import BookingInfo from "./Pages/BookingInfo";
 import Confirmation from "./Components/Confirmation";
 
 const httpLink = createHttpLink({
-  uri: "/graphql",
+  uri: "http://localhost:3001/graphql",
 });
 
 const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
+
 });
 
 function App() {

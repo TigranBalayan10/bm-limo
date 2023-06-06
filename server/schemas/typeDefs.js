@@ -7,6 +7,7 @@ const typeDefs = gql`
     order: [Order]
     getOrder(_id: ID!): Order
     getPrice (_id: ID!): Price
+    getPrices: [Price]
   }
 
   type Order {
@@ -21,8 +22,6 @@ const typeDefs = gql`
     dropOffAddress: String
     email: String!
     phoneNumber: String!
-    price: Price
-    createdAt: String
   }
   type TotalPrice {
     hourly: Float

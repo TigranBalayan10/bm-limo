@@ -18,6 +18,7 @@ import * as yup from "yup";
 import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
 import { useMutation } from "@apollo/client";
 import { ADD_ORDER } from "../Utils/mutations";
+import { Link } from "react-router-dom";
 
 const libraries = ["places"];
 
@@ -28,9 +29,9 @@ const schema = yup
     dateInfo: yup.string().required("Date is required"),
     time: yup.string().required("Time is required"),
     vehicleType: yup.string().required("Vehicle type is required"),
-    hours: yup.string(),
+    hours: yup.number().nullable().default(null),
     pickUpAddress: yup.string().required("Pickup address is required"),
-    dropoffAddress: yup.string(),
+    dropOffAddress: yup.string(),
     email: yup
       .string()
       .email("Email must be a valid email")
@@ -65,12 +66,12 @@ export default function BookingInfo() {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const { data } = await addNewOrder({
+      const response = await addNewOrder({
         variables: { ...data },
       });
-      console.log("Created new order: ", addNewOrder);
-    } catch (err) {
-      console.error("Mutation error: ", err);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -254,7 +255,6 @@ export default function BookingInfo() {
                 )}
               />
             )}
-            <Autocomplete>
               <Input
                 variant="outlined"
                 color="amber"
@@ -263,7 +263,6 @@ export default function BookingInfo() {
                 className="text-gray-300"
                 {...register("email")}
               />
-            </Autocomplete>
             <Input
               variant="outlined"
               color="amber"
@@ -280,11 +279,11 @@ export default function BookingInfo() {
             />
           </div>
         </CardBody>
-        <div className="p-5 ">
+        <Link className="p-5" >
           <Button type="submit" fullWidth color="amber">
             BOOK
           </Button>
-        </div>
+        </Link>
       </Card>
     </form>
   );

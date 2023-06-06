@@ -15,6 +15,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Time from "../Assets/Data/Time.json";
 import Vehicle from "../Assets/Data/Vehicles.json";
+import { Link } from "react-router-dom";
 
 const libraries = ["places"];
 
@@ -226,11 +227,11 @@ const Booking = () => {
             />
           </div>
         </CardBody>
-        <div className="p-5 ">
-          <Button type="submit" fullWidth color="amber">
+        <Link className="p-5" to="/booking-info" type="button">
+          <Button type="submit" to="/confirmation" fullWidth color="amber">
             BOOK
           </Button>
-        </div>
+        </Link>
       </Card>
     </form>
   );

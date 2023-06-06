@@ -12,6 +12,9 @@ const resolvers = {
     getPrice: async (parent, { _id }) => {
       return await Price.findById(_id);
     },
+    getPrices: async () => {
+      return await Price.find();
+    }
   },
 
   Mutation: {
