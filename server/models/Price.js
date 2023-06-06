@@ -9,7 +9,7 @@ const totalPriceSchema = new Schema({
   },
 });
 
-const priceSchema = new Schema(
+const priceInfoSchema = new Schema(
   {
     vehicleType: {
       type: String,
@@ -21,14 +21,14 @@ const priceSchema = new Schema(
       enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     },
     distance: {
-      type: Number,
+      type: String,
       required: true,
     },
     duration: {
-      type: Number,
+      type: String,
       required: true,
     },
-    price: { type: totalPriceSchema },
+    priceTotal: totalPriceSchema,
   },
   {
     toJSON: {
@@ -37,6 +37,6 @@ const priceSchema = new Schema(
   }
 );
 
-const Price = model("Price", priceSchema);
+const Price = model("Price", priceInfoSchema);
 
 module.exports = Price;

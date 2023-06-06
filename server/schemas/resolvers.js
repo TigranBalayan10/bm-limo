@@ -1,5 +1,5 @@
 const { Order, Price } = require("../models");
-const calculateRoute = require("../utils/calculateRoute");
+const { calculateRoute } = require("../utils/googleMapCalculation");
 
 const resolvers = {
   Query: {
@@ -14,11 +14,11 @@ const resolvers = {
   Mutation: {
     addOrder: async (parent, args) => {
       const order = await Order.create(args);
-      
-      return order;
-    },
-    createPrice: async (parent,  args ) => {
-      const { vehicleType, hours, distance, duration } = args;
+      const { pickUpAddress, dropOffAddress, hours, vehicleType } = args;
+      const { distance, duration } = await calculateRoute(
+        pickUpAddress,
+        dropOffAddress
+      );
 
       const vehicleRatesHourly = {
         "LUX full size sedan": 80,
@@ -43,24 +43,46 @@ const resolvers = {
       const baseRate = baseRateVehicle[vehicleType];
       const milageRate = vehicleRatesMileage[vehicleType];
       const durationRate = vehicleRatesDuration[vehicleType];
+      const distanceInt = Number(distance.split(" ")[0]);
+      const durationArray = duration.split(" ");
+      let timeHours = 0;
+      let minutes = 0;
+      if (durationArray.length === 4) {
+        timeHours = Number(durationArray[0]);
+        minutes = Number(durationArray[2]);
+      } else if (durationArray.length === 2) {
+        if (durationArray[1] === "mins") {
+          minutes = Number(durationArray[0]);
+        } else {
+          timeHours = Number(durationArray[0]);
+        }
+      }
+      const durationInt = timeHours * 60 + minutes;
 
       const priceHourly =
         hours < 3
           ? (vehicleRatesHourly[vehicleType] + vehicleRatesHourly / 5) * hours
           : vehicleRatesHourly[vehicleType] * hours;
       const priceMileage =
-        distance * milageRate + baseRate + duration * durationRate;
+        distanceInt * milageRate + baseRate + durationInt * durationRate;
 
       const price = new Price({
-        ...args,
-        price: {
-          hourly: priceHourly? priceHourly : 0,
+        vehicleType: vehicleType,
+        hours: hours,
+        distance: distance,
+        duration: duration,
+        priceTotal: {
+          hourly: priceHourly ? priceHourly : 0,
           mileage: priceMileage,
         },
       });
 
       const savedPrice = await price.save();
-      return savedPrice;
+      const newOrder = {
+        ...order._doc,
+        price: savedPrice,
+      };
+      return newOrder;
     },
   },
 };

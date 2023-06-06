@@ -5,7 +5,7 @@ const calculateRoute = async (pickUpAddress, dropOffAddress) => {
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
   const origin = encodeURIComponent(pickUpAddress);
   const destination = encodeURIComponent(dropOffAddress);
-  const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${apiKey}`;
+  const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${apiKey}&mode=driving&units=imperial`;
 
   try {
     const response = await axios.get(url);
@@ -13,6 +13,18 @@ const calculateRoute = async (pickUpAddress, dropOffAddress) => {
     const leg = route.legs[0];
     const distance = leg.distance.text;
     const duration = leg.duration.text;
+    // const distanceInt = Number(distance.split(" ")[0]);
+    // const durationArray = duration.split(" ");
+    // let hours = 0;
+    // let minutes = 0;
+    // durationArray.forEach((part) => {
+    //   if (part.includes("h")) {
+    //     hours = parseInt(part);
+    //   } else if (part.includes("mins")) {
+    //     minutes = parseInt(part);
+    //   }
+    // });
+    // const durationInt = hours * 60 + minutes;
 
     return { distance, duration };
   } catch (error) {

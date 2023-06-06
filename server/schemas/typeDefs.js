@@ -24,17 +24,17 @@ const typeDefs = gql`
     createdAt: String
   }
   type TotalPrice {
-    hourly: Int
-    mileage: Int
+    hourly: Float
+    mileage: Float
   }
 
   type Price {
     _id: ID
     vehicleType: String
     hours: Int
-    distance: Int
-    duration: Int
-    price: TotalPrice
+    distance: String
+    duration: String
+    priceTotal: TotalPrice
   }
 
   type Mutation {
@@ -50,12 +50,6 @@ const typeDefs = gql`
       email: String!
       phoneNumber: String!
     ): Order
-    createPrice(
-        vehicleType: String!
-        hours: Int
-        distance: Int
-        duration: Int
-    ): Price!
   }
 `;
 // export the typeDefs
