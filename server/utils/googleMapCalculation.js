@@ -13,19 +13,6 @@ const calculateRoute = async (pickUpAddress, dropOffAddress) => {
     const leg = route.legs[0];
     const distance = leg.distance.text;
     const duration = leg.duration.text;
-    // const distanceInt = Number(distance.split(" ")[0]);
-    // const durationArray = duration.split(" ");
-    // let hours = 0;
-    // let minutes = 0;
-    // durationArray.forEach((part) => {
-    //   if (part.includes("h")) {
-    //     hours = parseInt(part);
-    //   } else if (part.includes("mins")) {
-    //     minutes = parseInt(part);
-    //   }
-    // });
-    // const durationInt = hours * 60 + minutes;
-
     return { distance, duration };
   } catch (error) {
     console.error("Error calling Google Maps API:", error);
