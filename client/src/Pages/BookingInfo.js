@@ -16,6 +16,8 @@ import Time from "../Assets/Data/Time.json";
 import Vehicle from "../Assets/Data/Vehicles.json";
 import * as yup from "yup";
 import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
+import { useMutation } from "@apollo/client";
+import { ADD_ORDER } from "../Utils/mutations";
 
 const libraries = ["places"];
 
@@ -45,6 +47,7 @@ const schema = yup
 
 export default function BookingInfo() {
   const hours = [...Array(12).keys()];
+  const [addNewOrder] = useMutation(ADD_ORDER);
 
   const {
     register,
@@ -58,7 +61,19 @@ export default function BookingInfo() {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
     libraries: libraries,
   });
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      const { data } = await addNewOrder({
+        variables: { ...data },
+      });
+      console.log("Created new order: ", addNewOrder);
+    } catch (err) {
+      console.error("Mutation error: ", err);
+    }
+  };
+
   if (!isLoaded) {
     return <div>Loading...</div>;
   }

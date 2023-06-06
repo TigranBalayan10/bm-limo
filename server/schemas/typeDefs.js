@@ -6,6 +6,7 @@ const typeDefs = gql`
   type Query {
     order: [Order]
     getOrder(_id: ID!): Order
+    getPrice (_id: ID!): Price
   }
 
   type Order {
@@ -50,6 +51,7 @@ const typeDefs = gql`
       email: String!
       phoneNumber: String!
     ): Order
+
   }
 `;
 // export the typeDefs

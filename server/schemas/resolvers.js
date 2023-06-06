@@ -9,6 +9,9 @@ const resolvers = {
     getOrder: async (parent, { _id }) => {
       return await Order.findById(_id);
     },
+    getPrice: async (parent, { _id }) => {
+      return await Price.findById(_id);
+    },
   },
 
   Mutation: {
