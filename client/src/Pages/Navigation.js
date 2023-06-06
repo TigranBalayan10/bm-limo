@@ -7,7 +7,7 @@ const navigation = [
   { name: "Home", path: "/", current: false },
   { name: "Cars", path: "/fleet", current: false },
   { name: "Book a Ride", path: "/booking-info", current: false },
-  { name: "About Us", path: "/",  current: false },
+  { name: "About Us", path: "/confirmation",  current: false },
 
 ];
 

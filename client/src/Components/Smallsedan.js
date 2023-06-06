@@ -48,7 +48,7 @@ const Smallsedan = () => {
             </div>
           </div>
           <Link
-            to="/booking"
+            to="/booking-info"
             type="button"
             className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium rounded-lg border focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700"
           >
