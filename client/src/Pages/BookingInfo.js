@@ -53,12 +53,14 @@ export default function BookingInfo() {
 
   const {
     register,
-    control,
     handleSubmit,
+    control,
     formState: { errors },
+    watch,
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const watchHours = watch("hours");
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
     libraries: libraries,
@@ -251,11 +253,13 @@ export default function BookingInfo() {
                     }}
                   >
                     <Input
+                      //if horus is greater than 0 then disable drop off address
+                      disabled={watchHours > 0 ? true : false}
                       value={field.value}
                       onChange={field.onChange}
                       variant="outlined"
                       color="amber"
-                      label="Drop off Address"
+                      label={watchHours > 0 ? "As Directed" : "Drop Off Address"}
                       className="text-gray-300"
                       {...register("dropOffAddress")}
                     />

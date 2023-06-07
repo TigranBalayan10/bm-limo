@@ -60,7 +60,7 @@ export default function Confirmation() {
     {
       icon: faLocationPin,
       color: "#bd0505",
-      content: order.dropOffAddress,
+      content: order.dropOffAddress? order.dropOffAddress : "As Directed",
     },
     {
       icon: faUser,

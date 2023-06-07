@@ -14,18 +14,13 @@ const resolvers = {
     },
     getPrices: async () => {
       return await Price.find();
-    }
+    },
   },
 
   Mutation: {
     addOrder: async (parent, args) => {
       const order = await Order.create(args);
       const { pickUpAddress, dropOffAddress, hours, vehicleType } = args;
-      const { distance, duration } = await calculateRoute(
-        pickUpAddress,
-        dropOffAddress
-      );
-
       const vehicleRatesHourly = {
         "LUX full size sedan": 80,
         "LUX SUV": 110,
@@ -46,9 +41,40 @@ const resolvers = {
         "LUX SUV": 50,
         "Premium sedan": 20,
       };
+
       const baseRate = baseRateVehicle[vehicleType];
       const milageRate = vehicleRatesMileage[vehicleType];
       const durationRate = vehicleRatesDuration[vehicleType];
+
+      if (!dropOffAddress) {
+        const priceHourly =
+          hours < 3
+            ? (vehicleRatesHourly[vehicleType] + vehicleRatesHourly / 5) * hours
+            : vehicleRatesHourly[vehicleType] * hours;
+
+        const price = new Price({
+          vehicleType: vehicleType,
+          hours: hours,
+          distance: 0,
+          duration: 0,
+          priceTotal: {
+            hourly: priceHourly,
+            mileage: 0,
+          },
+        });
+
+        const savedPrice = await price.save();
+        const newOrder = {
+          ...order._doc,
+          price: savedPrice,
+        };
+        return newOrder;
+      }
+
+      const { distance, duration } = await calculateRoute(
+        pickUpAddress,
+        dropOffAddress
+      );
       const distanceInt = Number(distance.split(" ")[0]);
       const durationArray = duration.split(" ");
       let timeHours = 0;
@@ -64,11 +90,6 @@ const resolvers = {
         }
       }
       const durationInt = timeHours * 60 + minutes;
-
-      const priceHourly =
-        hours < 3
-          ? (vehicleRatesHourly[vehicleType] + vehicleRatesHourly / 5) * hours
-          : vehicleRatesHourly[vehicleType] * hours;
       const priceMileage =
         distanceInt * milageRate + baseRate + durationInt * durationRate;
 
@@ -78,7 +99,7 @@ const resolvers = {
         distance: distance,
         duration: duration,
         priceTotal: {
-          hourly: priceHourly ? priceHourly : 0,
+          hourly: 0,
           mileage: priceMileage,
         },
       });
