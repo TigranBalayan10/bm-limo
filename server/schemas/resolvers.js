@@ -90,8 +90,9 @@ const resolvers = {
         }
       }
       const durationInt = timeHours * 60 + minutes;
-      const priceMileage =
-        distanceInt * milageRate + baseRate + durationInt * durationRate;
+      const priceMileage = Math.round(
+        distanceInt * milageRate + baseRate + durationInt * durationRate
+        );
 
       const price = new Price({
         vehicleType: vehicleType,
