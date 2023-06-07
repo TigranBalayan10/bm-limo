@@ -22,6 +22,7 @@ const typeDefs = gql`
     dropOffAddress: String
     email: String!
     phoneNumber: String!
+    price: Price
   }
   type TotalPrice {
     hourly: Float

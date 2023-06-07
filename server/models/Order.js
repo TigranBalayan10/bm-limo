@@ -43,7 +43,11 @@ const orderSchema = new Schema(
     phoneNumber: {
       type: String,
       required: true,
-    }
+    },
+    price: {
+      type: Schema.Types.ObjectId,
+      ref: "Price",
+    },
   },
   {
     toJSON: {

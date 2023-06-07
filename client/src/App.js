@@ -40,7 +40,7 @@ function App() {
                 <Route path="/fleet-suv" element={<Suvcard />} />
                 <Route path="/fleet-small-sedan" element={<Smallsedan />} />
                 <Route path="/booking-info" element={<BookingInfo />} />
-                <Route path="/confirmation" element={<Confirmation />} />
+                <Route path="/confirmation/:orderId/:priceId" element={<Confirmation />} />
                 <Route path="*" element={<h1>Not Found</h1>} />
               </Routes>
             </main>

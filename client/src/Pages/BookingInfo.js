@@ -18,7 +18,7 @@ import * as yup from "yup";
 import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
 import { useMutation } from "@apollo/client";
 import { ADD_ORDER } from "../Utils/mutations";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const libraries = ["places"];
 
@@ -49,6 +49,7 @@ const schema = yup
 export default function BookingInfo() {
   const hours = [...Array(12).keys()];
   const [addNewOrder] = useMutation(ADD_ORDER);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -63,13 +64,21 @@ export default function BookingInfo() {
     libraries: libraries,
   });
 
+  let priceId = "";
+  let orderId = "";
+
   const onSubmit = async (data) => {
     console.log(data);
     try {
       const response = await addNewOrder({
         variables: { ...data },
       });
+      const priceId = response.data.addOrder.price._id;
+      const orderId = response.data.addOrder._id;
+      console.log(priceId, "priceId");
+      console.log(orderId, "orderId");
       console.log(response, "response");
+      navigate(`/confirmation/${orderId}/${priceId}`);
     } catch (error) {
       console.log(error);
     }
@@ -289,7 +298,7 @@ export default function BookingInfo() {
             className="w-full"
             disabled={!isFormValid}
           >
-              {isFormValid ? <Link to="/confirmation/">Book</Link> : "Book"}
+            Book
           </Button>
         </div>
       </Card>

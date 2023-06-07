@@ -10,6 +10,7 @@ import {
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useParams } from "react-router-dom";
 
 const timelineData = [
   {
@@ -55,6 +56,9 @@ const timelineData = [
 ];
 
 export default function Confirmation() {
+  const { priceId, orderId } = useParams();
+  console.log(priceId, orderId);
+  
   return (
     <div className="max-w-xl mx-auto mt-5 mb-4 overflow-hidden rounded-lg shadow-lg bg-gradient-to-l from-yellow-900 to-slate-950">
       <div className="px-6 py-8 border-b border-white/10 ">

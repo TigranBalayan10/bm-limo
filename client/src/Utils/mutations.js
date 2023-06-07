@@ -36,6 +36,17 @@ export const ADD_ORDER = gql`
       email
       phoneNumber
       hours
+      price {
+        _id
+        vehicleType
+        hours
+        distance
+        duration
+        priceTotal {
+          hourly
+          mileage
+        }
+      }
     }
   }
 `;
