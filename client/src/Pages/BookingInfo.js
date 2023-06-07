@@ -69,7 +69,7 @@ export default function BookingInfo() {
       const response = await addNewOrder({
         variables: { ...data },
       });
-      console.log(response);
+      console.log(response, "response");
     } catch (error) {
       console.log(error);
     }
@@ -80,6 +80,8 @@ export default function BookingInfo() {
   }
 
   console.log(errors, "errors");
+  const isFormValid = Object.keys(errors).length === 0;
+  console.log(isFormValid, "isFormValid");
 
   return (
     <form
@@ -255,14 +257,14 @@ export default function BookingInfo() {
                 )}
               />
             )}
-              <Input
-                variant="outlined"
-                color="amber"
-                label={errors.email ? errors.email?.message : "Email"}
-                error={errors.email ? true : false}
-                className="text-gray-300"
-                {...register("email")}
-              />
+            <Input
+              variant="outlined"
+              color="amber"
+              label={errors.email ? errors.email?.message : "Email"}
+              error={errors.email ? true : false}
+              className="text-gray-300"
+              {...register("email")}
+            />
             <Input
               variant="outlined"
               color="amber"
@@ -279,11 +281,17 @@ export default function BookingInfo() {
             />
           </div>
         </CardBody>
-        <Link className="p-5" >
-          <Button type="submit" fullWidth color="amber">
-            BOOK
+        <div className="p-5">
+          <Button
+            type="submit"
+            variant="contained"
+            color="amber"
+            className="w-full"
+            disabled={!isFormValid}
+          >
+              {isFormValid ? <Link to="/confirmation/">Book</Link> : "Book"}
           </Button>
-        </Link>
+        </div>
       </Card>
     </form>
   );

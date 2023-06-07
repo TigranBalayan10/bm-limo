@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Card,
-  CardBody,
-  Typography,
-  Timeline,
-  TimelineItem,
-  TimelineHeader,
-  TimelineIcon,
-  Button,
-} from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import {
   faLocationPin,
   faUser,
@@ -24,105 +15,80 @@ const timelineData = [
   {
     icon: faLocationPin,
     color: "#036d05",
-    title: "Pick up Address",
     content: "1906 Oceanside Blvd, Oceanside, CA 92054",
   },
   {
     icon: faLocationPin,
     color: "#bd0505",
-    title: "Drop off Address",
     content: "1906 Oceanside Blvd, Oceanside, CA 92054",
   },
   {
     icon: faUser,
     color: "#036d05",
-    title: "First and Last Name",
     content: "Tigran Balayan",
   },
   {
     icon: faClock,
     color: "#036d05",
-    title: "Pick up Time",
     content: "12:00 PM",
   },
   {
     icon: faCalendarDays,
     color: "#036d05",
-    title: "Pick up Date",
     content: "12/12/2021",
   },
   {
     icon: faCar,
     color: "#036d05",
-    title: "Vehicle",
     content: "Sedan",
   },
   {
     icon: faEnvelope,
     color: "#036d05",
-    title: "Email",
     content: "tiko@mail.com",
   },
   {
     icon: faPhone,
     color: "#036d05",
-    title: "Phone Number",
     content: "123-456-7890",
   },
 ];
 
 export default function Confirmation() {
   return (
-    <div className="max-w-2xl mx-auto flex justify-center mb-5">
-      <Card className="p-2 mt-6 bg-gradient-to-r from-slate-900 to-slate-700">
-        <CardBody>
-          <Typography variant="h5" className="mb-6 text-gray-300">
-            Booking Confirmation
-          </Typography>
-          <div className="w-full">
-            <Timeline className="grid gap-6 lg:grid-cols-2">
-              {timelineData.map((item, index) => (
-                <TimelineItem key={index} className="h-auto">
-                  <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-                    <TimelineIcon
-                      className="p-3"
-                      variant="ghost"
-                      
-                    >
-                      <FontAwesomeIcon icon={item.icon} color={item.color} />
-                    </TimelineIcon>
-                    <div className="flex flex-col gap-1">
-                      <Typography
-                        variant="small"
-                        color="gray"
-                        className="font-bold"
-                      >
-                        {item.title}
-                      </Typography>
-                      <Typography
-
-                        variant="small"
-                        color="gray"
-                        className="font-normal"
-                      >
-                        {item.content}
-                      </Typography>
-                    </div>
-                  </TimelineHeader>
-                </TimelineItem>
-              ))}
-            </Timeline>
-          </div>
-        </CardBody>
-        <div className="p-5 gap-5 flex flex-row-reverse">
-          <Button type="submit" size="lg" color="amber">
-            CHECKOUT
+    <div className="max-w-xl mx-auto mt-5 mb-4 overflow-hidden rounded-lg shadow-lg bg-gradient-to-l from-yellow-900 to-slate-950">
+      <div className="px-6 py-8 border-b border-white/10 ">
+        <div className="flex justify-center">
+          <span className="inline-flex px-4 py-1 text-lg text-gray-300 font-semibold leading-5 tracking-wide rounded-full">
+            Price for your trip
+          </span>
+        </div>
+        <div className="flex justify-center mt-4 text-gray-300 text-4xl font-extrabold leading-none">
+          $10
+        </div>
+      </div>
+      <div className="px-6 pt-6 pb-8 sm:p-10 sm:pt-6">
+        <ul className="grid gap-4 lg:grid-cols-2">
+          {timelineData.map((item, index) => (
+            <li className="flex items-start" id={index}>
+              <div className="flex-shrink-0">
+                <FontAwesomeIcon icon={item.icon} color={item.color} />
+              </div>
+              <p className="ml-3 text-sm leading-6 text-gray-300">
+                {item.content}
+              </p>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-6 flex flex-row-reverse gap-2">
+          <Button type="submit" variant="text" color="amber">
+            Confirm
           </Button>
-          <Button size="lg" color="amber">
+          <Button type="submit" variant="text" color="amber">
             EDIT
           </Button>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }
