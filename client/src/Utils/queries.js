@@ -14,17 +14,22 @@ export const QUERY_PRICE = gql`
       }
     }
   }
-  query GetPrice($id: ID!) {
-    getPrice(_id: $id) {
+`;
+
+export const QUERY_ORDER = gql`
+  query GetOrder($id: ID!) {
+    getOrder(_id: $id) {
       _id
+      firstName
+      lastName
+      dateInfo
+      time
       vehicleType
       hours
-      distance
-      duration
-      priceTotal {
-        hourly
-        mileage
-      }
+      pickUpAddress
+      dropOffAddress
+      email
+      phoneNumber
     }
   }
 `;

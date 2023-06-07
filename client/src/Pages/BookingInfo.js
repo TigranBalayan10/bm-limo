@@ -64,9 +64,6 @@ export default function BookingInfo() {
     libraries: libraries,
   });
 
-  let priceId = "";
-  let orderId = "";
-
   const onSubmit = async (data) => {
     console.log(data);
     try {
