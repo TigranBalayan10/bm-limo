@@ -19,6 +19,7 @@ import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
 import { useMutation } from "@apollo/client";
 import { ADD_ORDER } from "../Utils/mutations";
 import { useNavigate } from "react-router-dom";
+import CustomInput from "../Components/CustomInput";
 
 const libraries = ["places"];
 
@@ -103,23 +104,17 @@ export default function BookingInfo() {
             Book a Ride
           </Typography>
           <div className="grid gap-6 lg:grid-cols-2">
-            <Input
-              variant="outlined"
-              color="amber"
-              label={
-                errors.firstName ? errors.firstName?.message : "First Name"
-              }
-              error={errors.firstName ? true : false}
-              className="text-gray-300"
-              {...register("firstName")}
+            <CustomInput
+              name="firstName"
+              label={errors.firstName ? errors.firstName.message : "First Name"}
+              error={errors.firstName}
+              control={control}
             />
-            <Input
-              variant="outlined"
-              color="amber"
-              label={errors.lastName ? errors.lastName?.message : "Last Name"}
-              error={errors.lastName ? true : false}
-              className="text-gray-300"
-              {...register("lastName")}
+            <CustomInput
+              name="lastName"
+              label={errors.lastName ? errors.lastName.message : "Last Name"}
+              error={errors.lastName}
+              control={control}
             />
             <div>
               <Controller
