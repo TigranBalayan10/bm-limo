@@ -10,16 +10,14 @@ import {
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { QUERY_PRICE, QUERY_ORDER } from "../Utils/queries";
-import { useQuery } from '@apollo/client';
-
-
+import { useQuery } from "@apollo/client";
 
 export default function Confirmation() {
   const { orderId, priceId } = useParams();
 
-  const { 
+  const {
     data: orderData,
     loading: orderLoading,
     error: orderError,
@@ -45,7 +43,7 @@ export default function Confirmation() {
     return <div>Error occurred while fetching data.</div>;
   }
 
-    // Access order and price data
+  // Access order and price data
   const order = orderData?.getOrder;
   const price = priceData?.getPrice;
   const hourly = price?.priceTotal?.hourly;
@@ -60,7 +58,7 @@ export default function Confirmation() {
     {
       icon: faLocationPin,
       color: "#bd0505",
-      content: order.dropOffAddress? order.dropOffAddress : "As Directed",
+      content: order.dropOffAddress ? order.dropOffAddress : "As Directed",
     },
     {
       icon: faUser,
@@ -95,7 +93,7 @@ export default function Confirmation() {
   ];
 
   return (
-    <div className="max-w-xl mx-auto mt-5 mb-4 overflow-hidden rounded-lg shadow-lg bg-gradient-to-l from-yellow-900 to-slate-950">
+    <div className="max-w-md mx-auto mt-5 mb-4 overflow-hidden rounded-lg shadow-lg bg-gradient-to-l from-yellow-900 to-slate-950">
       <div className="px-6 py-8 border-b border-white/10 ">
         <div className="flex justify-center">
           <span className="inline-flex px-4 py-1 text-lg text-gray-300 font-semibold leading-5 tracking-wide rounded-full">
@@ -124,9 +122,11 @@ export default function Confirmation() {
           <Button type="submit" variant="text" color="amber">
             Confirm
           </Button>
-          <Button type="submit" variant="text" color="amber">
-            EDIT
-          </Button>
+          <Link to="/booking-info">
+            <Button variant="text" color="amber">
+              EDIT
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

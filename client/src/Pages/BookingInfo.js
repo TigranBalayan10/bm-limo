@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -18,13 +18,13 @@ import * as yup from "yup";
 import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
 import { useMutation } from "@apollo/client";
 import { ADD_ORDER } from "../Utils/mutations";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const libraries = ["places"];
 
 const schema = yup
   .object({
-    firstName: yup.string().required("First name is required"),
+    firstName: yup.string().required("First name is required").default(),
     lastName: yup.string().required("Last name is required"),
     dateInfo: yup.string().required("Date is required"),
     time: yup.string().required("Time is required"),
@@ -47,7 +47,9 @@ const schema = yup
   .required();
 
 export default function BookingInfo() {
-  const hours = [...Array(12).keys()];
+  const hours = [...Array(12).keys()].map((value) =>
+    value === 0 ? "Point to Point ONLY" : value
+  );
   const [addNewOrder] = useMutation(ADD_ORDER);
   const navigate = useNavigate();
 
@@ -55,6 +57,7 @@ export default function BookingInfo() {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
     watch,
   } = useForm({
@@ -74,8 +77,6 @@ export default function BookingInfo() {
       });
       const priceId = response.data.addOrder.price._id;
       const orderId = response.data.addOrder._id;
-      console.log(priceId, "priceId");
-      console.log(orderId, "orderId");
       console.log(response, "response");
       navigate(`/confirmation/${orderId}/${priceId}`);
     } catch (error) {
@@ -94,9 +95,9 @@ export default function BookingInfo() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-2xl mx-auto flex justify-center mb-5"
+      className="flex justify-center items-center mb-5"
     >
-      <Card className="p-2 mt-6 bg-gradient-to-r from-slate-900 to-slate-700">
+      <Card className="max-w-[30rem]  p-2 mt-6 bg-gradient-to-r from-slate-900 to-slate-700">
         <CardBody>
           <Typography variant="h5" className="mb-6 text-gray-300">
             Book a Ride
@@ -128,6 +129,7 @@ export default function BookingInfo() {
                   <DatePicker
                     selected={field.value}
                     onChange={(date) => field.onChange(date)}
+                    minDate={new Date()}
                     className={
                       errors.dateInfo
                         ? "border-red-500 peer h-full w-full rounded-[7px] bg-transparent px-3 py-2.5 text-sm font-normal text-gray-300 placeholder-red-500 focus:outline focus:border-amber-500"
@@ -153,8 +155,8 @@ export default function BookingInfo() {
                     className="text-gray-200"
                     {...field}
                   >
-                    {Time.timeIntervals.map((time, i) => (
-                      <Option key={i} value={time}>
+                    {Time.timeIntervals.map((time) => (
+                      <Option key={time} value={time}>
                         {time}
                       </Option>
                     ))}
@@ -178,8 +180,8 @@ export default function BookingInfo() {
                     className="text-gray-200"
                     {...field}
                   >
-                    {Vehicle.map((vehicle, i) => (
-                      <Option key={i} value={vehicle.name}>
+                    {Vehicle.map((vehicle) => (
+                      <Option key={vehicle.name} value={vehicle.name}>
                         {vehicle.name}
                       </Option>
                     ))}
@@ -195,12 +197,17 @@ export default function BookingInfo() {
                   <Select
                     label="Hours"
                     color="amber"
-                    className="text-gray-200"
                     {...field}
+                    className={`text-${
+                      watchHours === "Point to Point ONLY"
+                        ? "gray-400"
+                        : "gray-200"
+                    }`}
+                    disabled={watchHours === "Point to Point ONLY"}
                   >
                     {hours.map((hour) => (
-                      <Option key={hour} value={hour + 1}>
-                        {hour + 1}
+                      <Option key={hour} value={hour}>
+                        {hour}
                       </Option>
                     ))}
                   </Select>
@@ -259,7 +266,9 @@ export default function BookingInfo() {
                       onChange={field.onChange}
                       variant="outlined"
                       color="amber"
-                      label={watchHours > 0 ? "As Directed" : "Drop Off Address"}
+                      label={
+                        watchHours > 0 ? "As Directed" : "Drop Off Address"
+                      }
                       className="text-gray-300"
                       {...register("dropOffAddress")}
                     />
@@ -290,18 +299,28 @@ export default function BookingInfo() {
               {...register("phoneNumber")}
             />
           </div>
+          <div className="max-w-auto">
+            <Button
+              onClick={() => reset()}
+              variant="filled"
+              color="amber"
+              fullWidth
+              className="mt-4"
+            >
+              Reset
+            </Button>
+            <Button
+              type="submit"
+              variant="filled"
+              color="amber"
+              fullWidth
+              disabled={!isFormValid}
+              className="mt-2"
+            >
+              BOOK NOW
+            </Button>
+          </div>
         </CardBody>
-        <div className="p-5">
-          <Button
-            type="submit"
-            variant="contained"
-            color="amber"
-            className="w-full"
-            disabled={!isFormValid}
-          >
-            Book
-          </Button>
-        </div>
       </Card>
     </form>
   );
