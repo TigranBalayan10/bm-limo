@@ -1,5 +1,5 @@
 import React from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Card,
@@ -7,11 +7,7 @@ import {
   Typography,
   Button,
   Input,
-  Select,
-  Option,
 } from "@material-tailwind/react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import Time from "../Assets/Data/Time.json";
 import Vehicle from "../Assets/Data/Vehicles.json";
 import * as yup from "yup";
@@ -22,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import CustomInput from "../Components/CustomInput";
 import AutocompleteInput from "../Components/AutocompleteInput";
 import SelectInput from "../Components/SelectInput";
+import DateInput from "../Components/DateInput";
 
 const libraries = ["places"];
 
@@ -121,29 +118,15 @@ export default function BookingInfo() {
               control={control}
             />
             <div>
-              <Controller
-                control={control}
+              <DateInput
                 name="dateInfo"
-                render={({ field }) => (
-                  <DatePicker
-                    selected={field.value}
-                    onChange={(date) => field.onChange(date)}
-                    minDate={new Date()}
-                    className={
-                      errors.dateInfo
-                        ? "border-red-500 peer h-full w-full rounded-[7px] bg-transparent px-3 py-2.5 text-sm font-normal text-gray-300 placeholder-red-500 focus:outline focus:border-amber-500"
-                        : "peer h-full w-full rounded-[7px] bg-transparent px-3 py-2.5 text-sm font-normal text-gray-300 placeholder-gray-400 focus:outline focus:border-amber-500"
-                    }
-                    dateFormat="MMMM d, yyyy"
-                    placeholderText={
-                      errors.dateInfo ? errors.dateInfo?.message : "Select Date"
-                    }
-                  />
-                )}
+                label={errors.dateInfo ? errors.dateInfo?.message : "Date"}
+                error={errors.dateInfo}
+                control={control}
               />
             </div>
             <div>
-            <SelectInput
+              <SelectInput
                 name="time"
                 label={errors.time ? errors.time?.message : "Hours"}
                 error={errors.time}
@@ -156,7 +139,6 @@ export default function BookingInfo() {
                 name="vehicleType"
                 label={
                   errors.vehicleType
-
                     ? errors.vehicleType?.message
                     : "Vehicle Type"
                 }
@@ -205,19 +187,17 @@ export default function BookingInfo() {
               error={errors.email}
               control={control}
             />
-            <Input
-              variant="outlined"
-              color="amber"
+            <CustomInput
+              name="phoneNumber"
               label={
                 errors.phoneNumber
-                  ? errors.phoneNumber?.message
-                  : errors.phoneNumber?.typeError
-                  ? errors.phoneNumber?.typeError
+                  ? errors.phoneNumber.message ||
+                    errors.phoneNumber.typeError ||
+                    "Phone"
                   : "Phone"
               }
-              error={errors.phoneNumber ? true : false}
-              className="text-gray-300"
-              {...register("phoneNumber")}
+              error={errors.phoneNumber}
+              control={control}
             />
           </div>
           <div className="max-w-auto">
