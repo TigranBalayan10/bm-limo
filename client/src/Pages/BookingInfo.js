@@ -15,17 +15,19 @@ import "react-datepicker/dist/react-datepicker.css";
 import Time from "../Assets/Data/Time.json";
 import Vehicle from "../Assets/Data/Vehicles.json";
 import * as yup from "yup";
-import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
+import { useJsApiLoader } from "@react-google-maps/api";
 import { useMutation } from "@apollo/client";
 import { ADD_ORDER } from "../Utils/mutations";
 import { useNavigate } from "react-router-dom";
 import CustomInput from "../Components/CustomInput";
+import AutocompleteInput from "../Components/AutocompleteInput";
+import SelectInput from "../Components/SelectInput";
 
 const libraries = ["places"];
 
 const schema = yup
   .object({
-    firstName: yup.string().required("First name is required").default(),
+    firstName: yup.string().required("First name is required"),
     lastName: yup.string().required("Last name is required"),
     dateInfo: yup.string().required("Date is required"),
     time: yup.string().required("Time is required"),
@@ -51,6 +53,8 @@ export default function BookingInfo() {
   const hours = [...Array(12).keys()].map((value) =>
     value === 0 ? "Point to Point ONLY" : value
   );
+  const vehicleTypes = Vehicle.map((vehicle) => vehicle.name);
+  const time = Time.timeIntervals.map((time) => time);
   const [addNewOrder] = useMutation(ADD_ORDER);
   const navigate = useNavigate();
 
@@ -139,145 +143,67 @@ export default function BookingInfo() {
               />
             </div>
             <div>
-              <Controller
-                control={control}
+            <SelectInput
                 name="time"
-                render={({ field }) => (
-                  <Select
-                    label={errors.time ? errors.time?.message : "Time"}
-                    error={errors.time ? true : false}
-                    color="amber"
-                    className="text-gray-200"
-                    {...field}
-                  >
-                    {Time.timeIntervals.map((time) => (
-                      <Option key={time} value={time}>
-                        {time}
-                      </Option>
-                    ))}
-                  </Select>
-                )}
+                label={errors.time ? errors.time?.message : "Hours"}
+                error={errors.time}
+                options={time}
+                control={control}
               />
             </div>
             <div>
-              <Controller
-                control={control}
+              <SelectInput
                 name="vehicleType"
-                render={({ field }) => (
-                  <Select
-                    label={
-                      errors.vehicleType
-                        ? errors.vehicleType?.message
-                        : "Vehicle Type"
-                    }
-                    error={errors.vehicleType ? true : false}
-                    color="amber"
-                    className="text-gray-200"
-                    {...field}
-                  >
-                    {Vehicle.map((vehicle) => (
-                      <Option key={vehicle.name} value={vehicle.name}>
-                        {vehicle.name}
-                      </Option>
-                    ))}
-                  </Select>
-                )}
+                label={
+                  errors.vehicleType
+
+                    ? errors.vehicleType?.message
+                    : "Vehicle Type"
+                }
+                error={errors.vehicleType}
+                options={vehicleTypes}
+                control={control}
               />
             </div>
             <div>
-              <Controller
-                control={control}
+              <SelectInput
                 name="hours"
-                render={({ field }) => (
-                  <Select
-                    label="Hours"
-                    color="amber"
-                    {...field}
-                    className={`text-${
-                      watchHours === "Point to Point ONLY"
-                        ? "gray-400"
-                        : "gray-200"
-                    }`}
-                    disabled={watchHours === "Point to Point ONLY"}
-                  >
-                    {hours.map((hour) => (
-                      <Option key={hour} value={hour}>
-                        {hour}
-                      </Option>
-                    ))}
-                  </Select>
-                )}
+                label={errors.hours ? errors.hours?.message : "Hours"}
+                error={errors.hours}
+                options={hours}
+                watchValue={watchHours}
+                control={control}
               />
             </div>
             {isLoaded && (
-              <Controller
-                control={control}
+              <AutocompleteInput
                 name="pickUpAddress"
-                render={({ field }) => (
-                  <Autocomplete
-                    onLoad={(autocomplete) => {
-                      autocomplete.addListener("place_changed", () => {
-                        const place = autocomplete.getPlace();
-                        field.onChange(place.formatted_address);
-                      });
-                    }}
-                  >
-                    <Input
-                      value={field.value}
-                      onChange={field.onChange}
-                      variant="outlined"
-                      color="amber"
-                      label={
-                        errors.pickUpAddress
-                          ? errors.pickUpAddress?.message
-                          : "Pick Up Address"
-                      }
-                      error={errors.pickUpAddress ? true : false}
-                      className="text-gray-300"
-                      {...register("pickUpAddress")}
-                    />
-                  </Autocomplete>
-                )}
+                label={
+                  errors.pickUpAddress
+                    ? errors.pickUpAddress.message
+                    : "Pick Up Address"
+                }
+                error={errors.pickUpAddress}
+                control={control}
+                {...register("pickUpAddress")}
               />
             )}
 
             {isLoaded && (
-              <Controller
-                control={control}
+              <AutocompleteInput
                 name="dropOffAddress"
-                render={({ field }) => (
-                  <Autocomplete
-                    onLoad={(autocomplete) => {
-                      autocomplete.addListener("place_changed", () => {
-                        const place = autocomplete.getPlace();
-                        field.onChange(place.formatted_address);
-                      });
-                    }}
-                  >
-                    <Input
-                      //if horus is greater than 0 then disable drop off address
-                      disabled={watchHours > 0 ? true : false}
-                      value={field.value}
-                      onChange={field.onChange}
-                      variant="outlined"
-                      color="amber"
-                      label={
-                        watchHours > 0 ? "As Directed" : "Drop Off Address"
-                      }
-                      className="text-gray-300"
-                      {...register("dropOffAddress")}
-                    />
-                  </Autocomplete>
-                )}
+                disabled={watchHours > 0 ? true : false}
+                label={watchHours > 0 ? "As Directed" : "Drop Off Address"}
+                error={errors.dropOffAddress}
+                control={control}
+                {...register("dropOffAddress")}
               />
             )}
-            <Input
-              variant="outlined"
-              color="amber"
-              label={errors.email ? errors.email?.message : "Email"}
-              error={errors.email ? true : false}
-              className="text-gray-300"
-              {...register("email")}
+            <CustomInput
+              name="email"
+              label={errors.email ? errors.email.message : "Email"}
+              error={errors.email}
+              control={control}
             />
             <Input
               variant="outlined"
