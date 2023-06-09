@@ -1,16 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Card,
-  CardBody,
-  Typography,
-  Button,
-  Input,
-} from "@material-tailwind/react";
+import { Card, CardBody, Typography, Button } from "@material-tailwind/react";
 import Time from "../Assets/Data/Time.json";
 import Vehicle from "../Assets/Data/Vehicles.json";
-import * as yup from "yup";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { useMutation } from "@apollo/client";
 import { ADD_ORDER } from "../Utils/mutations";
@@ -19,32 +12,9 @@ import CustomInput from "../Components/CustomInput";
 import AutocompleteInput from "../Components/AutocompleteInput";
 import SelectInput from "../Components/SelectInput";
 import DateInput from "../Components/DateInput";
+import validationSchema from "../Utils/ValidationSchema";
 
 const libraries = ["places"];
-
-const schema = yup
-  .object({
-    firstName: yup.string().required("First name is required"),
-    lastName: yup.string().required("Last name is required"),
-    dateInfo: yup.string().required("Date is required"),
-    time: yup.string().required("Time is required"),
-    vehicleType: yup.string().required("Vehicle type is required"),
-    hours: yup.number().nullable().default(null),
-    pickUpAddress: yup.string().required("Pickup address is required"),
-    dropOffAddress: yup.string(),
-    email: yup
-      .string()
-      .email("Email must be a valid email")
-      .required("Email is required"),
-    phoneNumber: yup
-      .string()
-      .required("Phone number is required")
-      .matches(/^[0-9]+$/, "Must be only digits")
-      .min(10, "Must be exactly 10 digits")
-      .max(10, "Must be exactly 10 digits")
-      .typeError("Phone number must be a valid phone number"),
-  })
-  .required();
 
 export default function BookingInfo() {
   const hours = [...Array(12).keys()].map((value) =>
@@ -56,14 +26,12 @@ export default function BookingInfo() {
   const navigate = useNavigate();
 
   const {
-    register,
     handleSubmit,
     control,
-    reset,
     formState: { errors },
     watch,
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(validationSchema),
   });
   const watchHours = watch("hours");
   const { isLoaded } = useJsApiLoader({
@@ -72,14 +40,12 @@ export default function BookingInfo() {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const response = await addNewOrder({
         variables: { ...data },
       });
       const priceId = response.data.addOrder.price._id;
       const orderId = response.data.addOrder._id;
-      console.log(response, "response");
       navigate(`/confirmation/${orderId}/${priceId}`);
     } catch (error) {
       console.log(error);
@@ -90,16 +56,12 @@ export default function BookingInfo() {
     return <div>Loading...</div>;
   }
 
-  console.log(errors, "errors");
-  const isFormValid = Object.keys(errors).length === 0;
-  console.log(isFormValid, "isFormValid");
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex justify-center items-center mb-5"
     >
-      <Card className="max-w-[30rem]  p-2 mt-6 bg-gradient-to-r from-slate-900 to-slate-700">
+      <Card className="lg:max-w-[30rem] sm:max-w-[25rem] p-2 mt-6 bg-gradient-to-r from-slate-900 to-slate-700">
         <CardBody>
           <Typography variant="h5" className="mb-6 text-gray-300">
             Book a Ride
@@ -128,7 +90,7 @@ export default function BookingInfo() {
             <div>
               <SelectInput
                 name="time"
-                label={errors.time ? errors.time?.message : "Hours"}
+                label={errors.time ? errors.time?.message : "Time"}
                 error={errors.time}
                 options={time}
                 control={control}
@@ -167,7 +129,6 @@ export default function BookingInfo() {
                 }
                 error={errors.pickUpAddress}
                 control={control}
-                {...register("pickUpAddress")}
               />
             )}
 
@@ -178,7 +139,6 @@ export default function BookingInfo() {
                 label={watchHours > 0 ? "As Directed" : "Drop Off Address"}
                 error={errors.dropOffAddress}
                 control={control}
-                {...register("dropOffAddress")}
               />
             )}
             <CustomInput
@@ -200,28 +160,17 @@ export default function BookingInfo() {
               control={control}
             />
           </div>
-          <div className="max-w-auto">
-            <Button
-              onClick={() => reset()}
-              variant="filled"
-              color="amber"
-              fullWidth
-              className="mt-4"
-            >
-              Reset
-            </Button>
-            <Button
-              type="submit"
-              variant="filled"
-              color="amber"
-              fullWidth
-              disabled={!isFormValid}
-              className="mt-2"
-            >
-              BOOK NOW
-            </Button>
-          </div>
         </CardBody>
+        <div className="grid place-items-end mr-5">
+          <Button
+            type="submit"
+            variant="filled"
+            color="amber"
+            className="mb-5 w-1/2"
+          >
+            CONFIRM
+          </Button>
+        </div>
       </Card>
     </form>
   );

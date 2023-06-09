@@ -1,7 +1,7 @@
 import React from "react";
 import Fleet from "./Fleet";
-import Footer from "./Footer";
 import BookingInfo from "./BookingInfo";
+import Footer from "./Footer";
 
 const Home = () => {
   return (

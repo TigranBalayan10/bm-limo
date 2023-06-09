@@ -7,7 +7,7 @@ const navigation = [
   { name: "Home", path: "/", current: false },
   { name: "Cars", path: "/fleet", current: false },
   { name: "Book a Ride", path: "/booking-info", current: false },
-  { name: "About Us", path: "/confirmation",  current: false },
+  { name: "About Us", path: "/about",  current: false },
 
 ];
 
@@ -17,6 +17,7 @@ function classNames(...classes) {
 
 export default function Navigation() {
   let [open, setOpen] = useState(false);
+  
   return (
     <Disclosure as="nav" className="bg-gray-950">
       {({ open }) => (
@@ -53,9 +54,9 @@ export default function Navigation() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
+                    {navigation.map((item, index) => (
                       <Link
-                        key={item.name}
+                        key={index}
                         to={item.path}
                         className={classNames(
                           item.current
@@ -77,9 +78,9 @@ export default function Navigation() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
+              {navigation.map((item, index) => (
                 <Link
-                  key={item.name}
+                  key={index}
                   as="a"
                   to={item.path}
                   className={classNames(

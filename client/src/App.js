@@ -15,6 +15,7 @@ import Suvcard from "./Components/Suvcard";
 import Smallsedan from "./Components/Smallsedan";
 import BookingInfo from "./Pages/BookingInfo";
 import Confirmation from "./Components/Confirmation";
+import About from "./Pages/About";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
@@ -23,7 +24,6 @@ const httpLink = createHttpLink({
 const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
-
 });
 
 function App() {
@@ -31,19 +31,23 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="flex flex-col">
-            <Navigation />
-            <main className="flex-grow">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/fleet" element={<Fleet />} />
-                <Route path="/fleet-sedan" element={<Sedancard />} />
-                <Route path="/fleet-suv" element={<Suvcard />} />
-                <Route path="/fleet-small-sedan" element={<Smallsedan />} />
-                <Route path="/booking-info" element={<BookingInfo />} />
-                <Route path="/confirmation/:orderId/:priceId" element={<Confirmation />} />
-                <Route path="*" element={<h1>Not Found</h1>} />
-              </Routes>
-            </main>
+          <Navigation />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/fleet" element={<Fleet />} />
+              <Route path="/fleet-sedan" element={<Sedancard />} />
+              <Route path="/fleet-suv" element={<Suvcard />} />
+              <Route path="/fleet-small-sedan" element={<Smallsedan />} />
+              <Route path="/booking-info" element={<BookingInfo />} />
+              <Route path="/about" element={<About />} />
+              <Route
+                path="/confirmation/:orderId/:priceId"
+                element={<Confirmation />}
+              />
+              <Route path="*" element={<h1>Not Found</h1>} />
+            </Routes>
+          </main>
         </div>
       </Router>
     </ApolloProvider>

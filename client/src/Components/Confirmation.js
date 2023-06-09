@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@material-tailwind/react";
+import { Button, Card } from "@material-tailwind/react";
 import {
   faLocationPin,
   faUser,
@@ -73,7 +73,7 @@ export default function Confirmation() {
     {
       icon: faCalendarDays,
       color: "#036d05",
-      content: order.dateInfo,
+      content: order.dateInfo.split(" ").slice(0, 4).join(" "),
     },
     {
       icon: faCar,
@@ -93,42 +93,44 @@ export default function Confirmation() {
   ];
 
   return (
-    <div className="max-w-md mx-auto mt-5 mb-4 overflow-hidden rounded-lg shadow-lg bg-gradient-to-l from-yellow-900 to-slate-950">
-      <div className="px-6 py-8 border-b border-white/10 ">
-        <div className="flex justify-center">
-          <span className="inline-flex px-4 py-1 text-lg text-gray-300 font-semibold leading-5 tracking-wide rounded-full">
-            Price for your trip
-          </span>
+    <div className="flex justify-center items-center mb-5 mt-5">
+      <Card className="max-w-md bg-gradient-to-l from-yellow-900 to-slate-950">
+        <div className="px-6 py-8 border-b border-white/10 ">
+          <div className="flex justify-center">
+            <span className="inline-flex px-4 py-1 text-lg text-gray-300 font-semibold leading-5 tracking-wide rounded-full">
+              Price for your trip
+            </span>
+          </div>
+          <div className="flex justify-center mt-4 text-gray-300 text-4xl font-extrabold leading-none">
+            {hourly > 0 && <span>${hourly}</span>}
+            {mileage > 0 && <span>${mileage}</span>}
+          </div>
         </div>
-        <div className="flex justify-center mt-4 text-gray-300 text-4xl font-extrabold leading-none">
-          {hourly > 0 && <span>${hourly}</span>}
-          {mileage > 0 && <span>${mileage}</span>}
-        </div>
-      </div>
-      <div className="px-6 pt-6 pb-8 sm:p-10 sm:pt-6">
-        <ul className="grid gap-4 lg:grid-cols-2">
-          {timelineData.map((item, index) => (
-            <li className="flex items-start" id={index}>
-              <div className="flex-shrink-0">
-                <FontAwesomeIcon icon={item.icon} color={item.color} />
-              </div>
-              <p className="ml-3 text-sm leading-6 text-gray-300">
-                {item.content}
-              </p>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-6 flex flex-row-reverse gap-2">
-          <Button type="submit" variant="text" color="amber">
-            Confirm
-          </Button>
-          <Link to="/booking-info">
-            <Button variant="text" color="amber">
-              EDIT
+        <div className="px-6 pt-6 pb-8 sm:p-10 sm:pt-6">
+          <ul className="grid gap-4">
+            {timelineData.map((item, index) => (
+              <li className="flex items-start" id={index}>
+                <div className="flex-shrink-0">
+                  <FontAwesomeIcon icon={item.icon} color={item.color} />
+                </div>
+                <p className="ml-3 text-sm leading-6 text-gray-300">
+                  {item.content}
+                </p>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex flex-row-reverse gap-2">
+            <Button type="submit" variant="text" color="amber">
+              CHECKOUT
             </Button>
-          </Link>
+            <Link to="/booking-info">
+              <Button variant="text" color="amber">
+                EDIT
+              </Button>
+            </Link>
+          </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

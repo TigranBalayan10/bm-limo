@@ -15,11 +15,16 @@ const SelectInput = ({
     <Controller
       control={control}
       name={name}
+      key="1"
       render={({ field }) => (
         <Select
-        label={error ? error.message : label}
-        error={error ? true : false}
+          label={error ? error.message : label}
+          error={error ? true : false}
           color="amber"
+          value={field.value}
+          onChange={(event) => {
+            field.onChange(event.target.value);
+          }}
           {...field}
           className={`text-${
             watchValue === "Point to Point ONLY" ? "gray-400" : "gray-200"
@@ -27,11 +32,11 @@ const SelectInput = ({
           disabled={watchValue === "Point to Point ONLY"}
           {...rest}
         >
-          {options.map((option) => (
-            <Option key={option} value={option}>
-              {option}
-            </Option>
-          ))}
+            {options.map((option) => (
+              <Option key={`${name}-${option.value}`} value={option.value?.toString()}>
+                {option}
+              </Option>
+            ))}
         </Select>
       )}
     />
