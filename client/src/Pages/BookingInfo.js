@@ -59,7 +59,7 @@ export default function BookingInfo() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex justify-center items-center mb-5"
+      className="flex justify-center items-center mt-6"
     >
       <Card className="lg:max-w-[30rem] sm:max-w-[25rem] p-2 mt-6 bg-gradient-to-r from-slate-900 to-slate-700">
         <CardBody>

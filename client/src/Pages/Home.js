@@ -1,7 +1,6 @@
 import React from "react";
 import Fleet from "./Fleet";
 import BookingInfo from "./BookingInfo";
-import Footer from "./Footer";
 
 const Home = () => {
   return (
@@ -32,7 +31,6 @@ const Home = () => {
       </section>
       <Fleet />
       <BookingInfo />
-      <Footer />
     </main>
   );
 };

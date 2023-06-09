@@ -16,6 +16,7 @@ import Smallsedan from "./Components/Smallsedan";
 import BookingInfo from "./Pages/BookingInfo";
 import Confirmation from "./Components/Confirmation";
 import About from "./Pages/About";
+import Footer from "./Pages/Footer";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
@@ -30,7 +31,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="flex flex-col">
+        <div className="flex flex-col h-screen">
           <Navigation />
           <main className="flex-grow">
             <Routes>
@@ -48,6 +49,7 @@ function App() {
               <Route path="*" element={<h1>Not Found</h1>} />
             </Routes>
           </main>
+          <Footer />
         </div>
       </Router>
     </ApolloProvider>
