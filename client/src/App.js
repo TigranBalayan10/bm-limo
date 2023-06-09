@@ -17,6 +17,7 @@ import BookingInfo from "./Pages/BookingInfo";
 import Confirmation from "./Components/Confirmation";
 import About from "./Pages/About";
 import Footer from "./Pages/Footer";
+import Contact from "./Pages/Contact";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
@@ -42,6 +43,7 @@ function App() {
               <Route path="/fleet-small-sedan" element={<Smallsedan />} />
               <Route path="/booking-info" element={<BookingInfo />} />
               <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
               <Route
                 path="/confirmation/:orderId/:priceId"
                 element={<Confirmation />}

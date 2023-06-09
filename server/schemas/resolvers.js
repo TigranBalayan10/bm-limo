@@ -1,4 +1,4 @@
-const { Order, Price } = require("../models");
+const { Order, Price, Contact } = require("../models");
 const { calculateRoute } = require("../utils/googleMapCalculation");
 
 const resolvers = {
@@ -14,6 +14,12 @@ const resolvers = {
     },
     getPrices: async () => {
       return await Price.find();
+    },
+    getContacts: async () => {
+      return await Contact.find();
+    },
+    getContact: async (parent, { _id }) => {
+      return await Contact.findById(_id);
     },
   },
 
@@ -92,7 +98,7 @@ const resolvers = {
       const durationInt = timeHours * 60 + minutes;
       const priceMileage = Math.round(
         distanceInt * milageRate + baseRate + durationInt * durationRate
-        );
+      );
 
       const price = new Price({
         vehicleType: vehicleType,
@@ -111,6 +117,10 @@ const resolvers = {
         price: savedPrice,
       };
       return newOrder;
+    },
+    addContact: async (parent, args) => {
+      const contact = await Contact.create(args);
+      return contact;
     },
   },
 };

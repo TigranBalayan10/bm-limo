@@ -50,3 +50,25 @@ export const ADD_ORDER = gql`
     }
   }
 `;
+
+export const ADD_CONTACT = gql`
+  mutation AddContact(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $massage: String!
+  ) {
+    addContact(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      massage: $massage
+    ) {
+      massage
+      lastName
+      firstName
+      email
+      _id
+    }
+  }
+`;

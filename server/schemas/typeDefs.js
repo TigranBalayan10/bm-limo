@@ -8,6 +8,16 @@ const typeDefs = gql`
     getOrder(_id: ID!): Order
     getPrice (_id: ID!): Price
     getPrices: [Price]
+    getContacts: Contact
+    getContact(_id: ID!): Contact
+  }
+
+  type Contact {
+    _id: ID
+    firstName: String!
+    lastName: String!
+    email: String!
+    massage: String!
   }
 
   type Order {
@@ -51,7 +61,12 @@ const typeDefs = gql`
       email: String!
       phoneNumber: String!
     ): Order
-
+      addContact(
+      firstName: String!
+      lastName: String!
+      email: String!
+      massage: String!
+    ): Contact
   }
 `;
 // export the typeDefs
