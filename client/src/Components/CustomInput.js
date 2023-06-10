@@ -2,7 +2,7 @@ import React from "react";
 import { Controller } from "react-hook-form";
 import { Input } from "@material-tailwind/react";
 
-const CustomInput = ({ label, name, control, reset, error, ...rest }) => {
+const CustomInput = ({ label, name, control, error, ...rest }) => {
   return (
     <Controller
       control={control}
@@ -14,6 +14,10 @@ const CustomInput = ({ label, name, control, reset, error, ...rest }) => {
           label={error ? error.message : label}
           error={error ? true : false}
           className="text-gray-300"
+          value={field.value}
+          onChange={(event) => {
+            field.onChange(event.target.value);
+          }}
           {...field}
           {...rest}
         />

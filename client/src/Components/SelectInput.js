@@ -15,28 +15,30 @@ const SelectInput = ({
     <Controller
       control={control}
       name={name}
-      key="1"
       render={({ field }) => (
         <Select
-          label={error ? error.message : label}
-          error={error ? true : false}
-          color="amber"
-          value={field.value}
-          onChange={(event) => {
-            field.onChange(event.target.value);
-          }}
-          {...field}
-          className={`text-${
-            watchValue === "Point to Point ONLY" ? "gray-400" : "gray-200"
-          }`}
-          disabled={watchValue === "Point to Point ONLY"}
-          {...rest}
+        label={error ? error.message : label}
+        error={error ? true : false}
+        color="amber"
+        onChange={(e) => field.onChange(e) && console.log(e)}
+        onBlur={(e) => field.onBlur(e)}
+        className={`text-${
+          watchValue === "Point to Point ONLY" ? "gray-400" : "gray-200"
+        }`}
+        disabled={watchValue === "Point to Point ONLY"}
+        {...field}
         >
-            {options.map((option) => (
-              <Option key={`${name}-${option.value}`} value={option.value?.toString()}>
+          {options.map((option, index) => {
+
+            return (
+              <Option
+                key={index+option}
+                value={option}
+              >
                 {option}
               </Option>
-            ))}
+            )
+          })}
         </Select>
       )}
     />

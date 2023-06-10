@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 const validationSchema = yup
   .object({
-    firstName: yup.string().required("First name is required"),
+    firstName: yup.string().required("First name is required").default(""),
     lastName: yup.string().required("Last name is required"),
     dateInfo: yup.string().required("Date is required"),
     time: yup.string().required("Time is required"),

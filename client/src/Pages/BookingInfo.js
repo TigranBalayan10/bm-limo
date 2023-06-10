@@ -56,6 +56,8 @@ export default function BookingInfo() {
     return <div>Loading...</div>;
   }
 
+  console.log(errors);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -68,16 +70,18 @@ export default function BookingInfo() {
           </Typography>
           <div className="grid gap-6 lg:grid-cols-2">
             <CustomInput
+              control={control}
               name="firstName"
               label={errors.firstName ? errors.firstName.message : "First Name"}
               error={errors.firstName}
-              control={control}
+              value={errors.message}
             />
             <CustomInput
               name="lastName"
               label={errors.lastName ? errors.lastName.message : "Last Name"}
               error={errors.lastName}
               control={control}
+              value={errors.message}
             />
             <div>
               <DateInput
