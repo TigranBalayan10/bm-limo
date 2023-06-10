@@ -16,7 +16,7 @@ const contactSchema = new Schema(
             unique: true,
             match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         },
-        massage: {
+        messageText: {
             type: String,
             required: true,
             max: 500,

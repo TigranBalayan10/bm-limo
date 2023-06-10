@@ -8,7 +8,7 @@ const validationContact = yup
       .string()
       .email("Email must be a valid email")
       .required("Email is required"),
-    messageText: yup.string().required("Massage is required"),
+    messageText: yup.string().required("Message is required"),
   })
   .required();
 

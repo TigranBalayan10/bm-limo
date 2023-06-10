@@ -56,19 +56,19 @@ export const ADD_CONTACT = gql`
     $firstName: String!
     $lastName: String!
     $email: String!
-    $massage: String!
+    $messageText: String!
   ) {
     addContact(
       firstName: $firstName
       lastName: $lastName
       email: $email
-      massage: $massage
+      messageText: $messageText
     ) {
-      massage
-      lastName
-      firstName
-      email
       _id
+      firstName
+      lastName
+      email
+      messageText
     }
   }
 `;

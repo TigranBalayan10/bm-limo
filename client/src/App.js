@@ -18,6 +18,7 @@ import Confirmation from "./Components/Confirmation";
 import About from "./Pages/About";
 import Footer from "./Pages/Footer";
 import Contact from "./Pages/Contact";
+import ContactSuccess from "./Pages/ContactSuccess";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
@@ -47,6 +48,10 @@ function App() {
               <Route
                 path="/confirmation/:orderId/:priceId"
                 element={<Confirmation />}
+              />
+              <Route
+                path="/contact-success/:contactId"
+                element={<ContactSuccess />}
               />
               <Route path="*" element={<h1>Not Found</h1>} />
             </Routes>

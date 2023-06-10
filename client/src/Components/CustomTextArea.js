@@ -16,9 +16,11 @@ export default function CustomTextArea({
       render={({ field }) => (
         <Textarea
           variant="outlined"
+          rows={8}
+          color="amber"
           label={error ? error.message : label}
           error={error ? true : false}
-          className="text-gray-300"
+          className="text-gray-300 "
           {...field}
           {...rest}
         />

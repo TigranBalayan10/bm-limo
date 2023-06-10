@@ -22,12 +22,14 @@ const Contact = () => {
   });
 
   const onSubmit = async (data) => {
+
     try {
       const response = await addContact({
         variables: { ...data },
       });
       console.log(response);
-      navigate(`/contact-success/${response.data.addContact._id}`);
+      const contactId = response.data.addContact._id;
+      navigate(`/contact-success/${contactId}`);
     } catch (error) {
       console.log(error);
     }
@@ -40,10 +42,10 @@ const Contact = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex justify-center items-center mt-6"
     >
-      <Card className="lg:max-w-[30rem] sm:max-w-[25rem] p-2 mt-6 bg-gradient-to-r from-slate-900 to-slate-700">
+      <Card className="p-2 mt-6 bg-gradient-to-r from-slate-900 to-slate-700">
         <CardBody>
           <Typography variant="h5" className="mb-6 text-gray-300">
-            Book a Ride
+            Contact Us
           </Typography>
           <div className="flex flex-col gap-6">
             <CustomInput

@@ -17,7 +17,7 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
-    massage: String!
+    messageText: String!
   }
 
   type Order {
@@ -65,7 +65,7 @@ const typeDefs = gql`
       firstName: String!
       lastName: String!
       email: String!
-      massage: String!
+      messageText: String!
     ): Contact
   }
 `;
