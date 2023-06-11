@@ -13,11 +13,11 @@ const textFooter = [
 
 const Footer = () => {
   return (
-    <footer className="w-full p-8 mt-10 bg-gradient-to-br from-black to to-yellow-900">
+    <footer className="w-full p-5 mt-10 bg-gradient-to-br from-black to to-yellow-900">
       <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 text-center md:justify-between sm:justify-center">
         <Link to="/">
           <img
-            className="hidden h-14 w-auto lg:block"
+            className="hidden h-10 w-auto lg:block"
             src={require("../Media/Logo.svg").default}
             alt="Beverly Motors LLC"
           />
@@ -38,7 +38,7 @@ const Footer = () => {
           ))}
         </ul>
       </div>
-      <hr className="my-8 border-amber-50" />
+      <hr className="my-4 border-amber-50" />
       <Typography color="amber" className="text-center font-normal">
         &copy; Beverly Motors LLC. All rights reserved.
       </Typography>

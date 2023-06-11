@@ -33,7 +33,7 @@ const SelectInput = ({
             return (
               <Option
                 key={index+option}
-                value={option}
+                value={option.toString()}
               >
                 {option}
               </Option>

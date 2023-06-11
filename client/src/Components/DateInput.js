@@ -10,7 +10,7 @@ const DateInput = ({ name, control, error, ...rest }) => {
       name={name}
       render={({ field }) => (
         <DatePicker
-          selected={field.value}
+          selected={field.value? new Date(field.value) : null}
           onChange={(date) => field.onChange(date)}
           minDate={new Date()}
           className={error ? "border-red-500 peer h-full w-full rounded-[7px] bg-transparent px-3 py-2.5 text-sm font-normal text-gray-300 placeholder-red-500 focus:outline focus:border-amber-500" : "peer h-full w-full rounded-[7px] bg-transparent px-3 py-2.5 text-sm font-normal text-gray-300 placeholder-gray-400 focus:outline focus:border-amber-500"}

@@ -92,6 +92,10 @@ export default function Confirmation() {
     },
   ];
 
+  const handleClick = (editData) => {
+    console.log(editData, "editData");
+  };
+
   return (
     <div className="flex justify-center items-center mb-5 mt-5">
       <Card className="max-w-md bg-gradient-to-l from-yellow-900 to-slate-950">
@@ -102,14 +106,16 @@ export default function Confirmation() {
             </span>
           </div>
           <div className="flex justify-center mt-4 text-gray-300 text-4xl font-extrabold leading-none">
-            {hourly > 0 && <span>${hourly}</span>}
+            {hourly > 0 && (
+              <span className="flex flex-col items-center">${hourly}*</span>
+            )}
             {mileage > 0 && <span>${mileage}</span>}
           </div>
         </div>
         <div className="px-6 pt-6 pb-8 sm:p-10 sm:pt-6">
           <ul className="grid gap-4">
             {timelineData.map((item, index) => (
-              <li className="flex items-start" id={index}>
+              <li className="flex items-start" key={index}>
                 <div className="flex-shrink-0">
                   <FontAwesomeIcon icon={item.icon} color={item.color} />
                 </div>
@@ -123,12 +129,23 @@ export default function Confirmation() {
             <Button type="submit" variant="text" color="amber">
               CHECKOUT
             </Button>
-            <Link to="/booking-info">
+            <Link
+              to="/booking-info" state={{ editData: order }}
+              onClick={() => handleClick(order)}
+            >
               <Button variant="text" color="amber">
                 EDIT
               </Button>
             </Link>
           </div>
+          {hourly > 0 && (
+            <p className="text-xs font-extralight mt-2 text-gray-400">
+              {" "}
+              * price for {order.hours} hours, please let driver know your drop
+              off location(s) when in car or by text/phone upon arrival. We will
+              email you driver information 6 hours before your pick up time.{" "}
+            </p>
+          )}
         </div>
       </Card>
     </div>
