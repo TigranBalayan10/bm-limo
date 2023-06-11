@@ -19,13 +19,13 @@ const libraries = ["places"];
 
 export default function BookingInfo() {
   const hours = Hours.hours.map((hour) => hour);
+  console.log(hours, "hours");
   const vehicleTypes = Vehicle.map((vehicle) => vehicle.name);
   const time = Time.timeIntervals.map((time) => time);
   const [addNewOrder] = useMutation(ADD_ORDER);
   const navigate = useNavigate();
   const location = useLocation();
   const editInput = location.state?.editData;
-  console.log(editInput, "editInput");
 
   const {
     handleSubmit,
@@ -160,8 +160,12 @@ export default function BookingInfo() {
             {isLoaded && (
               <AutocompleteInput
                 name="dropOffAddress"
-                disabled={watchHours > 0 ? true : false}
-                label={watchHours > 0 ? "As Directed" : "Drop Off Address"}
+                disabled={watchHours  > 0 ? true : false}
+                label={
+                  watchHours === !null
+                    ? "As Directed"
+                    : "Drop Off Address"
+                }
                 error={errors.dropOffAddress}
                 control={control}
                 defaultValue={editInput?.dropOffAddress}
@@ -195,9 +199,8 @@ export default function BookingInfo() {
             variant="filled"
             color="amber"
             className="mb-5 w-1/2"
-            
           >
-            CONFIRM
+            {editInput ? "Update" : "Book"}
           </Button>
         </div>
       </Card>

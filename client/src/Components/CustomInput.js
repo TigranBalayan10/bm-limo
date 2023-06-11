@@ -2,7 +2,7 @@ import React from "react";
 import { Controller } from "react-hook-form";
 import { Input } from "@material-tailwind/react";
 
-const CustomInput = ({ label, name, control, error, ...rest }) => {
+const CustomInput = ({ label, name, control, error, defaultValue, ...rest }) => {
   return (
     <Controller
       control={control}

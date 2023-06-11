@@ -23,9 +23,9 @@ const SelectInput = ({
         onChange={(e) => field.onChange(e) && console.log(e)}
         onBlur={(e) => field.onBlur(e)}
         className={`text-${
-          watchValue === "Point to Point ONLY" ? "gray-400" : "gray-200"
+          watchValue === 0 ? "gray-400" : "gray-200"
         }`}
-        disabled={watchValue === "Point to Point ONLY"}
+        disabled={watchValue === 0}
         {...field}
         >
           {options.map((option, index) => {
@@ -35,7 +35,7 @@ const SelectInput = ({
                 key={index+option}
                 value={option.toString()}
               >
-                {option}
+                {option === 0 ? "Point to Point ride" : option}
               </Option>
             )
           })}

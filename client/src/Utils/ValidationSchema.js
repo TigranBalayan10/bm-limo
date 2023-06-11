@@ -2,12 +2,12 @@ import * as yup from "yup";
 
 const validationSchema = yup
   .object({
-    firstName: yup.string().required("First name is required").default(""),
+    firstName: yup.string().required("First name is required"),
     lastName: yup.string().required("Last name is required"),
     dateInfo: yup.string().required("Date is required"),
     time: yup.string().required("Time is required"),
     vehicleType: yup.string().required("Vehicle type is required"),
-    hours: yup.number().nullable().default(null),
+    hours: yup.number().nullable(),
     pickUpAddress: yup.string().required("Pickup address is required"),
     dropOffAddress: yup.string(),
     email: yup
