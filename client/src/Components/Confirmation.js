@@ -12,7 +12,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams, Link } from "react-router-dom";
 import { QUERY_PRICE, QUERY_ORDER } from "../Utils/queries";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
+import { DELETE_ORDER, DELETE_PRICE } from "../Utils/mutations";
 
 export default function Confirmation() {
   const { orderId, priceId } = useParams();
@@ -32,6 +33,9 @@ export default function Confirmation() {
   } = useQuery(QUERY_PRICE, {
     variables: { id: priceId },
   });
+
+  const [deleteOrder] = useMutation(DELETE_ORDER);
+  const [deletePrice] = useMutation(DELETE_PRICE);
 
   if (orderLoading || priceLoading) {
     // Handle loading state
@@ -92,8 +96,19 @@ export default function Confirmation() {
     },
   ];
 
-  const handleClick = (editData) => {
-    console.log(editData, "editData");
+  const handleClick = async (editData) => {
+    
+    try {
+      await deleteOrder({
+        variables: { id: orderId },
+      });
+      await deletePrice({
+        variables: { id: priceId },
+      });
+      console.log("deleted");
+    } catch (err) {
+      console.log(err, "Not deleted");
+    }
   };
 
   return (
@@ -130,7 +145,8 @@ export default function Confirmation() {
               CHECKOUT
             </Button>
             <Link
-              to="/booking-info" state={{ editData: order }}
+              to="/booking-info"
+              state={{ editData: order }}
               onClick={() => handleClick(order)}
             >
               <Button variant="text" color="amber">

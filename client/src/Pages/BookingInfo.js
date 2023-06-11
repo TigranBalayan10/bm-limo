@@ -195,6 +195,7 @@ export default function BookingInfo() {
             variant="filled"
             color="amber"
             className="mb-5 w-1/2"
+            
           >
             CONFIRM
           </Button>

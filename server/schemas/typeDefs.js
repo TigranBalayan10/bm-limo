@@ -67,6 +67,8 @@ const typeDefs = gql`
       email: String!
       messageText: String!
     ): Contact
+    deleteOrder(_id: ID!): Order
+    deletePrice(_id: ID!): Price
   }
 `;
 // export the typeDefs

@@ -122,6 +122,12 @@ const resolvers = {
       const contact = await Contact.create(args);
       return contact;
     },
+    deleteOrder: async (parent, { _id }) => {
+      return await Order.findOneAndDelete({ _id: _id });
+    },
+    deletePrice: async (parent, { _id }) => {
+      return await Price.findOneAndDelete({ _id: _id });
+    },
   },
 };
 

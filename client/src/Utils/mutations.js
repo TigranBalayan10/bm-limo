@@ -72,3 +72,37 @@ export const ADD_CONTACT = gql`
     }
   }
 `;
+
+export const DELETE_ORDER = gql`
+  mutation DeleteOrder($id: ID!) {
+    deleteOrder(_id: $id) {
+      _id
+      firstName
+      lastName
+      dateInfo
+      time
+      vehicleType
+      hours
+      pickUpAddress
+      dropOffAddress
+      email
+      phoneNumber
+    }
+  }
+`;
+
+export const DELETE_PRICE = gql`
+  mutation DeletePrice($id: ID!) {
+    deletePrice(_id: $id) {
+      _id
+      vehicleType
+      hours
+      distance
+      duration
+      priceTotal {
+        hourly
+        mileage
+      }
+    }
+  }
+`;
