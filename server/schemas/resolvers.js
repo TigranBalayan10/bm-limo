@@ -1,5 +1,9 @@
 const { Order, Price, Contact } = require("../models");
 const { calculateRoute } = require("../utils/googleMapCalculation");
+const { calculatePrice } = require("../utils/calculatePrice");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const { ApolloError } = require("apollo-server-express");
 
 const resolvers = {
   Query: {
@@ -24,6 +28,29 @@ const resolvers = {
   },
 
   Mutation: {
+    createPaymentIntent: async (_, { priceId }) => {
+      try {
+        const price = await Price.findById(priceId);
+        const checkoutPrice = calculatePrice(price);
+        if (!price) {
+          throw new ApolloError("Price not found");
+        }
+        const paymentIntent = await stripe.paymentIntents.create({
+          amount: checkoutPrice,
+          currency: "usd",
+          automatic_payment_methods: {
+            enabled: true,
+          },
+        });
+        const clientSecret = paymentIntent.client_secret.toString();
+        return {
+          clientSecret: clientSecret,
+        };
+      } catch (err) {
+        throw new ApolloError("Failed to create payment intent", err);
+      }
+    },
+
     addOrder: async (parent, args) => {
       const order = await Order.create(args);
       const { pickUpAddress, dropOffAddress, hours, vehicleType } = args;

@@ -9,7 +9,11 @@ const typeDefs = gql`
     getPrice (_id: ID!): Price
     getPrices: [Price]
     getContacts: Contact
-    getContact(_id: ID!): Contact
+    getContact(_id: ID!): Contact 
+  }
+
+  type paymentIntent {
+    clientSecret: String
   }
 
   type Contact {
@@ -37,6 +41,7 @@ const typeDefs = gql`
   type TotalPrice {
     hourly: Float
     mileage: Float
+    currency: String
   }
 
   type Price {
@@ -69,6 +74,7 @@ const typeDefs = gql`
     ): Contact
     deleteOrder(_id: ID!): Order
     deletePrice(_id: ID!): Price
+    createPaymentIntent(priceId: ID!): paymentIntent
   }
 `;
 // export the typeDefs

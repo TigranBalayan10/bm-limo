@@ -5,9 +5,9 @@ import { Typography } from "@material-tailwind/react";
 const textFooter = [
   { text: "Contact Us", link: "/contact" },
   { text: "About Us", link: "/about" },
-  { text: "FAQ", link: "/faq" },
-  { text: "Terms", link: "/terms" },
-  { text: "Privacy", link: "/privacy" },
+  { text: "FAQ", link: "/payment-success" },
+  { text: "Terms", link: "/payment" },
+  { text: "Privacy", link: "/payment-cancel" },
   { text: "License", link: "/License" },
 ];
 
