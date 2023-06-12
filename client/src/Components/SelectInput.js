@@ -25,7 +25,6 @@ const SelectInput = ({
         className={`text-${
           watchValue === 0 ? "gray-400" : "gray-200"
         }`}
-        disabled={watchValue === 0}
         {...field}
         >
           {options.map((option, index) => {

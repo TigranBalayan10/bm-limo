@@ -88,7 +88,6 @@ export default function BookingInfo() {
               name="firstName"
               label={errors.firstName ? errors.firstName.message : "First Name"}
               error={errors.firstName}
-              value={errors.message}
               defaultValue={editInput?.firstName}
             />
             <CustomInput
@@ -96,7 +95,6 @@ export default function BookingInfo() {
               label={errors.lastName ? errors.lastName.message : "Last Name"}
               error={errors.lastName}
               control={control}
-              value={errors.message}
               defaultValue={editInput?.lastName}
             />
             <div>
@@ -162,7 +160,7 @@ export default function BookingInfo() {
                 name="dropOffAddress"
                 disabled={watchHours  > 0 ? true : false}
                 label={
-                  watchHours === !null
+                  watchHours > 0
                     ? "As Directed"
                     : "Drop Off Address"
                 }

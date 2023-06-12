@@ -37,7 +37,6 @@ const orderSchema = new Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
       match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     },
     phoneNumber: {
