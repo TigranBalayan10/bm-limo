@@ -106,3 +106,11 @@ export const DELETE_PRICE = gql`
     }
   }
 `;
+
+export const CREATE_PAYMENT_INTENT = gql`
+  mutation CreatePaymentIntent($priceId: ID!) {
+    createPaymentIntent(priceId: $priceId) {
+      clientSecret
+    }
+  }
+`;

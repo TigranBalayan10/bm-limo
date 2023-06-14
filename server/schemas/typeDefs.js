@@ -10,6 +10,7 @@ const typeDefs = gql`
     getPrices: [Price]
     getContacts: Contact
     getContact(_id: ID!): Contact 
+    getPublishableKey: String
   }
 
   type paymentIntent {

@@ -33,3 +33,9 @@ export const QUERY_ORDER = gql`
     }
   }
 `;
+
+export const GET_PUBLISHABLE_KEY = gql`
+  query Query {
+    getPublishableKey
+  }
+`;

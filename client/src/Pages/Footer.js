@@ -8,7 +8,7 @@ const textFooter = [
   { text: "FAQ", link: "/payment-success" },
   { text: "Terms", link: "/payment" },
   { text: "Privacy", link: "/payment-cancel" },
-  { text: "License", link: "/License" },
+  { text: "License", link: "/checkout/647fcbd993c817d3831a66be" },
 ];
 
 const Footer = () => {

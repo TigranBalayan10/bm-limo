@@ -6,11 +6,7 @@ const totalPriceSchema = new Schema({
   },
   mileage: {
     type: Number,
-  },
-  currency: {
-    type: String,
-    default: "USD",
-  },
+  }
 });
 
 const priceInfoSchema = new Schema(

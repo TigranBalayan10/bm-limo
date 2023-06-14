@@ -2,7 +2,6 @@ const { Order, Price, Contact } = require("../models");
 const { calculateRoute } = require("../utils/googleMapCalculation");
 const { calculatePrice } = require("../utils/calculatePrice");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 const { ApolloError } = require("apollo-server-express");
 
 const resolvers = {
@@ -24,6 +23,9 @@ const resolvers = {
     },
     getContact: async (parent, { _id }) => {
       return await Contact.findById(_id);
+    },
+    getPublishableKey: () => {
+      return process.env.STRIPE_PUBLISHABLE_KEY;
     },
   },
 
