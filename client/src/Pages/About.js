@@ -15,7 +15,7 @@ const About = () => {
 
   return (
     <Fragment>
-      <div className="flex justify-center items-center mt-6">
+      <div className="flex justify-center items-center m-6">
         <div className="bg-slate-900 p-9 max-w-[45rem] mt-6 rounded-lg">
           {AboutText.map((item, index) => (
             <Accordion open={open === index + 1} key={index}>

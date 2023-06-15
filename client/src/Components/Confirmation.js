@@ -111,7 +111,7 @@ export default function Confirmation() {
   };
 
   return (
-    <div className="flex justify-center items-center mb-5 mt-5">
+    <div className="flex justify-center items-center m-6">
       <Card className="max-w-md bg-gradient-to-l from-yellow-900 to-slate-950">
         <div className="px-6 py-8 border-b border-white/10 ">
           <div className="flex justify-center">

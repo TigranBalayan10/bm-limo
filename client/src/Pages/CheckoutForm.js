@@ -42,7 +42,7 @@ export default function CheckoutForm() {
       <form
         id="payment-form"
         onSubmit={handleSubmit}
-        className="bg-gradient-to-l from-slate-400 to-slate-200 rounded-lg p-7"
+        className="bg-gradient-to-l from-yellow-900 to-gray-400 rounded-lg p-7"
       >
         <PaymentElement id="payment-element" />
         <button

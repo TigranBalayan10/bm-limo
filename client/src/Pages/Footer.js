@@ -5,10 +5,10 @@ import { Typography } from "@material-tailwind/react";
 const textFooter = [
   { text: "Contact Us", link: "/contact" },
   { text: "About Us", link: "/about" },
-  { text: "FAQ", link: "/payment-success" },
-  { text: "Terms", link: "/payment" },
-  { text: "Privacy", link: "/payment-cancel" },
-  { text: "License", link: "/checkout/647fcbd993c817d3831a66be" },
+  { text: "FAQ", link: "/faq" },
+  { text: "Terms", link: "/terms" },
+  { text: "Privacy", link: "/privacy" },
+  { text: "License", link: "/license" },
 ];
 
 const Footer = () => {
@@ -22,7 +22,7 @@ const Footer = () => {
             alt="Beverly Motors LLC"
           />
         </Link>
-        <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
+        <ul className="flex flex-wrap justify-center items-center gap-y-2 gap-x-8">
           {textFooter.map((item, index) => (
             <li key={index}>
               <Link to={item.link}>
