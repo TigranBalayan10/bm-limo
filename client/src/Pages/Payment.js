@@ -11,6 +11,8 @@ import { useParams } from "react-router-dom";
 function Payment() {
     const [stripePromise, setStripePromise] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const priceId = useParams().priceId;
 
   const {
@@ -35,8 +37,9 @@ function Payment() {
         console.log("priceId: ", priceId);
       try {
         const { data } = await createPaymentIntent({ variables: { priceId } });
-
         setClientSecret(data.createPaymentIntent.clientSecret);
+        setName(data.createPaymentIntent.name);
+        setEmail(data.createPaymentIntent.email);
       } catch (error) {
         console.log("Failed to fetch client secret:", error);
       }
@@ -45,13 +48,11 @@ function Payment() {
     fetchClientSecret();
   }, [createPaymentIntent, priceId]);
 
-
-
   return (
     <>
       
       {clientSecret && stripePromise && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
+        <Elements stripe={stripePromise} options={{ clientSecret, name, email }}>
           <CheckoutForm />
         </Elements>
       )}

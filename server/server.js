@@ -1,15 +1,11 @@
 const express = require("express");
-// import ApolloServer
 const { ApolloServer } = require("apollo-server-express");
-
-// import our typeDefs and resolvers
 const { typeDefs, resolvers } = require("./schemas");
 
 const db = require("./config/connection");
-const cors = require('cors');
+const cors = require("cors");
 
 const PORT = process.env.PORT || 3001;
-// create a new Apollo server and pass in our schema data
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -19,10 +15,12 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use (cors({
-  origin: '*',
-  credentials: true
-}))
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {

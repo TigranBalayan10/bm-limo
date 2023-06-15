@@ -50,8 +50,8 @@ const resolvers = {
             enabled: true,
           },
           metadata: {
-            email: "customer@example.com",
-            name: "John Doe",
+            name: `${price.firstName} ${price.lastName}`,
+            email: price.email,
           },
         });
         const clientSecret = paymentIntent.client_secret.toString();
