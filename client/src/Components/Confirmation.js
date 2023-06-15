@@ -97,7 +97,6 @@ export default function Confirmation() {
   ];
 
   const handleClick = async (editData) => {
-    
     try {
       await deleteOrder({
         variables: { id: orderId },
@@ -141,9 +140,11 @@ export default function Confirmation() {
             ))}
           </ul>
           <div className="mt-6 flex flex-row-reverse gap-2">
-            <Button type="submit" variant="text" color="amber">
-              CHECKOUT
-            </Button>
+            <Link to={`/payment/${priceId}`}>
+              <Button type="submit" variant="text" color="amber">
+                CHECKOUT
+              </Button>
+            </Link>
             <Link
               to="/booking-info"
               state={{ editData: order }}

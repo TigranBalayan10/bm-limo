@@ -10,7 +10,7 @@ const PaymentCompletion = () => {
         <Typography color="white" variant="h5">
           Thank you for booking a service with us!
         </Typography>
-        <Typography color="white" variant="h8">
+        <Typography color="white" variant="h6">
             We will email your receipt shortly.
         </Typography>
       </div>

@@ -5,12 +5,13 @@ import { loadStripe } from "@stripe/stripe-js";
 import { GET_PUBLISHABLE_KEY } from "../Utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
 import { CREATE_PAYMENT_INTENT } from "../Utils/mutations";
+import { useParams } from "react-router-dom";
 
 
 function Payment() {
     const [stripePromise, setStripePromise] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
-    const priceId = "647fcbd993c817d3831a66be";
+    const priceId = useParams().priceId;
 
   const {
     loading: keyLoading,

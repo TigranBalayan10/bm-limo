@@ -20,7 +20,6 @@ import Footer from "./Pages/Footer";
 import Contact from "./Pages/Contact";
 import ContactSuccess from "./Pages/ContactSuccess";
 import PaymentCompletion from "./Pages/PaymentCompletion";
-import PaymentCancel from "./Pages/PaymentCancel";
 import Payment from "./Pages/Payment";
 
 const httpLink = createHttpLink({
@@ -56,12 +55,11 @@ function App() {
                 path="/contact-success/:contactId"
                 element={<ContactSuccess />}
               />
-              <Route path="/payment" element={<Payment />} />
+              <Route path="/payment/:priceId" element={<Payment />} />
               <Route
                 path="/payment-success"
                 element={<PaymentCompletion />}
               />
-              <Route path="/payment-cancel" element={<PaymentCancel />} />
               <Route path="*" element={<h1>Not Found</h1>} />
             </Routes>
           </main>

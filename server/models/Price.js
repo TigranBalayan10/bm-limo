@@ -6,11 +6,22 @@ const totalPriceSchema = new Schema({
   },
   mileage: {
     type: Number,
-  }
+  },
 });
 
 const priceInfoSchema = new Schema(
   {
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+    },
+    email: {
+      type: String,
+      required: true,
+      match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    },
     vehicleType: {
       type: String,
       enum: ["LUX full size sedan", "LUX SUV", "Premium sedan"],
@@ -18,7 +29,7 @@ const priceInfoSchema = new Schema(
     },
     hours: {
       type: Number,
-      enum: [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      enum: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     },
     distance: {
       type: String,

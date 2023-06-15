@@ -47,6 +47,9 @@ const typeDefs = gql`
 
   type Price {
     _id: ID
+    firstName: String!
+    lastName: String!
+    email: String!
     vehicleType: String
     hours: Int
     distance: String

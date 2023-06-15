@@ -10,7 +10,7 @@ const ContactSuccess = () => {
           <Typography color="white" variant="h5">
             Thank you for contacting us!
           </Typography>
-          <Typography color="white" variant="h8">
+          <Typography color="white" variant="h6">
             We will get back to you as soon as possible.
           </Typography>
         </div>

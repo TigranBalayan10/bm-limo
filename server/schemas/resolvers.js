@@ -7,7 +7,13 @@ const { ApolloError } = require("apollo-server-express");
 const resolvers = {
   Query: {
     order: async () => {
-      return await Order.find();
+      try {
+        const orders = await Order.find().populate("price");
+        return orders;
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        throw error;
+      }
     },
     getOrder: async (parent, { _id }) => {
       return await Order.findById(_id);
@@ -38,10 +44,14 @@ const resolvers = {
           throw new ApolloError("Price not found");
         }
         const paymentIntent = await stripe.paymentIntents.create({
-          amount: checkoutPrice,
+          amount: checkoutPrice * 100,
           currency: "usd",
           automatic_payment_methods: {
             enabled: true,
+          },
+          metadata: {
+            email: "customer@example.com",
+            name: "John Doe",
           },
         });
         const clientSecret = paymentIntent.client_secret.toString();
@@ -55,7 +65,8 @@ const resolvers = {
 
     addOrder: async (parent, args) => {
       const order = await Order.create(args);
-      const { pickUpAddress, dropOffAddress, hours, vehicleType } = args;
+      const { pickUpAddress, dropOffAddress, hours, vehicleType, firstName, lastName, email } = args;
+      console.log(firstName, lastName, email);
       const vehicleRatesHourly = {
         "LUX full size sedan": 80,
         "LUX SUV": 110,
@@ -88,6 +99,9 @@ const resolvers = {
             : vehicleRatesHourly[vehicleType] * hours;
 
         const price = new Price({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
           vehicleType: vehicleType,
           hours: hours,
           distance: 0,
@@ -130,6 +144,9 @@ const resolvers = {
       );
 
       const price = new Price({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
         vehicleType: vehicleType,
         hours: hours,
         distance: distance,
