@@ -24,7 +24,7 @@ import Payment from "./Pages/Payment";
 import PaymentCancel from "./Pages/PaymentCancel";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:3001/graphql",
+  uri: "/graphql",
 });
 
 const client = new ApolloClient({

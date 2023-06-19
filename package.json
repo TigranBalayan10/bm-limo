@@ -1,0 +1,26 @@
+{
+  "name": "bm-limo",
+  "version": "1.0.0",
+  "description": "Beverly Motors LLC website for car service",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "seed": "cd server && npm run seed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TigranBalayan10/bm-limo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TigranBalayan10/bm-limo/issues"
+  },
+  "homepage": "https://github.com/TigranBalayan10/bm-limo#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
