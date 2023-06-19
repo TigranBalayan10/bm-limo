@@ -7,7 +7,7 @@ const validationSchema = yup
     dateInfo: yup.string().required("Date is required"),
     time: yup.string().required("Time is required"),
     vehicleType: yup.string().required("Vehicle type is required"),
-    hours: yup.number().nullable(),
+    hours: yup.number().nullable().required("Choose ride type or hours"),
     pickUpAddress: yup.string().required("Pickup address is required"),
     dropOffAddress: yup.string(),
     email: yup

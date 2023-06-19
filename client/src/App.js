@@ -21,6 +21,7 @@ import Contact from "./Pages/Contact";
 import ContactSuccess from "./Pages/ContactSuccess";
 import PaymentCompletion from "./Pages/PaymentCompletion";
 import Payment from "./Pages/Payment";
+import PaymentCancel from "./Pages/PaymentCancel";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
@@ -56,10 +57,8 @@ function App() {
                 element={<ContactSuccess />}
               />
               <Route path="/payment/:priceId" element={<Payment />} />
-              <Route
-                path="/payment-success"
-                element={<PaymentCompletion />}
-              />
+              <Route path="/payment-success" element={<PaymentCompletion />} />
+              <Route path="/payment-cancel" element={<PaymentCancel />} />
               <Route path="*" element={<h1>Not Found</h1>} />
             </Routes>
           </main>

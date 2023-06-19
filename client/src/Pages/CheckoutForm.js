@@ -1,6 +1,7 @@
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
+import { Link } from "react-router-dom";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -42,18 +43,29 @@ export default function CheckoutForm() {
       <form
         id="payment-form"
         onSubmit={handleSubmit}
-        className="bg-gradient-to-l from-yellow-900 to-gray-400 rounded-lg p-7"
+        className="bg-gray-300 rounded-lg p-7"
       >
         <PaymentElement id="payment-element" />
         <button
           disabled={isProcessing || !stripe || !elements}
           id="submit"
-          className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2 mt-4"
+          className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2 mt-4"
         >
           <span id="button-text">
             {isProcessing ? "Processing ... " : "Pay now"}
           </span>
         </button>
+        <Link to="/payment-cancel">
+          <button
+            disabled={isProcessing || !stripe || !elements}
+            id="submit"
+            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2 mt-4"
+          >
+            <span id="button-text">
+              {isProcessing ? "Processing ... " : "Cancel"}
+            </span>
+          </button>
+        </Link>
         {/* Show any error or success messages */}
         {message && (
           <div id="payment-message" className="text-red-600">

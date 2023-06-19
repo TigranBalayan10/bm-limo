@@ -19,7 +19,6 @@ const libraries = ["places"];
 
 export default function BookingInfo() {
   const hours = Hours.hours.map((hour) => hour);
-  console.log(hours, "hours");
   const vehicleTypes = Vehicle.map((vehicle) => vehicle.name);
   const time = Time.timeIntervals.map((time) => time);
   const [addNewOrder] = useMutation(ADD_ORDER);
@@ -42,9 +41,7 @@ export default function BookingInfo() {
       dateInfo: editInput?.dateInfo || "",
       time: editInput?.time || "",
       vehicleType: editInput?.vehicleType || "",
-      hours: editInput?.hours || null,
       pickUpAddress: editInput?.pickUpAddress || "",
-      dropOffAddress: editInput?.dropOffAddress || "",
     },
   });
   const watchHours = watch("hours");
@@ -138,7 +135,6 @@ export default function BookingInfo() {
                 options={hours}
                 watchValue={watchHours}
                 control={control}
-                defaultValue={editInput?.hours}
               />
             </div>
             {isLoaded && (
@@ -166,7 +162,6 @@ export default function BookingInfo() {
                 }
                 error={errors.dropOffAddress}
                 control={control}
-                defaultValue={editInput?.dropOffAddress}
               />
             )}
             <CustomInput

@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
   cors({
+    // change this to main domain
     origin: "*",
     credentials: true,
   })
