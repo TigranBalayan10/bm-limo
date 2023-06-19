@@ -23,5 +23,8 @@
   "homepage": "https://github.com/TigranBalayan10/bm-limo#readme",
   "devDependencies": {
     "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "mongodb": "4.1"
   }
 }
