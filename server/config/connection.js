@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb+srv://beverlymotorsllc:7ITVw36LnDLGVoBd@cluster0.d8qkwsh.mongodb.net/bm-limo?retryWrites=true&w=majority",
+  process.env.MONGODB_URI || "mongodb://localhost:27017/bm-limo",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
