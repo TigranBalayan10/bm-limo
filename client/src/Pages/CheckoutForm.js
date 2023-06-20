@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
+  const production = process.env.NODE_ENV === "production";
 
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -25,7 +26,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000/payment-success",
+        return_url: production ? "https://beverly-motors-db12ef7ee760.herokuapp.com/payment-success" : "http://localhost:3000/payment-success",
       },
     });
 
