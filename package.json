@@ -4,13 +4,11 @@
   "description": "Beverly Motors LLC website for car service",
   "main": "server/server.js",
   "scripts": {
-    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "start": "node server/server.js",
-    "start-client": "cd client && npm start",
-    "build-client": "cd client && npm run build",
-    "install": "cd server && npm install",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
-    "build": "npm run build-client && npm run install"
+    "build": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
@@ -25,5 +23,8 @@
   "homepage": "https://github.com/TigranBalayan10/bm-limo#readme",
   "devDependencies": {
     "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "mongodb": "4.1"
   }
 }
