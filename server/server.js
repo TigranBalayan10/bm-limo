@@ -6,6 +6,7 @@ const cors = require("cors");
 const path = require("path");
 
 const PORT = process.env.PORT || 3001;
+const production = process.env.NODE_ENV === "production";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -18,13 +19,15 @@ app.use(express.json());
 app.use(
   cors({
     // change this to main domain
-    origin: "*",
+    origin: production
+      ? "https://beverly-motors-db12ef7ee760.herokuapp.com/"
+      : "*",
     credentials: true,
   })
 );
 
 // Serve up static assets
-if (process.env.NODE_ENV === "production") {
+if (production) {
   app.use(express.static(path.join(__dirname, "../client/build")));
 }
 
