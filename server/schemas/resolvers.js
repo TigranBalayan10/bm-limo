@@ -113,6 +113,8 @@ const resolvers = {
         });
 
         const savedPrice = await price.save();
+        order.price = savedPrice;
+        await order.save();
         const newOrder = {
           ...order._doc,
           price: savedPrice,
@@ -158,6 +160,8 @@ const resolvers = {
       });
 
       const savedPrice = await price.save();
+      order.price = savedPrice;
+      await order.save();
       const newOrder = {
         ...order._doc,
         price: savedPrice,
