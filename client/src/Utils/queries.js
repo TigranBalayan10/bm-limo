@@ -39,3 +39,34 @@ export const GET_PUBLISHABLE_KEY = gql`
     getPublishableKey
   }
 `;
+
+export const GET_ORDERS = gql`
+  query Order {
+    order {
+      _id
+      firstName
+      lastName
+      dateInfo
+      time
+      vehicleType
+      hours
+      pickUpAddress
+      dropOffAddress
+      email
+      phoneNumber
+      price {
+        vehicleType
+        priceTotal {
+          mileage
+          hourly
+          currency
+        }
+        hours
+        duration
+        distance
+        _id
+      }
+      createdAt
+    }
+  }
+`;

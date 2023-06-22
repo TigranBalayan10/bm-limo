@@ -32,7 +32,7 @@ const SelectInput = ({
             return (
               <Option
                 key={index+option}
-                value={option.toString()}
+                value={option.toString() || option}
               >
                 {option === 0 ? "Point to Point ride" : option}
               </Option>

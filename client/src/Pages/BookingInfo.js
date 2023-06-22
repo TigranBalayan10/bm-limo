@@ -68,6 +68,7 @@ export default function BookingInfo() {
   }
 
   console.log(errors);
+  console.log(watchHours);
 
   return (
     <form
