@@ -23,6 +23,7 @@ const typeDefs = gql`
     lastName: String!
     email: String!
     messageText: String!
+    createdAt: String
   }
 
   type Order {
@@ -37,6 +38,7 @@ const typeDefs = gql`
     dropOffAddress: String
     email: String!
     phoneNumber: String!
+    createdAt: String
     price: Price
   }
   type TotalPrice {

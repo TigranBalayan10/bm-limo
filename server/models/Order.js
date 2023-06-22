@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const dateFormat = require("../utils/dateFormat");
 
 const orderSchema = new Schema(
   {
@@ -42,6 +43,11 @@ const orderSchema = new Schema(
     phoneNumber: {
       type: String,
       required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (timestamp) => dateFormat(timestamp),
     },
     price: {
       type: Schema.Types.ObjectId,
