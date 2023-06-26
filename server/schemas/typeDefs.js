@@ -41,6 +41,7 @@ const typeDefs = gql`
     createdAt: String
     price: Price
   }
+  
   type TotalPrice {
     hourly: Float
     mileage: Float

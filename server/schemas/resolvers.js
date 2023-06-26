@@ -75,7 +75,7 @@ const resolvers = {
           lastName,
           email,
         } = args;
-        console.log(firstName, lastName, email);
+
         const vehicleRatesHourly = {
           "LUX full size sedan": 80,
           "LUX SUV": 110,
@@ -102,11 +102,15 @@ const resolvers = {
         const durationRate = vehicleRatesDuration[vehicleType];
 
         if (!dropOffAddress) {
-          const priceHourly =
-            hours < 3
-              ? (vehicleRatesHourly[vehicleType] + vehicleRatesHourly / 5) *
-                hours
-              : vehicleRatesHourly[vehicleType] * hours;
+          let priceHourly = 0;
+          if (hours < 3) {
+            priceHourly =
+              (vehicleRatesHourly[vehicleType] +
+                vehicleRatesHourly[vehicleType] / 5) *
+              hours;
+          } else {
+            priceHourly = vehicleRatesHourly[vehicleType] * hours;
+          }
 
           const price = new Price({
             firstName: firstName,
