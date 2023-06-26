@@ -8,6 +8,9 @@ export const QUERY_PRICE = gql`
       hours
       distance
       duration
+      lastName
+      firstName
+      email
       priceTotal {
         hourly
         mileage
