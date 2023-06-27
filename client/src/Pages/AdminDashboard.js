@@ -42,12 +42,13 @@ const AdminDashboard = () => {
 
   const handleOpen = (priceId) => {
     setPriceId(priceId);
-    setOpen(true);
-    console.log(priceId, "priceId");
+    setOpen(!open);
   };
+
   const handleClose = () => {
-    setOpen(false);
+    setOpen(!open);
   };
+
   if (priceDataLoading) {
     return <div>Loading...</div>;
   }
@@ -92,43 +93,6 @@ const AdminDashboard = () => {
                     >
                       Details
                     </Button>
-                    <Dialog
-                      className="max-w- bg-gradient-to-l from-yellow-900 to-slate-950"
-                      open={open}
-                      handler={handleOpen}
-                      animate={{
-                        mount: { scale: 1, y: 0 },
-                        unmount: { scale: 0.9, y: -100 },
-                      }}
-                    >
-                      <div className="flex justify-center items-center m-6">
-                        <div className="px-6 pt-6 pb-8 sm:p-10 sm:pt-6">
-                          {priceData && (
-                            <ul className="grid gap-4">
-                              <li>
-                                Name: {firstName} {lastName}{" "}
-                              </li>
-                              <li>Email: {email} </li>
-                              <li>Hours: {hours} </li>
-                              <li>Distance: {distance} </li>
-                              <li>Duration: {duration} </li>
-                              <li>Vehicle Type: {vehicleType} </li>
-                              <li>Hourly: {hourly} </li>
-                              <li>Mileage: {mileage} </li>
-                            </ul>
-                          )}
-                        </div>
-                      </div>
-                      <DialogFooter>
-                        <Button
-                          variant="gradient"
-                          color="amber"
-                          onClick={handleClose}
-                        >
-                          <span>Confirm</span>
-                        </Button>
-                      </DialogFooter>
-                    </Dialog>
                   </td>
                 </tr>
               ))}
@@ -136,6 +100,36 @@ const AdminDashboard = () => {
           </table>
         </CardBody>
       </Card>
+      <Dialog
+        className="w-96 bg-gradient-to-l from-yellow-900 to-slate-950"
+        open={open}
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
+      >
+        <div className="flex justify-center items-center m-6 w-1/3">
+          {priceData && (
+            <ul className="grid gap-4 text-gray-300">
+              <li key="1">
+                Name: {firstName} {lastName}{" "}
+              </li>
+              <li key="2">Email: {email} </li>
+              {hours > 0 && <li key="3">Hours: {hours} </li>}
+              {distance > 0 && <li key="4">Distance: {distance} </li>}
+              {duration > 0 && <li key="5">Duration: {duration} </li>}
+              <li key="6">Vehicle Type: {vehicleType} </li>
+              {hourly > 0 && <li key="7">Hourly Price: ${hourly} </li>}
+              {mileage > 0 && <li key="8">Mileage Price: ${mileage} </li>}
+            </ul>
+          )}
+        </div>
+        <DialogFooter>
+          <Button variant="gradient" color="amber" onClick={handleClose}>
+            <span>Confirm</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </div>
   );
 };
