@@ -33,7 +33,12 @@ const AdminDashboard = () => {
     return {
       priceId: order.price._id,
       name: `${order.firstName} ${order.lastName}`,
+      pickUpAddress: order.pickUpAddress,
+      dropOffAddress: order.dropOffAddress,
       vehicleType: order.vehicleType,
+      dateInfo: order.dateInfo.split(" ").slice(0, 4).join(" "),
+      time: order.time,
+      phoneNumber: order.phoneNumber,
       createdAt: order.createdAt,
     };
   });
@@ -72,6 +77,9 @@ const AdminDashboard = () => {
               <tr>
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Vehicle Type</th>
+                <th className="px-4 py-2">Pick Up</th>
+                <th className="px-4 py-2">Drop Off</th>
+                <th className="px-4 py-2">Pick Up Date</th>
                 <th className="px-4 py-2">Created At</th>
                 <th className="px-4 py-2">Details</th>
               </tr>
@@ -82,8 +90,16 @@ const AdminDashboard = () => {
                   key={order.orderId}
                   className="even:bg-gradient-to-l from-yellow-600 to-slate-800 even:rounded-md"
                 >
-                  <td className="px-4 py-2">{order.name}</td>
+                  <td className="px-4 py-2">
+                    {order.name}
+                    <p className="text-sm text-gray-400">{order.phoneNumber}</p>
+                  </td>
                   <td className="px-4 py-2">{order.vehicleType}</td>
+                  <td className="px-4 py-2">{order.pickUpAddress}</td>
+                  <td className="px-4 py-2">{order.dropOffAddress}</td>
+                  <td className="px-4 py-2">
+                    {order.dateInfo} {order.time}
+                  </td>
                   <td className="px-4 py-2">{order.createdAt}</td>
                   <td className="px-4 py-2">
                     <Button
@@ -101,7 +117,7 @@ const AdminDashboard = () => {
         </CardBody>
       </Card>
       <Dialog
-        className="w-96 bg-gradient-to-l from-yellow-900 to-slate-950"
+        className="w-1/3 bg-gradient-to-l from-yellow-900 to-slate-950"
         open={open}
         animate={{
           mount: { scale: 1, y: 0 },
@@ -116,8 +132,8 @@ const AdminDashboard = () => {
               </li>
               <li key="2">Email: {email} </li>
               {hours > 0 && <li key="3">Hours: {hours} </li>}
-              {distance > 0 && <li key="4">Distance: {distance} </li>}
-              {duration > 0 && <li key="5">Duration: {duration} </li>}
+              {distance !== 0 && <li key="4">Distance: {distance} </li>}
+              {duration !== 0 && <li key="5">Duration: {duration} </li>}
               <li key="6">Vehicle Type: {vehicleType} </li>
               {hourly > 0 && <li key="7">Hourly Price: ${hourly} </li>}
               {mileage > 0 && <li key="8">Mileage Price: ${mileage} </li>}
