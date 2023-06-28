@@ -1,13 +1,8 @@
-import {
-  Card,
-  Button,
-  Dialog,
-  DialogFooter,
-  CardBody,
-} from "@material-tailwind/react";
+import { Card, Button, CardBody } from "@material-tailwind/react";
 import { GET_ORDERS, QUERY_PRICE } from "../Utils/queries";
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
+import { Modal } from "../Components/Modal";
 
 const AdminDashboard = () => {
   const [open, setOpen] = useState(false);
@@ -47,11 +42,11 @@ const AdminDashboard = () => {
 
   const handleOpen = (priceId) => {
     setPriceId(priceId);
-    setOpen(!open);
+    setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(!open);
+    setOpen(false);
   };
 
   if (priceDataLoading) {
@@ -116,36 +111,28 @@ const AdminDashboard = () => {
           </table>
         </CardBody>
       </Card>
-      <Dialog
-        className="w-1/3 bg-gradient-to-l from-yellow-900 to-slate-950"
-        open={open}
-        animate={{
-          mount: { scale: 1, y: 0 },
-          unmount: { scale: 0.9, y: -100 },
-        }}
-      >
-        <div className="flex justify-center items-center m-6 w-1/3">
-          {priceData && (
+
+      {priceData && (
+        <Modal
+          isOpen={open}
+          onClose={handleClose}
+          modalData={
+            
             <ul className="grid gap-4 text-gray-300">
               <li key="1">
-                Name: {firstName} {lastName}{" "}
+                Name: {firstName} {lastName}
               </li>
-              <li key="2">Email: {email} </li>
-              {hours > 0 && <li key="3">Hours: {hours} </li>}
-              {distance !== 0 && <li key="4">Distance: {distance} </li>}
-              {duration !== 0 && <li key="5">Duration: {duration} </li>}
-              <li key="6">Vehicle Type: {vehicleType} </li>
-              {hourly > 0 && <li key="7">Hourly Price: ${hourly} </li>}
-              {mileage > 0 && <li key="8">Mileage Price: ${mileage} </li>}
+              <li key="2">Email: {email}</li>
+              {hours > 0 && <li key="3">Hours: {hours}</li>}
+              {distance != 0 && <li key="4">Distance: {distance}</li>}
+              {duration != 0 && <li key="5">Duration: {duration}</li>}
+              <li key="6">Vehicle Type: {vehicleType}</li>
+              {hourly > 0 && <li key="7">Hourly Price: ${hourly}</li>}
+              {mileage > 0 && <li key="8">Mileage Price: ${mileage}</li>}
             </ul>
-          )}
-        </div>
-        <DialogFooter>
-          <Button variant="gradient" color="amber" onClick={handleClose}>
-            <span>Confirm</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
+          }
+        />
+      )}
     </div>
   );
 };
