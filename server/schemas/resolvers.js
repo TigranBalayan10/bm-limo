@@ -1,8 +1,9 @@
-const { Order, Price, Contact } = require("../models");
+const { Order, Price, Contact, Admin } = require("../models");
 const { calculateRoute } = require("../utils/googleMapCalculation");
 const { calculatePrice } = require("../utils/calculatePrice");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const { ApolloError } = require("apollo-server-express");
+const { ApolloError, AuthenticationError } = require("apollo-server-express");
+const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -189,6 +190,30 @@ const resolvers = {
       const contact = await Contact.create(args);
       return contact;
     },
+    addAdmin: async (parent, args) => {
+      const admin = await Admin.create(args);
+      const token = signToken(admin);
+      return { token, admin };
+    },
+    login: async (parent, { email, password }) => {
+      const admin = await Admin.findOne({ email });
+      console.log(admin);
+
+      if (!admin) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+
+      const correctPw = await admin.isCorrectPassword(password);
+      console.log(correctPw);
+
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+
+      const token = signToken(admin);
+      return { token, admin };
+    },
+
     deleteOrder: async (parent, { _id }) => {
       return await Order.findOneAndDelete({ _id: _id });
     },

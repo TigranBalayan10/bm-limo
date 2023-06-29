@@ -4,6 +4,7 @@ const { gql } = require("apollo-server-express");
 // create our typeDefs
 const typeDefs = gql`
   type Query {
+    adminMe: Admin
     order: [Order]
     getOrder(_id: ID!): Order
     getPrice (_id: ID!): Price
@@ -16,6 +17,19 @@ const typeDefs = gql`
   type paymentIntent {
     clientSecret: String
   }
+
+  type Admin {
+    _id: ID
+    username: String!
+    email: String!
+    password: String!
+  }
+
+  type Auth {
+    token: ID!
+    admin: Admin
+  }
+
 
   type Contact {
     _id: ID
@@ -82,6 +96,8 @@ const typeDefs = gql`
     deleteOrder(_id: ID!): Order
     deletePrice(_id: ID!): Price
     createPaymentIntent(priceId: ID!): paymentIntent
+    login(email: String!, password: String!): Auth
+    addAdmin(username: String!, email: String!, password: String!): Auth
   }
 `;
 // export the typeDefs
