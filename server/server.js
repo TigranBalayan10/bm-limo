@@ -1,6 +1,7 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const { typeDefs, resolvers } = require("./schemas");
+const { authMiddleware } = require("./utils/auth");
 const db = require("./config/connection");
 const cors = require("cors");
 const path = require("path");
@@ -10,6 +11,7 @@ const production = process.env.NODE_ENV === "production";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: authMiddleware,
 });
 
 const app = express();

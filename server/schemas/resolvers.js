@@ -7,6 +7,18 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
+    adminMe: async (parent, args, context) => {
+      if (context.admin) {
+        const adminData = await Admin.findById(context.admin._id)
+          .select("-__v -password")
+          .populate("order")
+          .populate("price")
+          .populate("contact");
+        return adminData;
+      }
+      throw new AuthenticationError("Not logged in");
+    },
+
     order: async () => {
       try {
         const orders = await Order.find().populate("price");
@@ -204,7 +216,6 @@ const resolvers = {
       }
 
       const correctPw = await admin.isCorrectPassword(password);
-      console.log(correctPw);
 
       if (!correctPw) {
         throw new AuthenticationError("Incorrect credentials");
