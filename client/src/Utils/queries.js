@@ -62,7 +62,6 @@ export const GET_ORDERS = gql`
         priceTotal {
           mileage
           hourly
-          currency
         }
         hours
         duration

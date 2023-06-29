@@ -23,7 +23,6 @@ const AdminDashboard = () => {
     return <div>Error occurred while fetching data.</div>;
   }
   const orders = data?.order || [];
-  console.log(orders, "orders");
   const dashboard = orders.map((order) => {
     return {
       priceId: order.price._id,
@@ -37,8 +36,6 @@ const AdminDashboard = () => {
       createdAt: order.createdAt,
     };
   });
-
-  console.log(dashboard, "dashboard");
 
   const handleOpen = (priceId) => {
     setPriceId(priceId);
@@ -68,7 +65,7 @@ const AdminDashboard = () => {
       <Card className="w-auto h-1/2 bg-gradient-to-l from-yellow-900 to-slate-950">
         <CardBody>
           <table className="table-auto text-gray-300">
-            <thead className="text-gray-500">
+            <thead className="text-gray-400">
               <tr>
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Vehicle Type</th>
@@ -83,11 +80,11 @@ const AdminDashboard = () => {
               {dashboard.map((order) => (
                 <tr
                   key={order.orderId}
-                  className="even:bg-gradient-to-l from-yellow-600 to-slate-800 even:rounded-md"
+                  className="even:bg-gradient-to-l from-yellow-600 to-slate-800 even:rounded-md text-md italic"
                 >
-                  <td className="px-4 py-2">
+                  <td className="px-4 py-2 not-italic">
                     {order.name}
-                    <p className="text-sm text-gray-400">{order.phoneNumber}</p>
+                    <p className="text-sm text-gray-400 italic">{order.phoneNumber}</p>
                   </td>
                   <td className="px-4 py-2">{order.vehicleType}</td>
                   <td className="px-4 py-2">{order.pickUpAddress}</td>
@@ -117,8 +114,7 @@ const AdminDashboard = () => {
           isOpen={open}
           onClose={handleClose}
           modalData={
-            
-            <ul className="grid gap-4 text-gray-300">
+            <ul className="grid gap-4 text-gray-400">
               <li key="1">
                 Name: {firstName} {lastName}
               </li>
