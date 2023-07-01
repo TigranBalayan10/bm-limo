@@ -7,7 +7,7 @@ const textFooter = [
   { text: "About Us", link: "/about" },
   { text: "FAQ", link: "/faq" },
   { text: "Terms", link: "/terms" },
-  { text: "Privacy", link: "/privacy" },
+  { text: "Privacy", link: "/admin-login" },
   { text: "License", link: "/admin-dashboard" },
 ];
 
