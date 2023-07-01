@@ -114,3 +114,15 @@ export const CREATE_PAYMENT_INTENT = gql`
     }
   }
 `;
+
+export const LOGIN_ADMIN = gql`
+  mutation Login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      token
+      admin {
+        _id
+        username
+      }
+    }
+  }
+`;

@@ -12,6 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import validationLogin from "../Utils/validationLogin";
 import { useNavigate } from "react-router";
+import { useMutation } from "@apollo/client";
+import { LOGIN_ADMIN } from "../Utils/mutations";
 import auth from "../Utils/auth";
 
 const Login = () => {
@@ -24,9 +26,19 @@ const Login = () => {
     resolver: yupResolver(validationLogin),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    navigate("/admin-dashboard");
+  const [loginAdmin, { error }] = useMutation(LOGIN_ADMIN);
+
+  const onSubmit = async (data) => {
+    const { username, password } = data;
+    try {
+      const { data: responseData } = await loginAdmin({
+        variables: { username, password },
+      });
+        console.log(responseData);
+        auth.login(responseData.login.token);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   console.log(errors);
