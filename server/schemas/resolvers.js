@@ -207,8 +207,8 @@ const resolvers = {
       const token = signToken(admin);
       return { token, admin };
     },
-    login: async (parent, { email, password }) => {
-      const admin = await Admin.findOne({ email });
+    login: async (parent, { username, password }) => {
+      const admin = await Admin.findOne({ username });
       console.log(admin);
 
       if (!admin) {

@@ -21,7 +21,6 @@ const typeDefs = gql`
   type Admin {
     _id: ID
     username: String!
-    email: String!
     password: String!
   }
 
@@ -96,8 +95,8 @@ const typeDefs = gql`
     deleteOrder(_id: ID!): Order
     deletePrice(_id: ID!): Price
     createPaymentIntent(priceId: ID!): paymentIntent
-    login(email: String!, password: String!): Auth
-    addAdmin(username: String!, email: String!, password: String!): Auth
+    login(username: String!, password: String!): Auth
+    addAdmin(username: String!, password: String!): Auth
   }
 `;
 // export the typeDefs

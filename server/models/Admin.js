@@ -10,13 +10,6 @@ const adminSchema = new Schema(
       trim: true,
     },
 
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-    },
-
     password: {
       type: String,
       required: true,
