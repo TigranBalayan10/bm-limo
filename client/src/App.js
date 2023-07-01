@@ -40,6 +40,8 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+const token = localStorage.getItem("id_token");
+
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
@@ -72,7 +74,7 @@ function App() {
               <Route path="/payment/:priceId" element={<Payment />} />
               <Route path="/payment-success" element={<PaymentCompletion />} />
               <Route path="/payment-cancel" element={<PaymentCancel />} />
-              <Route path="/admin-dashboard" element={<AdminDashboard />} />
+              <Route path={`/admin-dashboard/${token}`} element={<AdminDashboard />} />
               <Route path="/admin-login" element={<Login />} />
               <Route path="*" element={<h1>Not Found</h1>} />
             </Routes>
