@@ -94,7 +94,7 @@ const typeDefs = gql`
     ): Contact
     deleteOrder(_id: ID!): Order
     deletePrice(_id: ID!): Price
-    createPaymentIntent(priceId: ID!): paymentIntent
+    createPaymentIntent(orderId: ID!): paymentIntent
     login(username: String!, password: String!): Auth
     addAdmin(username: String!, password: String!): Auth
   }

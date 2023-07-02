@@ -29,7 +29,7 @@ const resolvers = {
       }
     },
     getOrder: async (parent, { _id }) => {
-      return await Order.findById(_id);
+      return await Order.findById(_id).populate("price");
     },
     getPrice: async (parent, { _id }) => {
       return await Price.findById(_id);
@@ -49,11 +49,12 @@ const resolvers = {
   },
 
   Mutation: {
-    createPaymentIntent: async (_, { priceId }) => {
+    createPaymentIntent: async (_, { orderId }) => {
       try {
-        const price = await Price.findById(priceId);
-        const checkoutPrice = calculatePrice(price);
-        if (!price) {
+        const order = await Order.findById(orderId).populate("price");
+        const checkoutPrice = calculatePrice(order);
+        console.log(checkoutPrice);
+        if (!order) {
           throw new ApolloError("Price not found");
         }
         const paymentIntent = await stripe.paymentIntents.create({
@@ -63,8 +64,8 @@ const resolvers = {
             enabled: true,
           },
           metadata: {
-            name: `${price.firstName} ${price.lastName}`,
-            email: price.email,
+            name: `${order.firstName} ${order.lastName}`,
+            email: order.email,
           },
         });
         const clientSecret = paymentIntent.client_secret.toString();
@@ -95,9 +96,9 @@ const resolvers = {
           "Premium sedan": 60,
         };
         const vehicleRatesMileage = {
-          "LUX full size sedan": 4,
-          "LUX SUV": 5,
-          "Premium sedan": 3,
+          "LUX full size sedan": 3,
+          "LUX SUV": 4,
+          "Premium sedan": 2.3,
         };
         const vehicleRatesDuration = {
           "LUX full size sedan": 1,
@@ -105,9 +106,9 @@ const resolvers = {
           "Premium sedan": 0.8,
         };
         const baseRateVehicle = {
-          "LUX full size sedan": 30,
-          "LUX SUV": 50,
-          "Premium sedan": 20,
+          "LUX full size sedan": 20,
+          "LUX SUV": 30,
+          "Premium sedan": 15,
         };
 
         const baseRate = baseRateVehicle[vehicleType];

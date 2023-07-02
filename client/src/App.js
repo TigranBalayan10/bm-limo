@@ -64,14 +64,14 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route
-                path="/confirmation/:orderId/:priceId"
+                path="/confirmation/:orderId"
                 element={<Confirmation />}
               />
               <Route
                 path="/contact-success/:contactId"
                 element={<ContactSuccess />}
               />
-              <Route path="/payment/:priceId" element={<Payment />} />
+              <Route path="/payment/:orderId" element={<Payment />} />
               <Route path="/payment-success" element={<PaymentCompletion />} />
               <Route path="/payment-cancel" element={<PaymentCancel />} />
               <Route path={`/admin-dashboard/${token}`} element={<AdminDashboard />} />

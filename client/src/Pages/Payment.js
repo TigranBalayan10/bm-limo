@@ -7,13 +7,12 @@ import { useQuery, useMutation } from "@apollo/client";
 import { CREATE_PAYMENT_INTENT } from "../Utils/mutations";
 import { useParams } from "react-router-dom";
 
-
 function Payment() {
-    const [stripePromise, setStripePromise] = useState(null);
-    const [clientSecret, setClientSecret] = useState("");
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const priceId = useParams().priceId;
+  const [stripePromise, setStripePromise] = useState(null);
+  const [clientSecret, setClientSecret] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const { orderId } = useParams();
 
   const {
     loading: keyLoading,
@@ -34,9 +33,9 @@ function Payment() {
 
   useEffect(() => {
     const fetchClientSecret = async () => {
-        console.log("priceId: ", priceId);
+      console.log("orderId ", orderId);
       try {
-        const { data } = await createPaymentIntent({ variables: { priceId } });
+        const { data } = await createPaymentIntent({ variables: { orderId } });
         setClientSecret(data.createPaymentIntent.clientSecret);
         setName(data.createPaymentIntent.name);
         setEmail(data.createPaymentIntent.email);
@@ -46,13 +45,15 @@ function Payment() {
     };
 
     fetchClientSecret();
-  }, [createPaymentIntent, priceId]);
+  }, [createPaymentIntent, orderId]);
 
   return (
     <>
-      
       {clientSecret && stripePromise && (
-        <Elements stripe={stripePromise} options={{ clientSecret, name, email }}>
+        <Elements
+          stripe={stripePromise}
+          options={{ clientSecret, name, email }}
+        >
           <CheckoutForm />
         </Elements>
       )}

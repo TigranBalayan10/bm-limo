@@ -55,9 +55,8 @@ export default function BookingInfo() {
       const response = await addNewOrder({
         variables: { ...data },
       });
-      const priceId = response.data.addOrder.price._id;
       const orderId = response.data.addOrder._id;
-      navigate(`/confirmation/${orderId}/${priceId}`);
+      navigate(`/confirmation/${orderId}`);
     } catch (error) {
       console.log(error);
     }

@@ -16,7 +16,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { DELETE_ORDER, DELETE_PRICE } from "../Utils/mutations";
 
 export default function Confirmation() {
-  const { orderId, priceId } = useParams();
+  const { orderId } = useParams();
 
   const {
     data: orderData,
@@ -26,32 +26,23 @@ export default function Confirmation() {
     variables: { id: orderId },
   });
 
-  const {
-    data: priceData,
-    loading: priceLoading,
-    error: priceError,
-  } = useQuery(QUERY_PRICE, {
-    variables: { id: priceId },
-  });
 
   const [deleteOrder] = useMutation(DELETE_ORDER);
-  const [deletePrice] = useMutation(DELETE_PRICE);
 
-  if (orderLoading || priceLoading) {
+  if (orderLoading ) {
     // Handle loading state
     return <div>Loading...</div>;
   }
 
-  if (orderError || priceError) {
+  if (orderError ) {
     // Handle error state
     return <div>Error occurred while fetching data.</div>;
   }
 
   // Access order and price data
   const order = orderData?.getOrder;
-  const price = priceData?.getPrice;
-  const hourly = price?.priceTotal?.hourly;
-  const mileage = price?.priceTotal?.mileage;
+  const hourly = orderData.getOrder.price?.priceTotal?.hourly;
+  const mileage = orderData.getOrder.price?.priceTotal?.mileage;
 
   const timelineData = [
     {
@@ -101,9 +92,6 @@ export default function Confirmation() {
       await deleteOrder({
         variables: { id: orderId },
       });
-      await deletePrice({
-        variables: { id: priceId },
-      });
       console.log("deleted");
     } catch (err) {
       console.log(err, "Not deleted");
@@ -140,7 +128,7 @@ export default function Confirmation() {
             ))}
           </ul>
           <div className="mt-6 flex flex-row-reverse gap-2">
-            <Link to={`/payment/${priceId}`}>
+            <Link to={`/payment/${orderId}`}>
               <Button type="submit" variant="text" color="amber">
                 CHECKOUT
               </Button>
