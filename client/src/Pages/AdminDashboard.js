@@ -25,7 +25,7 @@ const AdminDashboard = () => {
   const orders = data?.order || [];
   const dashboard = orders.map((order) => {
     return {
-      priceId: order.price._id,
+      priceId: order.price?._id,
       name: `${order.firstName} ${order.lastName}`,
       pickUpAddress: order.pickUpAddress,
       dropOffAddress: order.dropOffAddress,
