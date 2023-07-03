@@ -33,7 +33,6 @@ function Payment() {
 
   useEffect(() => {
     const fetchClientSecret = async () => {
-      console.log("orderId ", orderId);
       try {
         const { data } = await createPaymentIntent({ variables: { orderId } });
         setClientSecret(data.createPaymentIntent.clientSecret);

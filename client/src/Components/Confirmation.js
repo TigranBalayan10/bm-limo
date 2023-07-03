@@ -44,6 +44,8 @@ export default function Confirmation() {
   const hourly = orderData.getOrder.price?.priceTotal?.hourly;
   const mileage = orderData.getOrder.price?.priceTotal?.mileage;
 
+  console.log("order", order);
+
   const timelineData = [
     {
       icon: faLocationPin,
