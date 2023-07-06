@@ -1,16 +1,31 @@
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
-import { Link } from "react-router-dom";
+import { QUERY_ORDER } from "../Utils/queries";
+import { useQuery, useMutation } from "@apollo/client";
+import { DELETE_ORDER, DELETE_PRICE } from "../Utils/mutations";
+import { Link, useParams } from "react-router-dom";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const production = process.env.NODE_ENV === "production";
+  const { orderId } = useParams();
 
+
+
+  const { loading, error, data } = useQuery(QUERY_ORDER, {
+    variables: { id: orderId },
+  });
+
+  
+  const [deleteOrder] = useMutation(DELETE_ORDER);
+  const [deletePrice] = useMutation(DELETE_PRICE);
+  
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
-
+  const priceId = data?.getOrder.price?._id;
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,7 +41,9 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: production ? "https://beverly-motors-db12ef7ee760.herokuapp.com/payment-success" : "http://localhost:3000/payment-success",
+        return_url: production
+          ? "https://beverly-motors-db12ef7ee760.herokuapp.com/payment-success"
+          : "http://localhost:3000/payment-success",
       },
     });
 
@@ -38,6 +55,31 @@ export default function CheckoutForm() {
 
     setIsProcessing(false);
   };
+
+  
+  const handleClick = async () => {
+    try {
+      await deleteOrder({
+        variables: { id: orderId },
+      });
+      await deletePrice({
+        variables: { id: priceId },
+      });
+      console.log("deleted");
+    } catch (error) {
+      console.log("Not deleted", error);
+    }
+  };
+
+  if (loading) {
+    // Handle loading state
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    // Handle error state
+    return <div>Error occurred while fetching data.</div>;
+  }
 
   return (
     <div className="flex justify-center mb-5 mt-5">
@@ -59,12 +101,10 @@ export default function CheckoutForm() {
         <Link to="/payment-cancel">
           <button
             disabled={isProcessing || !stripe || !elements}
-            id="submit"
+            onClick={handleClick}
             className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2 mt-4"
           >
-            <span id="button-text">
-              Cancel
-            </span>
+            <span id="button-text">Cancel</span>
           </button>
         </Link>
         {/* Show any error or success messages */}

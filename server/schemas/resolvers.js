@@ -53,7 +53,6 @@ const resolvers = {
       try {
         const order = await Order.findById(orderId).populate("price");
         const checkoutPrice = calculatePrice(order);
-        console.log(checkoutPrice);
         if (!order) {
           throw new ApolloError("Price not found");
         }
@@ -202,6 +201,14 @@ const resolvers = {
     addContact: async (parent, args) => {
       const contact = await Contact.create(args);
       return contact;
+    },
+    editOrder: async (parent, {_id, paymentStatus}) => {
+      const order = await Order.findOneAndUpdate(
+        { _id: _id },
+        { paymentStatus: paymentStatus },
+        { new: true }
+      ).populate("price");
+      return order;
     },
     addAdmin: async (parent, args) => {
       const admin = await Admin.create(args);

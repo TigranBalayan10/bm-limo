@@ -29,6 +29,9 @@ const typeDefs = gql`
     admin: Admin
   }
 
+  type EditOrder {
+    paymentStatus: paymentStatus
+  }
 
   type Contact {
     _id: ID
@@ -39,6 +42,12 @@ const typeDefs = gql`
     createdAt: String
   }
 
+  enum paymentStatus {
+    Failed
+    Success
+    Pending
+  }
+  
   type Order {
     _id: ID
     firstName: String!
@@ -51,6 +60,7 @@ const typeDefs = gql`
     dropOffAddress: String
     email: String!
     phoneNumber: String!
+    paymentStatus: paymentStatus
     createdAt: String
     price: Price
   }
@@ -60,6 +70,8 @@ const typeDefs = gql`
     mileage: Float
     currency: String
   }
+
+
 
   type Price {
     _id: ID
@@ -92,6 +104,7 @@ const typeDefs = gql`
       email: String!
       messageText: String!
     ): Contact
+    editOrder(_id: ID!, paymentStatus: paymentStatus): Order!
     deleteOrder(_id: ID!): Order
     deletePrice(_id: ID!): Price
     createPaymentIntent(orderId: ID!): paymentIntent

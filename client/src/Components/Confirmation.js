@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams, Link } from "react-router-dom";
-import { QUERY_PRICE, QUERY_ORDER } from "../Utils/queries";
+import { QUERY_ORDER } from "../Utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
 import { DELETE_ORDER, DELETE_PRICE } from "../Utils/mutations";
 
@@ -26,15 +26,15 @@ export default function Confirmation() {
     variables: { id: orderId },
   });
 
-
   const [deleteOrder] = useMutation(DELETE_ORDER);
+  const [deletePrice] = useMutation(DELETE_PRICE);
 
-  if (orderLoading ) {
+  if (orderLoading) {
     // Handle loading state
     return <div>Loading...</div>;
   }
 
-  if (orderError ) {
+  if (orderError) {
     // Handle error state
     return <div>Error occurred while fetching data.</div>;
   }
@@ -43,6 +43,7 @@ export default function Confirmation() {
   const order = orderData?.getOrder;
   const hourly = orderData.getOrder.price?.priceTotal?.hourly;
   const mileage = orderData.getOrder.price?.priceTotal?.mileage;
+  const priceId = orderData.getOrder.price?._id;
 
   console.log("order", order);
 
@@ -89,10 +90,13 @@ export default function Confirmation() {
     },
   ];
 
-  const handleClick = async (editData) => {
+  const handleClick = async () => {
     try {
       await deleteOrder({
         variables: { id: orderId },
+      });
+      await deletePrice({
+        variables: { id: priceId },
       });
       console.log("deleted");
     } catch (err) {
