@@ -2,9 +2,12 @@ const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
+const {handleWebhookEvent} = require("./config/webhooks");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const db = require("./config/connection");
 const cors = require("cors");
 const path = require("path");
+
 
 const PORT = process.env.PORT || 3001;
 const production = process.env.NODE_ENV === "production";
@@ -15,6 +18,31 @@ const server = new ApolloServer({
 });
 
 const app = express();
+
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+app.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  (request, response) => {
+    const sig = request.headers["stripe-signature"];
+
+    let event;
+
+    try {
+      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    } catch (err) {
+      response.status(400).send(`Webhook Error: ${err.message}`);
+      return;
+    }
+
+    // Handle the event
+    handleWebhookEvent(event)
+
+    // Return a 200 response to acknowledge receipt of the event
+    response.send();
+  }
+);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -35,7 +63,6 @@ if (production) {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));
   });
 }
-
 
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {

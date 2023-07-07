@@ -47,8 +47,10 @@ const orderSchema = new Schema(
     },
     paymentStatus: {
       type: String,
-      enum: ["Failed", "Success", "Pending"],
       default: "Pending",
+    },
+    clientSecret: {
+      type: String,
     },
     createdAt: {
       type: Date,

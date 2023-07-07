@@ -126,3 +126,12 @@ export const LOGIN_ADMIN = gql`
     }
   }
 `;
+
+export const EDIT_ORDER = gql`
+  mutation EditOrder($id: ID!, $paymentStatus: String) {
+    editOrder(_id: $id, paymentStatus: $paymentStatus) {
+      paymentStatus
+      _id
+    }
+  }
+`;

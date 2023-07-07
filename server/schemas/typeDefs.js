@@ -30,7 +30,7 @@ const typeDefs = gql`
   }
 
   type EditOrder {
-    paymentStatus: paymentStatus
+    paymentStatus: String
   }
 
   type Contact {
@@ -40,12 +40,6 @@ const typeDefs = gql`
     email: String!
     messageText: String!
     createdAt: String
-  }
-
-  enum paymentStatus {
-    Failed
-    Success
-    Pending
   }
   
   type Order {
@@ -60,7 +54,8 @@ const typeDefs = gql`
     dropOffAddress: String
     email: String!
     phoneNumber: String!
-    paymentStatus: paymentStatus
+    paymentStatus: String
+    clientSecret: String
     createdAt: String
     price: Price
   }
@@ -104,7 +99,7 @@ const typeDefs = gql`
       email: String!
       messageText: String!
     ): Contact
-    editOrder(_id: ID!, paymentStatus: paymentStatus): Order!
+    editOrder(_id: ID!, paymentStatus: String): Order!
     deleteOrder(_id: ID!): Order
     deletePrice(_id: ID!): Price
     createPaymentIntent(orderId: ID!): paymentIntent

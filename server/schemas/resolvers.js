@@ -65,9 +65,12 @@ const resolvers = {
           metadata: {
             name: `${order.firstName} ${order.lastName}`,
             email: order.email,
+            orderId: order._id.toString(),
           },
         });
         const clientSecret = paymentIntent.client_secret.toString();
+        order.clientSecret = clientSecret;
+        await order.save();
         return {
           clientSecret: clientSecret,
         };
@@ -202,12 +205,12 @@ const resolvers = {
       const contact = await Contact.create(args);
       return contact;
     },
-    editOrder: async (parent, {_id, paymentStatus}) => {
+    editOrder: async (parent, { _id, paymentStatus }) => {
       const order = await Order.findOneAndUpdate(
         { _id: _id },
         { paymentStatus: paymentStatus },
         { new: true }
-      ).populate("price");
+      );
       return order;
     },
     addAdmin: async (parent, args) => {
