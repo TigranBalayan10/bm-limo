@@ -32,6 +32,7 @@ const AdminDashboard = () => {
       vehicleType: order.vehicleType,
       dateInfo: order.dateInfo.split(" ").slice(0, 4).join(" "),
       time: order.time,
+      paymentStatus: order.paymentStatus,
       phoneNumber: order.phoneNumber,
       createdAt: order.createdAt,
     };
@@ -72,7 +73,7 @@ const AdminDashboard = () => {
                 <th className="px-4 py-2">Pick Up</th>
                 <th className="px-4 py-2">Drop Off</th>
                 <th className="px-4 py-2">Pick Up Date</th>
-                <th className="px-4 py-2">Created At</th>
+                <th className="px-4 py-2">Payment Status</th>
                 <th className="px-4 py-2">Details</th>
               </tr>
             </thead>
@@ -92,7 +93,7 @@ const AdminDashboard = () => {
                   <td className="px-4 py-2">
                     {order.dateInfo} {order.time}
                   </td>
-                  <td className="px-4 py-2">{order.createdAt}</td>
+                  <td className="px-4 py-2">{order.paymentStatus}</td>
                   <td className="px-4 py-2">
                     <Button
                       onClick={() => handleOpen(order.priceId)}

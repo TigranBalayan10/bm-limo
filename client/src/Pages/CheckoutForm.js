@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { QUERY_ORDER } from "../Utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
-import { DELETE_ORDER, DELETE_PRICE, EDIT_ORDER } from "../Utils/mutations";
+import { DELETE_ORDER, DELETE_PRICE } from "../Utils/mutations";
 import { Link, useParams } from "react-router-dom";
 
 export default function CheckoutForm() {
@@ -15,8 +15,6 @@ export default function CheckoutForm() {
   const { loading, error, data } = useQuery(QUERY_ORDER, {
     variables: { id: orderId },
   });
-
-  const [editOrder] = useMutation(EDIT_ORDER);
   const [deleteOrder] = useMutation(DELETE_ORDER);
   const [deletePrice] = useMutation(DELETE_PRICE);
 
@@ -36,7 +34,7 @@ export default function CheckoutForm() {
     setIsProcessing(true);
 
     try {
-      const { paymentIntent, error } = await stripe.confirmPayment({
+      const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           // Make sure to change this to your payment completion page
@@ -48,30 +46,8 @@ export default function CheckoutForm() {
 
       if (error) {
         setMessage(error.message);
-        setIsProcessing(false);
         console.log("Error confirming payment:", error);
-        return;
       }
-
-      // Access the paymentIntent object and its properties
-      const { status } = paymentIntent;
-      console.log(paymentIntent);
-
-      if (status === "succeeded") {
-        try {
-          await editOrder({
-            variables: {
-              id: orderId,
-              paymentStatus: status, // Update the paymentStatus to your desired value
-            },
-          });
-          console.log("Order status updated");
-        } catch (error) {
-          console.log("Failed to edit order:", error);
-        }
-      }
-
-      console.log("PaymentIntent:", paymentIntent);
     } catch (error) {
       console.log("Error confirming payment:", error);
       setMessage("An unexpected error occurred.");

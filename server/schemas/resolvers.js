@@ -67,6 +67,7 @@ const resolvers = {
             email: order.email,
             orderId: order._id.toString(),
           },
+          receipt_email: order.email,
         });
         const clientSecret = paymentIntent.client_secret.toString();
         order.clientSecret = clientSecret;

@@ -5,7 +5,7 @@ const handleWebhookEvent = async (event) => {
     case "payment_intent.succeeded":
       const paymentIntentSucceeded = event.data.object;
       const orderId = paymentIntentSucceeded.metadata.orderId;
-      const paymentStatus = paymentIntentSucceeded.status // Set the desired payment status
+      const paymentStatus = "Paid" // Set the desired payment status
 
       try {
         const order = await Order.findOneAndUpdate(

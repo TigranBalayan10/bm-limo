@@ -73,6 +73,7 @@ export const GET_ORDERS = gql`
       dropOffAddress
       email
       phoneNumber
+      paymentStatus
       price {
         vehicleType
         priceTotal {
