@@ -37,6 +37,22 @@ const handleWebhookEvent = async (event) => {
         console.log("Error updating order:", error);
       }
       break;
+    case "payment_intent.requires_action":
+      const paymentIntentRequiresAction = event.data.object;
+      // Then define and call a function to handle the event payment_intent.payment_failed
+      orderId = paymentIntentRequiresAction.metadata.orderId;
+      paymentStatus = "Requires Action"; // Set the desired payment status
+      try {
+        const order = await Order.findOneAndUpdate(
+          { _id: orderId },
+          { paymentStatus: paymentStatus },
+          { new: true }
+        );
+        console.log("Order updated:", order);
+      } catch (error) {
+        console.log("Error updating order:", error);
+      }
+      break;
     // ... handle other event types
     default:
       console.log(`Unhandled event type ${event.type}`);
