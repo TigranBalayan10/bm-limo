@@ -43,7 +43,6 @@ export default function CheckoutForm() {
             : "http://localhost:3000/payment-success",
         },
       });
-
       if (error) {
         setMessage(error.message);
         console.log("Error confirming payment:", error);

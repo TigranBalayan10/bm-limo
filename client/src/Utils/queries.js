@@ -34,6 +34,7 @@ export const QUERY_ORDER = gql`
     email
     phoneNumber
     createdAt
+    clientSecret
     price {
       _id
       firstName

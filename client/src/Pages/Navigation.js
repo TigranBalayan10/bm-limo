@@ -2,13 +2,13 @@ import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import auth from "../Utils/auth";
 
 const navigation = [
   { name: "Home", path: "/", current: false },
   { name: "Cars", path: "/fleet", current: false },
   { name: "Book a Ride", path: "/booking-info", current: false },
-  { name: "About Us", path: "/about",  current: false },
-
+  { name: "About Us", path: "/about", current: false },
 ];
 
 function classNames(...classes) {
@@ -17,7 +17,11 @@ function classNames(...classes) {
 
 export default function Navigation() {
   let [open, setOpen] = useState(false);
-  
+  const handleLogout = () => {
+    auth.logout();
+    setOpen(false);
+  };
+
   return (
     <Disclosure as="nav" className="bg-gray-950">
       {({ open }) => (
@@ -70,6 +74,19 @@ export default function Navigation() {
                         {item.name}
                       </Link>
                     ))}
+                    {auth.loggedIn() ? (
+                      <div className="flex just">
+                        <Link
+                          className={classNames(
+                            "text-yellow-500 hover:bg-gray-700 hover:text-yellow-300",
+                            "rounded-md px-3 py-2 text-sm font-medium"
+                          )}
+                          onClick={handleLogout}
+                        >
+                          Logout
+                        </Link>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -94,6 +111,17 @@ export default function Navigation() {
                   {item.name}
                 </Link>
               ))}
+              {auth.loggedIn() ? (
+                <Link
+                  className={classNames(
+                    "text-yellow-500 hover:bg-gray-700 hover:text-yellow-300",
+                    "block rounded-md px-3 py-2 text-base font-medium"
+                  )}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Link>
+              ) : null}
             </div>
           </Disclosure.Panel>
         </>
