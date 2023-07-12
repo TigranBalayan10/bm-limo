@@ -1,7 +1,14 @@
-import { Disclosure } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useState, useEffect } from "react";
+import {
+  Navbar,
+  MobileNav,
+  Typography,
+  Button,
+  IconButton,
+} from "@material-tailwind/react";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import auth from "../Utils/auth";
 
 const navigation = [
@@ -11,121 +18,97 @@ const navigation = [
   { name: "About Us", path: "/about", current: false },
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function Navigation() {
-  let [open, setOpen] = useState(false);
-  const handleLogout = () => {
-    auth.logout();
-    setOpen(false);
-  };
+  const [openNav, setOpenNav] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setOpenNav(false)
+    );
+  }, []);
+
+  const navList = (
+    <ul className="mb-4 mt-2 flex flex-col gap-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-16">
+      {navigation.map((item, index) => (
+        <li key={index}>
+          <Link to={item.path}>
+            <Typography
+              children={item.name}
+              color="amber"
+              className="font-normal transition-colors hover:text-yellow-600 focus:text-yellow-600"
+            >
+              {item.name}
+            </Typography>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
 
   return (
-    <Disclosure as="nav" className="bg-gray-950">
-      {({ open }) => (
-        <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div className="relative flex h-16 items-center justify-between">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-yellow-500 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500">
-                  <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                  )}
-                </Disclosure.Button>
-              </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
-                  <Link to="/">
-                    <img
-                      className="block h-10 w-auto lg:hidden"
-                      src={require("../Media/Logo.svg").default}
-                      alt="Beverly Motors LLC"
-                    />
-                  </Link>
-                  <Link to="/">
-                    <img
-                      className="hidden h-10 w-auto lg:block"
-                      src={require("../Media/Logo.svg").default}
-                      alt="Beverly Motors LLC"
-                    />
-                  </Link>
-                </div>
-                <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
-                    {navigation.map((item, index) => (
-                      <Link
-                        key={index}
-                        to={item.path}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-yellow-500"
-                            : "text-yellow-500 hover:bg-gray-700 hover:text-yellow-300",
-                          "rounded-md px-3 py-2 text-sm font-medium"
-                        )}
-                        onClick={() => setOpen(false)}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                    {auth.loggedIn() ? (
-                      <div className="flex just">
-                        <Link
-                          className={classNames(
-                            "text-yellow-500 hover:bg-gray-700 hover:text-yellow-300",
-                            "rounded-md px-3 py-2 text-sm font-medium"
-                          )}
-                          onClick={handleLogout}
-                        >
-                          Logout
-                        </Link>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2 ">
-              {navigation.map((item, index) => (
-                <Link
-                  key={index}
-                  as="a"
-                  to={item.path}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-yellow-500 hover:bg-gray-700 hover:text-yellow-300",
-                    "block rounded-md px-3 py-2 text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              {auth.loggedIn() ? (
-                <Link
-                  className={classNames(
-                    "text-yellow-500 hover:bg-gray-700 hover:text-yellow-300",
-                    "block rounded-md px-3 py-2 text-base font-medium"
-                  )}
-                  onClick={handleLogout}
-                >
-                  Logout
-                </Link>
-              ) : null}
-            </div>
-          </Disclosure.Panel>
-        </>
-      )}
-    </Disclosure>
+    <Navbar
+      className="bg-transparent border-none"
+      fullWidth
+    >
+      <div className="container mx-auto flex items-center justify-between text-blue-gray-200">
+        <Link to="/">
+          <img
+            className="h-8 w-auto lg:block"
+            src={require("../Media/Logo.svg").default}
+            alt="Beverly Motors LLC"
+          />
+        </Link>
+        <div className="hidden lg:block">{navList}</div>
+        {auth.loggedIn ? (
+          <Button
+            variant="gradient"
+            onClick={() => auth.logout()}
+            size="sm"
+            className="hidden lg:inline-block"
+            color="amber"
+          >
+            <span>Logout</span>
+          </Button>
+        ) : null}
+        <IconButton
+          variant="text"
+          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+          ripple={false}
+          onClick={() => setOpenNav(!openNav)}
+        >
+          {openNav ? (
+            <FontAwesomeIcon
+              icon={faXmark}
+              size="2xl"
+              style={{ color: "#e5b32a" }}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faBars}
+              size="2xl"
+              style={{ color: "#e5b32a" }}
+            />
+          )}
+        </IconButton>
+      </div>
+      <MobileNav open={openNav}>
+        <div className="container mx-auto py-2">
+          {navList}
+          {auth.loggedIn ? (
+            <Button
+              variant="gradient"
+              onClick={() => auth.logout()}
+              size="sm"
+              color="amber"
+              fullWidth
+              className="mb-2"
+            >
+              <span>Logout</span>
+            </Button>
+          ) : null}
+        </div>
+      </MobileNav>
+    </Navbar>
   );
 }
