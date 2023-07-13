@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import {
   Navbar,
-  MobileNav,
+  Collapse,
   Typography,
   Button,
   IconButton,
@@ -60,7 +60,7 @@ export default function Navigation() {
           />
         </Link>
         <div className="hidden lg:block">{navList}</div>
-        {auth.loggedIn ? (
+        {auth.loggedIn() ? (
           <Button
             variant="gradient"
             onClick={() => auth.logout()}
@@ -70,7 +70,7 @@ export default function Navigation() {
           >
             <span>Logout</span>
           </Button>
-        ) : null}
+        ) : <div></div>}
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -92,10 +92,10 @@ export default function Navigation() {
           )}
         </IconButton>
       </div>
-      <MobileNav open={openNav}>
+      <Collapse open={openNav}>
         <div className="container mx-auto py-2">
           {navList}
-          {auth.loggedIn ? (
+          {auth.loggedIn() ? (
             <Button
               variant="gradient"
               onClick={() => auth.logout()}
@@ -108,7 +108,7 @@ export default function Navigation() {
             </Button>
           ) : null}
         </div>
-      </MobileNav>
+      </Collapse>
     </Navbar>
   );
 }
