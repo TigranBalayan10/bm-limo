@@ -25,6 +25,7 @@ import Payment from "./Pages/Payment";
 import PaymentCancel from "./Pages/PaymentCancel";
 import AdminDashboard from "./Pages/AdminDashboard";
 import Login from "./Pages/Login";
+import Faq from "./Pages/Faq";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -63,6 +64,7 @@ function App() {
               <Route path="/booking-info" element={<BookingInfo />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<Faq />} />
               <Route
                 path="/confirmation/:orderId"
                 element={<Confirmation />}
