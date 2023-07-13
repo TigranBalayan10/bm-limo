@@ -1,0 +1,57 @@
+[
+    {
+        "title": "1. Reservation and Booking:",
+        "description": [
+            "All reservations must be made in advance through our website, customer service, or authorized agents.",
+            "The booking should include the date, time, pick-up location, drop-off location, and any other relevant details.",
+            "Changes or modifications to the reservation may be subject to availability and additional charges."
+        ]
+    },
+    {
+        "title": "2. Pricing and Payments:",
+        "description": [
+            "The pricing for our transportation services will be communicated during the booking process.",
+            "Payments are to be made in full at the time of reservation, unless prior arrangements have been made.",
+            "We accept major credit cards, cash, or other approved payment methods.",
+            "Any additional charges incurred during the transportation service, such as tolls or parking fees, will be billed separately."
+        ]
+    },
+    {
+        "title": "3. Cancellation and Refunds:",
+        "description": [
+            "Cancellations made within a specified timeframe may be subject to cancellation fees.",
+            "Refunds for cancellations will be provided based on our cancellation policy.",
+            "Refunds for unused portions of the transportation service are subject to review and may be granted at our discretion."
+        ]
+    },
+    {
+        "title": "4. Responsibilities and Liability:",
+        "description": [
+            "Our company is not responsible for any delays or interruptions beyond our control, such as traffic, weather conditions, or unforeseen circumstances.",
+            "We are not liable for any loss or damage to personal belongings during the transportation service.",
+            "Any damages caused by the client to the vehicle will be the responsibility of the client and may result in additional charges."
+        ]
+    },
+    {
+        "title": "5. Conduct and Safety:",
+        "description": [
+            "All passengers are required to behave in a respectful and non-disruptive manner during the transportation service.",
+            "Smoking, drug use, and excessive alcohol consumption are strictly prohibited in our vehicles.",
+            "The chauffeur has the right to refuse service or terminate the transportation if any passenger engages in inappropriate or unsafe behavior."
+        ]
+    },
+    {
+        "title": "6. Vehicle Availability and Substitutions:",
+        "description": [
+            "While we strive to provide the requested vehicle, circumstances beyond our control may require vehicle substitutions.",
+            "In the event of a substitution, we will provide a vehicle of similar or higher quality and ensure a comparable level of comfort and luxury."
+        ]
+    },
+    {
+        "title": "7. Privacy and Data Protection:",
+        "description": [
+            "We respect your privacy and adhere to all applicable data protection laws and regulations.",
+            "Any personal information provided during the booking process will be used solely for the purpose of providing the transportation service and will not be shared with third parties without your consent."
+        ]
+    }
+]
