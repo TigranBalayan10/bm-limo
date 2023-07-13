@@ -25,7 +25,7 @@ const About = () => {
               >
                 {item.title}
               </AccordionHeader>
-              <AccordionBody className="text-gray-300 text-lg leading-loose">
+              <AccordionBody className="text-gray-400 text-lg leading-loose">
                 {typeof item.description === "string" ? (
                   <p>{item.description}</p>
                 ) : (

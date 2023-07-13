@@ -7,8 +7,6 @@ const textFooter = [
   { text: "About Us", link: "/about" },
   { text: "FAQ", link: "/faq" },
   { text: "Terms", link: "/terms" },
-  { text: "Privacy", link: "/privacy" },
-  { text: "License", link: "/license" },
 ];
 
 const Footer = () => {

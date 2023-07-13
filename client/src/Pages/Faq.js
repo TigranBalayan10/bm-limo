@@ -29,7 +29,7 @@ const Faq = () => {
             >
               {item.title}
             </AccordionHeader>
-            <AccordionBody className="text-gray-300 text-lg leading-loose">
+            <AccordionBody className="text-gray-400 text-lg leading-loose">
               {item.body}
             </AccordionBody>
           </Accordion>
