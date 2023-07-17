@@ -45,6 +45,7 @@ export default function Confirmation() {
   const hourly = orderData.getOrder.price?.priceTotal?.hourly;
   const mileage = orderData.getOrder.price?.priceTotal?.mileage;
   const priceId = orderData.getOrder.price?._id;
+  const flatRateData = orderData.getOrder.price?.flatRate;
   const flatRate = orderData.getOrder.price?.flatRate?.flatPrice;
   const flatDropOff = orderData.getOrder.price?.flatRate?.flatDropOff;
 
@@ -165,9 +166,9 @@ export default function Confirmation() {
             </p>
           )}
           {flatRate > 0 && (
-            <p className="text-xs font-extralight mt-2 text-gray-400">  
-              * this is a flat rate price to {flatDropOff} area, please let driver know your drop
-              off location when in car.
+            <p className="text-xs font-extralight mt-2 text-gray-400">
+              * this is a flat rate price to {flatDropOff} area, please let
+              driver know your drop off location when in car.
             </p>
           )}
         </div>

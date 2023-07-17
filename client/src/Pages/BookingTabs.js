@@ -8,11 +8,20 @@ import {
 } from "@material-tailwind/react";
 import BookingInfo from "./BookingInfo";
 import BookingInfoFlat from "./BookingInfoFlat";
+import { useLocation } from "react-router-dom";
 
 const BookingTabs = () => {
+  const location = useLocation();
+  const editInput = location.state?.editData;
   return (
     <div className="flex justify-center items-center mt-6">
-      <Tabs value="ride">
+      <Tabs
+        value={
+          editInput && editInput.price && editInput.price.flatRate
+            ? "flat"
+            : "ride"
+        }
+      >
         <TabsHeader className="bg-gradient-to-r from-slate-900 to-slate-700">
           <Tab className="text-yellow-500 font-bold" value="ride">
             Ride

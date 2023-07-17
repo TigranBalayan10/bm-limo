@@ -29,8 +29,12 @@ export default function BookingInfo() {
   const [addNewOrder] = useMutation(ADD_ORDER);
   const navigate = useNavigate();
   const location = useLocation();
-  const editInput = location.state?.editData;
+  let editInput = location.state?.editData;
 
+  if (editInput && editInput.price && editInput.price.flatRate) {
+    editInput = null;
+  }
+  console.log(editInput, "editInput")
   const {
     handleSubmit,
     control,
