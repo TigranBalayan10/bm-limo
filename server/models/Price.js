@@ -9,6 +9,36 @@ const totalPriceSchema = new Schema({
   },
 });
 
+const flatRateSchema = new Schema({
+  flatPrice: {
+    type: Number,
+    enum: [75, 100, 150, 180],
+    default: null,
+  },
+  flatDropOff: {
+    type: String,
+    enum: [
+      "Pasadena",
+      "Glendale",
+      "Burbank",
+      "Encino",
+      "Tarzana",
+      "Sherman Oaks",
+      "Universal City",
+      "Studio City",
+      "Beverly Hills",
+      "West Hollywood",
+      "Hollywood",
+      "Downtown",
+      "Westwood",
+      "Brentwood",
+      "Santa Monica",
+      "Venice",
+    ],
+    default: null,
+  },
+});
+
 const priceInfoSchema = new Schema(
   {
     firstName: {
@@ -41,6 +71,7 @@ const priceInfoSchema = new Schema(
       required: true,
     },
     priceTotal: totalPriceSchema,
+    flatRate: flatRateSchema,
   },
   {
     toJSON: {

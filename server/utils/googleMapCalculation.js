@@ -10,7 +10,6 @@ const calculateRoute = async (pickUpAddress, dropOffAddress) => {
   }
   const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${apiKey}&mode=driving&units=imperial`;
 
-
   try {
     const response = await axios.get(url);
     const route = response.data.routes[0];

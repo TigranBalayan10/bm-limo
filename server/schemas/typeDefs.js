@@ -7,10 +7,10 @@ const typeDefs = gql`
     adminMe: Admin
     order: [Order]
     getOrder(_id: ID!): Order
-    getPrice (_id: ID!): Price
+    getPrice(_id: ID!): Price
     getPrices: [Price]
     getContacts: Contact
-    getContact(_id: ID!): Contact 
+    getContact(_id: ID!): Contact
     getPublishableKey: String
   }
 
@@ -41,7 +41,7 @@ const typeDefs = gql`
     messageText: String!
     createdAt: String
   }
-  
+
   type Order {
     _id: ID
     firstName: String!
@@ -59,14 +59,18 @@ const typeDefs = gql`
     createdAt: String
     price: Price
   }
-  
+
   type TotalPrice {
     hourly: Float
     mileage: Float
     currency: String
   }
 
-
+  type FlatRate {
+    id: ID!
+    flatPrice: Int
+    flatDropOff: String
+  }
 
   type Price {
     _id: ID
@@ -78,6 +82,7 @@ const typeDefs = gql`
     distance: String
     duration: String
     priceTotal: TotalPrice
+    flatRate: FlatRate
   }
 
   type Mutation {
@@ -93,7 +98,7 @@ const typeDefs = gql`
       email: String!
       phoneNumber: String!
     ): Order
-      addContact(
+    addContact(
       firstName: String!
       lastName: String!
       email: String!

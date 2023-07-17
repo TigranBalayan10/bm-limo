@@ -4,6 +4,7 @@ const { calculatePrice } = require("../utils/calculatePrice");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { ApolloError, AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
+const FlatRateData = require("../Data/flatRatePrice.json");
 
 const resolvers = {
   Query: {
@@ -117,7 +118,6 @@ const resolvers = {
         const baseRate = baseRateVehicle[vehicleType];
         const milageRate = vehicleRatesMileage[vehicleType];
         const durationRate = vehicleRatesDuration[vehicleType];
-
         if (!dropOffAddress) {
           let priceHourly = 0;
           if (hours < 3) {
@@ -143,6 +143,49 @@ const resolvers = {
             },
           });
 
+          const savedPrice = await price.save();
+          order.price = savedPrice;
+          await order.save();
+          const newOrder = {
+            ...order._doc,
+            price: savedPrice,
+          };
+          return newOrder;
+        }
+        let flatRatePrice = 0;
+        if (
+          dropOffAddress &&
+          pickUpAddress === "LAX" &&
+          FlatRateData.FlatRateGroups
+        ) {
+          for (const [groupId, groupData] of Object.entries(
+            FlatRateData.FlatRateGroups
+          )) {
+            if (groupData.Areas.includes(dropOffAddress)) {
+              flatRatePrice = groupData[vehicleType];
+              break;
+            }
+          }
+        }
+
+        if (flatRatePrice > 0) {
+          const price = new Price({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            vehicleType: vehicleType,
+            hours: 0,
+            distance: 0,
+            duration: 0,
+            priceTotal: {
+              hourly: 0,
+              mileage: 0,
+            },
+            flatRate: {
+              flatPrice: flatRatePrice,
+              flatDropOff: dropOffAddress,
+            },
+          });
           const savedPrice = await price.save();
           order.price = savedPrice;
           await order.save();

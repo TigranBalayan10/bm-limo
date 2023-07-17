@@ -1,0 +1,35 @@
+{
+    "FlatRateGroups": {
+      "Group1": {
+        "Areas": [
+          "Beverly Hills",
+          "West Hollywood",
+          "Hollywood",
+          "Downtown",
+          "Westwood",
+          "Brentwood",
+          "Santa Monica",
+          "Venice"
+        ],
+        "LUX full size sedan": 100,
+        "LUX SUV": 150,
+        "Premium sedan": 75
+      },
+      "Group2": {
+        "Areas": [
+          "Pasadena",
+          "Glendale",
+          "Burbank",
+          "Encino",
+          "Tarzana",
+          "Sherman Oaks",
+          "Universal City",
+          "Studio City"
+        ],
+        "LUX full size sedan": 150,
+        "LUX SUV": 180,
+        "Premium sedan": 100
+      }
+    }
+  }
+  
