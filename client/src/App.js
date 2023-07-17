@@ -14,7 +14,7 @@ import Fleet from "./Pages/Fleet";
 import Sedancard from "./Components/Sedancard";
 import Suvcard from "./Components/Suvcard";
 import Smallsedan from "./Components/Smallsedan";
-import BookingInfo from "./Pages/BookingInfo";
+import BookingTabs from "./Pages/BookingTabs";
 import Confirmation from "./Components/Confirmation";
 import About from "./Pages/About";
 import Footer from "./Pages/Footer";
@@ -62,7 +62,7 @@ function App() {
               <Route path="/fleet-sedan" element={<Sedancard />} />
               <Route path="/fleet-suv" element={<Suvcard />} />
               <Route path="/fleet-small-sedan" element={<Smallsedan />} />
-              <Route path="/booking-info" element={<BookingInfo />} />
+              <Route path="/booking-info" element={<BookingTabs />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/faq" element={<Faq />} />
