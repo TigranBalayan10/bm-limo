@@ -56,6 +56,7 @@ const typeDefs = gql`
     phoneNumber: String!
     paymentStatus: String
     clientSecret: String
+    flightNumber: String
     createdAt: String
     price: Price
   }
@@ -97,6 +98,7 @@ const typeDefs = gql`
       dropOffAddress: String
       email: String!
       phoneNumber: String!
+      flightNumber: String
     ): Order
     addContact(
       firstName: String!

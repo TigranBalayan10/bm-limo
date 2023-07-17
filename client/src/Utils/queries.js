@@ -55,6 +55,7 @@ export const QUERY_ORDER = gql`
           flatDropOff
         }
       }
+      flightNumber
     }
   }
 `;

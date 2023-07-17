@@ -52,6 +52,10 @@ const orderSchema = new Schema(
     clientSecret: {
       type: String,
     },
+    flightNumber: {
+      type: String,
+      default: null,
+    },
     createdAt: {
       type: Date,
       default: Date.now,

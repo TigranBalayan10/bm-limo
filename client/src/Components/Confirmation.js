@@ -8,6 +8,7 @@ import {
   faCar,
   faEnvelope,
   faPhone,
+  faPlaneArrival,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams, Link } from "react-router-dom";
@@ -87,6 +88,11 @@ export default function Confirmation() {
       icon: faPhone,
       color: "#036d05",
       content: order.phoneNumber,
+    },
+    {
+      icon: faPlaneArrival,
+      color: "#036d05",
+      content: order.flightNumber ? order.flightNumber : "N/A",
     },
   ];
 

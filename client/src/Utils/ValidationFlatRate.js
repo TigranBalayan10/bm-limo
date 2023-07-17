@@ -1,15 +1,15 @@
 import * as yup from "yup";
 
-const validationSchema = yup
+const validationFlatRate = yup
   .object({
     firstName: yup.string().required("First name is required"),
     lastName: yup.string().required("Last name is required"),
     dateInfo: yup.string().required("Date is required"),
     time: yup.string().required("Time is required"),
     vehicleType: yup.string().required("Vehicle type is required"),
-    hours: yup.number().required("Hours are required"),
     pickUpAddress: yup.string().required("Pickup is required"),
-    dropOffAddress: yup.string(),
+    dropOffAddress: yup.string().required("Dropoff is required"),
+    flightNumber: yup.string().required("Flight number is required"),
     email: yup
       .string()
       .email("Email must be a valid email")
@@ -24,4 +24,4 @@ const validationSchema = yup
   })
   .required();
 
-export default validationSchema;
+export default validationFlatRate;

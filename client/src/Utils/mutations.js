@@ -12,6 +12,7 @@ export const ADD_ORDER = gql`
     $phoneNumber: String!
     $hours: Int
     $dropOffAddress: String
+    $flightNumber: String
   ) {
     addOrder(
       firstName: $firstName
@@ -24,6 +25,7 @@ export const ADD_ORDER = gql`
       phoneNumber: $phoneNumber
       hours: $hours
       dropOffAddress: $dropOffAddress
+      flightNumber: $flightNumber
     ) {
       _id
       firstName
@@ -57,6 +59,7 @@ export const ADD_ORDER = gql`
           flatDropOff
         }
       }
+      flightNumber
     }
   }
 `;
