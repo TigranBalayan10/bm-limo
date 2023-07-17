@@ -21,37 +21,42 @@ export const QUERY_PRICE = gql`
 
 export const QUERY_ORDER = gql`
   query GetOrder($id: ID!) {
-  getOrder(_id: $id) {
-    _id
-    firstName
-    lastName
-    dateInfo
-    time
-    vehicleType
-    hours
-    pickUpAddress
-    dropOffAddress
-    email
-    phoneNumber
-    createdAt
-    clientSecret
-    price {
+    getOrder(_id: $id) {
       _id
       firstName
       lastName
-      email
+      dateInfo
+      time
       vehicleType
       hours
-      distance
-      duration
-      priceTotal {
-        hourly
-        mileage
-        currency
+      pickUpAddress
+      dropOffAddress
+      email
+      phoneNumber
+      createdAt
+      clientSecret
+      price {
+        _id
+        firstName
+        lastName
+        email
+        vehicleType
+        hours
+        distance
+        duration
+        priceTotal {
+          hourly
+          mileage
+          currency
+        }
+        flatRate {
+          id
+          flatPrice
+          flatDropOff
+        }
       }
     }
   }
-}
 `;
 
 export const GET_PUBLISHABLE_KEY = gql`

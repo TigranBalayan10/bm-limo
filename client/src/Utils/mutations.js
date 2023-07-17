@@ -20,10 +20,10 @@ export const ADD_ORDER = gql`
       time: $time
       vehicleType: $vehicleType
       pickUpAddress: $pickUpAddress
-      dropOffAddress: $dropOffAddress
       email: $email
       phoneNumber: $phoneNumber
       hours: $hours
+      dropOffAddress: $dropOffAddress
     ) {
       _id
       firstName
@@ -31,13 +31,18 @@ export const ADD_ORDER = gql`
       dateInfo
       time
       vehicleType
+      hours
       pickUpAddress
       dropOffAddress
       email
       phoneNumber
-      hours
+      paymentStatus
+      createdAt
       price {
         _id
+        firstName
+        lastName
+        email
         vehicleType
         hours
         distance
@@ -45,6 +50,11 @@ export const ADD_ORDER = gql`
         priceTotal {
           hourly
           mileage
+        }
+        flatRate {
+          id
+          flatPrice
+          flatDropOff
         }
       }
     }

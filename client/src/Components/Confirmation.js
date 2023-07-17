@@ -44,8 +44,8 @@ export default function Confirmation() {
   const hourly = orderData.getOrder.price?.priceTotal?.hourly;
   const mileage = orderData.getOrder.price?.priceTotal?.mileage;
   const priceId = orderData.getOrder.price?._id;
-
-  console.log("order", order);
+  const flatRate = orderData.getOrder.price?.flatRate?.flatPrice;
+  const flatDropOff = orderData.getOrder.price?.flatRate?.flatDropOff;
 
   const timelineData = [
     {
@@ -118,6 +118,7 @@ export default function Confirmation() {
               <span className="flex flex-col items-center">${hourly}*</span>
             )}
             {mileage > 0 && <span>${mileage}</span>}
+            {flatRate > 0 && <span>${flatRate}*</span>}
           </div>
         </div>
         <div className="px-6 pt-6 pb-8 sm:p-10 sm:pt-6">
@@ -155,6 +156,12 @@ export default function Confirmation() {
               * price for {order.hours} hours, please let driver know your drop
               off location(s) when in car or by text/phone upon arrival. We will
               email you driver information 6 hours before your pick up time.{" "}
+            </p>
+          )}
+          {flatRate > 0 && (
+            <p className="text-xs font-extralight mt-2 text-gray-400">  
+              * this is a flat rate price to {flatDropOff} area, please let driver know your drop
+              off location when in car.
             </p>
           )}
         </div>
