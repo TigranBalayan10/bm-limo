@@ -85,7 +85,7 @@ export default function BookingInfo() {
     >
         <Card className="lg:max-w-[30rem] sm:max-w-[25rem] p-2 mt-1 bg-gradient-to-r from-slate-900 to-slate-700">
           <CardBody>
-            <Typography variant="h5" className="mb-6 text-gray-300">
+            <Typography variant="h4" className="mb-6 text-gray-300">
               Book a Ride
             </Typography>
             <div className="grid gap-6 lg:grid-cols-2">

@@ -45,7 +45,6 @@ export default function Confirmation() {
   const hourly = orderData.getOrder.price?.priceTotal?.hourly;
   const mileage = orderData.getOrder.price?.priceTotal?.mileage;
   const priceId = orderData.getOrder.price?._id;
-  const flatRateData = orderData.getOrder.price?.flatRate;
   const flatRate = orderData.getOrder.price?.flatRate?.flatPrice;
   const flatDropOff = orderData.getOrder.price?.flatRate?.flatDropOff;
 

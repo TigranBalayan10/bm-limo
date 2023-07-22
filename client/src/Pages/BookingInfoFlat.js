@@ -38,6 +38,8 @@ export default function BookingInfo() {
       time: editInput?.time || "",
       vehicleType: editInput?.vehicleType || "",
       pickUpAddress: editInput?.pickUpAddress || "",
+      flatDropOff: editInput?.price?.flatRate?.flatDropOff || "",
+      flightNumber: editInput?.flightNumber || "",
     },
   });
 
@@ -63,8 +65,11 @@ export default function BookingInfo() {
     >
       <Card className="lg:max-w-[30rem] sm:max-w-[25rem] p-2 mt-1 bg-gradient-to-r from-slate-900 to-slate-700">
         <CardBody>
-          <Typography variant="h5" className="mb-6 text-gray-300">
+          <Typography variant="h4" className="mb-6 text-gray-300">
             Book a Ride
+            <Typography color="blueGray" className="text-sm">
+              Competitive pricing from LAX to anywhere in Los Angeles with flat rates.
+            </Typography>
           </Typography>
           <div className="grid gap-6 lg:grid-cols-2">
             <CustomInput
@@ -123,7 +128,7 @@ export default function BookingInfo() {
                   : "Flight Number"
               }
               error={errors.flightNumber}
-              // defaultValue={editInput?.firstName}
+              defaultValue={editInput?.flightNumber}
             />
             <div>
               <SelectInput
@@ -142,11 +147,12 @@ export default function BookingInfo() {
               <SelectInput
                 name="dropOffAddress"
                 label={
-                  errors.dropOffAddress ? errors.dropOffAddress?.message : "Drop Off"
+                  errors.dropOffAddress
+                    ? errors.dropOffAddress?.message
+                    : "Drop Off"
                 }
                 error={errors.dropOffAddress}
                 options={flatDropOff}
-                defaultValue={editInput?.flatDropOff}
                 control={control}
               />
             </div>

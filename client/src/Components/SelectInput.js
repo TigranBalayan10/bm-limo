@@ -9,7 +9,6 @@ const SelectInput = ({
   error,
   watchValue,
   control,
-  ...rest
 }) => {
   return (
     <Controller
