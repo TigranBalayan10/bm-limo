@@ -47,6 +47,10 @@ export default function Confirmation() {
   const priceId = orderData.getOrder.price?._id;
   const flatRate = orderData.getOrder.price?.flatRate?.flatPrice;
   const flatDropOff = orderData.getOrder.price?.flatRate?.flatDropOff;
+  const flightInfo =
+    orderData?.getOrder?.flightInfo === null
+      ? "N/A"
+      : orderData?.getOrder?.flightInfo;
 
   const timelineData = [
     {
@@ -92,7 +96,7 @@ export default function Confirmation() {
     {
       icon: faPlaneArrival,
       color: "#036d05",
-      content: order.flightNumber ? order.flightNumber : "N/A",
+      content: `Scheduled arrival ${flightInfo.scheduledArrivalTime}`,
     },
   ];
 

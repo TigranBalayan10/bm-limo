@@ -33,8 +33,8 @@ export const QUERY_ORDER = gql`
       dropOffAddress
       email
       phoneNumber
+      paymentStatus
       createdAt
-      clientSecret
       price {
         _id
         firstName
@@ -55,7 +55,15 @@ export const QUERY_ORDER = gql`
           flatDropOff
         }
       }
+      clientSecret
       flightNumber
+      flightInfo {
+        scheduledArrivalTime
+        departureAirport
+        arrivalTerminal
+        arrivalAirport
+        actualArrivalTime
+      }
     }
   }
 `;

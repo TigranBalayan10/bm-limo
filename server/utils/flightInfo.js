@@ -28,11 +28,10 @@ async function fetchFlightData(flightNumber) {
       arrivalAirport: flightData.arrival_iata,
       arrivalTerminal: flightData.arrival_terminal,
     };
-    console.log(flightInfo);
+    return flightInfo;
   } catch (error) {
     console.error(error);
     throw new Error("Failed to retrieve flight information from Rapid API");
   }
 }
-
 module.exports = { fetchFlightData };

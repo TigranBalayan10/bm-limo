@@ -23,7 +23,7 @@ const resolvers = {
 
     order: async () => {
       try {
-        const orders = await Order.find().populate("price");
+        const orders = await Order.find().populate("price")
         return orders;
       } catch (error) {
         console.error("Error fetching orders:", error);
