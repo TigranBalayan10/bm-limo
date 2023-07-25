@@ -6,7 +6,7 @@ import { faUser, faSuitcase, faMinus } from "@fortawesome/free-solid-svg-icons";
 const Suvcard = () => {
   return (
     <div className="flex items-center justify-center w-full mt-6">
-      <div className="max-w-lg bg-gray-200 border border-white rounded-lg shadow-slate-200">
+      <div className="max-w-lg bg-gray-200 border border-white rounded-lg shadow-slate-200 mr-6 ml-6">
         <img
           className="rounded-t-lg"
           src={require("../Media/cadillac-escalade.jpg")}

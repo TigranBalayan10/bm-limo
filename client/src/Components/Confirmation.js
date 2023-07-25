@@ -139,7 +139,7 @@ export default function Confirmation() {
                   <FontAwesomeIcon icon={item.icon} color={item.color} />
                 </div>
                 <p className="ml-3 text-sm leading-6 text-gray-300">
-                  {item.content}
+                  {item.content === "Scheduled arrival undefined" ? "N/A" : item.content}
                 </p>
               </li>
             ))}

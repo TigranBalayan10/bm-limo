@@ -68,7 +68,8 @@ export default function BookingInfo() {
           <Typography variant="h4" className="mb-6 text-gray-300">
             Book a Ride
             <Typography color="blueGray" className="text-sm">
-              Competitive pricing from LAX to anywhere in Los Angeles with flat rates.
+              Competitive pricing from LAX to 
+              <br></br>anywhere in Los Angeles with flat rates.
             </Typography>
           </Typography>
           <div className="grid gap-6 lg:grid-cols-2">

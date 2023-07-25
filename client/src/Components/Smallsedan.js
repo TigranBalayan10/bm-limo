@@ -6,7 +6,7 @@ import { faUser, faSuitcase, faMinus } from "@fortawesome/free-solid-svg-icons";
 const Smallsedan = () => {
   return (
     <div className="flex items-center justify-center w-full mt-6">
-      <div className="max-w-lg bg-gray-200 border border-white rounded-lg shadow-slate-200">
+      <div className="max-w-lg bg-gray-200 border border-white rounded-lg shadow-slate-200 mr-6 ml-6">
         <img
           className="rounded-t-lg"
           src={require("../Media/Lexus.jpg")}
@@ -54,7 +54,7 @@ const Smallsedan = () => {
           >
             Book Now
           </Link>
-          <p className="text-xs">
+          <p className="text-xs mt-3">
             * If we can't provide you with this type of vehicle you requested,
             we will provide full size luxury sedan or SUV at no extra charge.
           </p>
