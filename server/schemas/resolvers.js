@@ -1,6 +1,7 @@
 const { Order, Price, Contact, Admin } = require("../models");
 const { calculateRoute } = require("../utils/googleMapCalculation");
 const { calculatePrice } = require("../utils/calculatePrice");
+const { fetchFlightData } = require("../utils/flightInfo");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { ApolloError, AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
@@ -92,7 +93,13 @@ const resolvers = {
           firstName,
           lastName,
           email,
+          flightNumber,
         } = args;
+
+        if (flightNumber) {
+          const flightInfo = await fetchFlightData(flightNumber);
+          order.flightInfo = flightInfo;
+        }
 
         const vehicleRatesHourly = {
           "LUX full size sedan": 80,

@@ -42,6 +42,14 @@ const typeDefs = gql`
     createdAt: String
   }
 
+  type FlightInfo {
+    departureAirport: String
+    scheduledArrivalTime: String
+    actualArrivalTime: String
+    arrivalAirport: String
+    arrivalTerminal: String
+  }
+
   type Order {
     _id: ID
     firstName: String!
@@ -57,6 +65,7 @@ const typeDefs = gql`
     paymentStatus: String
     clientSecret: String
     flightNumber: String
+    flightInfo: FlightInfo
     createdAt: String
     price: Price
   }

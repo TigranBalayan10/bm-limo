@@ -56,6 +56,10 @@ const orderSchema = new Schema(
       type: String,
       default: null,
     },
+    flightInfo: {
+      type: Object,
+      default: null,
+    },
     createdAt: {
       type: Date,
       default: Date.now,

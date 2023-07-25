@@ -1,47 +1,38 @@
-const axios = require("axios");
 require("dotenv").config();
+const axios = require("axios");
+const dateFormat = require("../utils/dateFormat");
+
+async function fetchFlightData(flightNumber) {
+  const flightApiKey = process.env.RAPID_API_FLIGHT_KEY;
+  const options = {
+    method: "GET",
+    url: "https://flightera-flight-data.p.rapidapi.com/flight/info",
+    params: { flnr: flightNumber },
+    headers: {
+      "X-RapidAPI-Key": flightApiKey,
+      "X-RapidAPI-Host": "flightera-flight-data.p.rapidapi.com",
+    },
+  };
 
 
-const fetchFlightData = async (flightNumber) => {
-    const options = {
-      method: "GET",
-      url: "https://flight-radar1.p.rapidapi.com/flights/get-more-info",
-      params: {
-        query: flightNumber,
-        fetchBy: "flight",
-        page: "1",
-        limit: "1",
-      },
-      headers: {
-        "X-RapidAPI-Key": "a108ee00d9msh29d47d8346fdb43p1e7e89jsn1452d1cb54f5",
-        "X-RapidAPI-Host": "flight-radar1.p.rapidapi.com",
-      },
-    };
   try {
     const response = await axios.request(options);
-    const departureTime =
-      response.data.result.response.data[0].time.scheduled.departure;
-    const arrivalTime =
-      response.data.result.response.data[0].time.scheduled.arrival;
-    const departureAirport =
-      response.data.result.response.data[0].airport.origin.code.iata;
-    const arrivalAirport =
-      response.data.result.response.data[0].airport.destination.code.iata;
-    const flightStatus = response.data.result.response.data[0].status.text;
-
-    const flightData = {
-      departureTime,
-      arrivalTime,
-      departureAirport,
-      arrivalAirport,
-      flightStatus,
+    const flightData = response.data[0];
+    const flightInfo = {
+      departureAirport: flightData.departure_iata,
+      scheduledArrivalTime: dateFormat(flightData.scheduled_arrival_local),
+      actualArrivalTime:
+        flightData.actual_arrival_local === null
+          ? null
+          : dateFormat(flightData.actual_arrival_local),
+      arrivalAirport: flightData.arrival_iata,
+      arrivalTerminal: flightData.arrival_terminal,
     };
-    console.log(flightData);
+    console.log(flightInfo);
   } catch (error) {
     console.error(error);
+    throw new Error("Failed to retrieve flight information from Rapid API");
   }
 }
-
-fetchFlightData("UA1488");
 
 module.exports = { fetchFlightData };
