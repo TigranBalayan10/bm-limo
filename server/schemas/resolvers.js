@@ -5,7 +5,7 @@ const { fetchFlightData } = require("../utils/flightInfo");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { ApolloError, AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
-const FlatRateData = require("../Data/flatRatePrice.json");
+const FlatRateData = require("../Data/FlatRatePrice.json");
 
 const resolvers = {
   Query: {
