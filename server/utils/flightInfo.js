@@ -31,7 +31,7 @@ async function fetchFlightData(flightNumber) {
     return flightInfo;
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to retrieve flight information from Rapid API");
+    return null;
   }
 }
 module.exports = { fetchFlightData };

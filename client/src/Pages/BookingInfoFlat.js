@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Card, CardBody, Typography, Button } from "@material-tailwind/react";
@@ -7,6 +7,8 @@ import Vehicle from "../Assets/Data/Vehicles.json";
 import { useMutation } from "@apollo/client";
 import { ADD_ORDER } from "../Utils/mutations";
 import { useNavigate, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import CustomInput from "../Components/CustomInput";
 import SelectInput from "../Components/SelectInput";
 import DateInput from "../Components/DateInput";
@@ -22,6 +24,8 @@ export default function BookingInfo() {
   const navigate = useNavigate();
   const location = useLocation();
   const editInput = location.state?.editData;
+
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const {
     handleSubmit,
@@ -44,19 +48,18 @@ export default function BookingInfo() {
   });
 
   const onSubmit = async (data) => {
+    setIsProcessing(true);
     try {
       const response = await addNewOrder({
         variables: { ...data },
       });
-      console.log(response);
       const orderId = response.data.addOrder._id;
       navigate(`/confirmation/${orderId}`);
     } catch (error) {
       console.log(error);
     }
+    setIsProcessing(false);
   };
-
-  console.log(errors);
 
   return (
     <form
@@ -67,8 +70,8 @@ export default function BookingInfo() {
         <CardBody>
           <Typography variant="h4" className="mb-6 text-gray-300">
             Book a Ride
-            <Typography color="blueGray" className="text-sm">
-              Competitive pricing from LAX to 
+            <Typography color="white" className="text-sm">
+              Competitive pricing from LAX to
               <br></br>anywhere in Los Angeles with flat rates.
             </Typography>
           </Typography>
@@ -185,8 +188,16 @@ export default function BookingInfo() {
             variant="filled"
             color="amber"
             className="mb-5 w-1/2"
+            disabled={isProcessing}
           >
-            {editInput ? "Update" : "Book"}
+            {editInput ? "Update   " : "Book   "}
+            {isProcessing && (
+              <FontAwesomeIcon
+                icon={faSpinner}
+                spin
+                style={{ color: "#000000" }}
+              />
+            )}
           </Button>
         </div>
       </Card>
